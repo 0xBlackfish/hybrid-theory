@@ -81,7 +81,8 @@ export function Hero() {
 
       <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
         <h1 className="hero-h fade-up">
-          Let AI work <span className="italic" style={{ color: "var(--amber)" }}>in</span> your business — so you can work <span className="italic" style={{ color: "var(--amber)" }}>on</span> it.
+          Let AI work <span className="italic" style={{ color: "var(--amber)" }}>in</span> your business.<br />
+          So you can work <span className="italic" style={{ color: "var(--amber)" }}>on</span> it.
         </h1>
         <div className="hero-row fade-up d2">
           <p className="hero-tag">
