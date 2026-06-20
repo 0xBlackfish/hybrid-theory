@@ -1,8 +1,8 @@
 const PAPER_ITEMS: [string, string][] = [
-  ["A working build", "Deployed, tested, in your hands"],
+  ["Automations you own", "Built in your accounts, your logins"],
+  ["Built live, on the call", "No black box, no lock-in"],
   ["Plain-English docs", "Loom walk-through + README"],
-  ["Source + access", "Yours to keep, no lock-in"],
-  ["60-day bump warranty", "We fix what breaks"],
+  ["Your team, trained", "They can run and extend it"],
 ];
 
 const THREAD = [
@@ -22,22 +22,22 @@ export function ApproachDocument() {
             <span className="sec-name">Approach</span>
           </div>
           <h2 className="sec-h">
-            Two ways to work with us. <span className="italic" style={{ color: "var(--accent)" }}>Both start with a real conversation</span> — not a sales pitch.
+            Two ways to run it. <span className="italic" style={{ color: "var(--accent)" }}>Both start with an AI Audit</span> — not a sales pitch.
           </h2>
           <div className="sec-sub">
-            <p>Most clients run a retainer with us and a project on top of it. The artifacts are different; the relationship is the same.</p>
+            <p>Every engagement opens with a fixed-fee AI Audit: we find the busywork leaking time and money, and ship one quick win. From there you choose how we run it — with you, or for you. The fee credits toward whatever comes next.</p>
           </div>
         </header>
 
         <div className="doc-grid">
-          {/* Project — paper brief */}
+          {/* With you — paper brief */}
           <article className="doc-paper">
             <div className="doc-paper-head">
-              <span className="mono">Track 01 · Project</span>
-              <span className="mono">One-page brief</span>
+              <span className="mono">Track 01 · With you</span>
+              <span className="mono">You keep the keys</span>
             </div>
-            <h3 className="doc-paper-title">A specific thing, built well.</h3>
-            <p className="doc-paper-sub">You bring the problem. We scope on one page, build, hand it over, and stick around for the bumps.</p>
+            <h3 className="doc-paper-title">We build it with you.</h3>
+            <p className="doc-paper-sub">On a recurring call we build the automations on your screen, in your accounts — and you walk away owning every one.</p>
             <div className="doc-paper-section">
               <span className="mono doc-paper-label">What you get</span>
               <div className="doc-paper-list">
@@ -55,7 +55,7 @@ export function ApproachDocument() {
             <div className="doc-paper-foot">
               <div>
                 <span className="mono doc-paper-label">Fee</span>
-                <div className="doc-paper-fee">Fixed, agreed up front</div>
+                <div className="doc-paper-fee">Monthly retainer</div>
               </div>
               <div className="doc-paper-sig">
                 <span className="doc-paper-sig-label">signed,</span>
@@ -65,14 +65,14 @@ export function ApproachDocument() {
             </div>
           </article>
 
-          {/* Retainer — Slack channel */}
+          {/* For you — Slack channel */}
           <article className="doc-chan">
             <div className="doc-chan-head">
-              <span className="mono">Track 02 · Retainer</span>
+              <span className="mono">Track 02 · For you</span>
               <span className="mono">#ht-acme</span>
             </div>
-            <h3 className="doc-chan-title">An engineer on call.</h3>
-            <p className="doc-chan-sub">A monthly bucket of senior engineering hours. One Slack channel. Two senior engineers.</p>
+            <h3 className="doc-chan-title">We run it for you.</h3>
+            <p className="doc-chan-sub">A managed bucket of senior engineering time. One Slack channel, two senior engineers — we build it, watch it, and fix it so you never have to.</p>
             <div className="doc-chan-section">
               <div className="doc-chan-thread">
                 {THREAD.map((m, i) => (
@@ -106,9 +106,9 @@ export function ApproachDocument() {
 
         <div className="doc-cta-row">
           <a href="#contact" className="btn btn-primary">
-            Start a relationship <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
+            Book your AI Audit <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
           </a>
-          <span className="doc-cta-note">Both tracks start with the same 30-minute call.</span>
+          <span className="doc-cta-note">Every engagement starts with a fixed-fee AI Audit.</span>
         </div>
       </div>
     </section>

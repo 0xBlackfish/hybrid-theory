@@ -82,18 +82,18 @@ export function Hero() {
       <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
         <h1 className="hero-h fade-up">
           Every company is a tech company now.<br />
-          <span className="italic" style={{ color: "var(--accent)" }}>We help you make the leap.</span>
+          <span className="italic" style={{ color: "var(--accent)" }}>We get AI actually working in yours.</span>
         </h1>
         <div className="hero-row fade-up d2">
           <p className="hero-tag">
-            Hybrid Theory is a small studio of builders — engineers, designers, and data scientists. We pair with regular businesses to ship the software they need to act on the moment.
+            Hybrid Theory finds the busywork quietly costing you time and money, builds the AI that takes it off your plate, and shows you how to run it yourself. No jargon, no platform to learn, no engineers to hire.
           </p>
           <div className="hero-cta-row">
             <a href="#contact" data-calendly className="btn btn-primary">
-              Book a call <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
+              Book your AI Audit <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
             </a>
             <a href="#services" className="btn btn-ghost">
-              See what we build
+              See what we automate
             </a>
           </div>
         </div>
