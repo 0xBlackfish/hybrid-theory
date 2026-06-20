@@ -4201,7 +4201,7 @@ footer {
 .ins-list-head {
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: flex-end;
   margin-bottom: 32px;
   flex-wrap: wrap;
   gap: 24px;

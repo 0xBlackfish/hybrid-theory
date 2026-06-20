@@ -20,17 +20,19 @@ export function ProductMock({ title, app, children }: { title: string; app: stri
   );
 }
 
-export function ClientCard({ items }: { items: { label: string; val: string }[] }) {
+export function ClientCard({ children }: { children: ReactNode }) {
   return (
     <div className="article-clientcard">
-      <div className="article-clientcard-row">
-        {items.map((it) => (
-          <div key={it.label}>
-            <div className="mono article-clientcard-label">{it.label}</div>
-            <div className="article-clientcard-val">{it.val}</div>
-          </div>
-        ))}
-      </div>
+      <div className="article-clientcard-row">{children}</div>
+    </div>
+  );
+}
+
+export function ClientFact({ label, val }: { label: string; val: string }) {
+  return (
+    <div>
+      <div className="mono article-clientcard-label">{label}</div>
+      <div className="article-clientcard-val">{val}</div>
     </div>
   );
 }
@@ -52,6 +54,7 @@ export const articleMdxComponents = {
   PullQuote,
   ProductMock,
   ClientCard,
+  ClientFact,
   Results,
   Result,
   ol: (props: ComponentPropsWithoutRef<"ol">) => <ol className="article-ol" {...props} />,

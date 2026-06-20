@@ -15,14 +15,12 @@ related:
   - voicemail-to-crm
 ---
 
-<ClientCard
-  items={[
-    { label: "Client", val: "Acme Auto Repair" },
-    { label: "Where", val: "Tucson, AZ" },
-    { label: "Size", val: "9 employees" },
-    { label: "Built in", val: "11 days" },
-  ]}
-/>
+<ClientCard>
+  <ClientFact label="Client" val="Acme Auto Repair" />
+  <ClientFact label="Where" val="Tucson, AZ" />
+  <ClientFact label="Size" val="9 employees" />
+  <ClientFact label="Built in" val="11 days" />
+</ClientCard>
 
 <section id="the-problem">
 
