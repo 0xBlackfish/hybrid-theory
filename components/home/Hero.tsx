@@ -86,11 +86,11 @@ export function Hero() {
         </h1>
         <div className="hero-row fade-up d2">
           <p className="hero-tag">
-            Hybrid Theory finds the busywork quietly costing you time and money, builds the AI that takes it off your plate, and shows you how to run it yourself. No jargon, no platform to learn, no engineers to hire.
+            We find your busywork, build the AI that kills it, and show you how to run it.
           </p>
           <div className="hero-cta-row">
             <a href="#contact" data-calendly className="btn btn-primary">
-              Get a free mini-audit <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
+              See what AI can fix — free <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
             </a>
             <a href="#services" className="btn btn-ghost">
               See what we automate

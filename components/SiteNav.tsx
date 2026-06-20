@@ -48,7 +48,7 @@ export function SiteNav() {
         </div>
         <div className="nav-cta">
           <a href="#contact" data-calendly className="btn btn-primary nav-btn">
-            Free mini-audit <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
+            Schedule your free mini-audit <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
           </a>
         </div>
         <button className="nav-toggle" aria-label="Menu" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
@@ -71,7 +71,7 @@ export function SiteNav() {
         ))}
         <div className="nav-mobile-cta">
           <a href="#contact" data-calendly className="btn btn-primary" onClick={() => setOpen(false)}>
-            Free mini-audit <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
+            Schedule your free mini-audit <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
           </a>
         </div>
       </div>
