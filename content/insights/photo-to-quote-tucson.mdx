@@ -1,0 +1,84 @@
+---
+kicker: Case study
+date: Apr 28, 2026
+author: Devon Hill
+authorTitle: Engineer · Hybrid Theory
+title: Photo-to-quote, built in 11 days for a Tucson auto shop.
+lead: How one custom tool moved average quote-turnaround from two days to under fifteen minutes — and what we learned training a model on real shop photos.
+toc:
+  - { id: the-problem, label: The problem }
+  - { id: what-we-built, label: What we built }
+  - { id: the-results, label: The results }
+  - { id: what-we-learned, label: What we learned }
+related:
+  - ai-strategy-12-person-business
+  - voicemail-to-crm
+---
+
+<ClientCard
+  items={[
+    { label: "Client", val: "Acme Auto Repair" },
+    { label: "Where", val: "Tucson, AZ" },
+    { label: "Size", val: "9 employees" },
+    { label: "Built in", val: "11 days" },
+  ]}
+/>
+
+<section id="the-problem">
+
+## 01 · The problem.
+
+Every quote at Acme started the same way: a customer texts a photo of a worn brake or a cracked manifold, and someone at the front desk walks it back to a tech, waits for an estimate, types it into the system, and texts it back. On a good day that loop took a couple of hours. On a busy day it took two.
+
+Customers don't wait two days for a quote. They call the next shop. *Placeholder copy — the real article will go here.*
+
+</section>
+
+<PullQuote>
+  The fix wasn't a smarter estimate. It was a faster one — fast enough to land before the customer called anyone else.
+</PullQuote>
+
+<section id="what-we-built">
+
+## 02 · What we built.
+
+A single-purpose tool: drop in a photo, get a draft quote in seconds. The model reads the image, identifies likely parts and labor, and pulls live pricing from Acme's existing parts catalog. The service writer reviews, adjusts, and sends — the whole loop now lives on one screen.
+
+<ProductMock title="tools / photo-to-quote" app="Acme Auto · custom-built">
+  <div className="mono article-mock-label">DRAFT QUOTE · #1147</div>
+  <h4>Front-axle brake service · '19 Civic</h4>
+  <table className="article-mock-table">
+    <tbody>
+      <tr><td>Brake rotor, front (×2)</td><td className="mono">$184.00</td></tr>
+      <tr><td>Brake pad set, front</td><td className="mono">$78.00</td></tr>
+      <tr><td>Labor (2.5 hrs)</td><td className="mono">$275.00</td></tr>
+      <tr><td><strong>Total</strong></td><td className="mono"><strong>$579.00</strong></td></tr>
+    </tbody>
+  </table>
+</ProductMock>
+
+</section>
+
+<section id="the-results">
+
+## 03 · The results.
+
+Three months after launch, the numbers told a clean story. *Placeholder — real figures to come.*
+
+<Results>
+  <Result label="Average quote turnaround">2 days <span>→</span> 15 min</Result>
+  <Result label="Quote-to-booking rate">+34%</Result>
+  <Result label="From kickoff to shipped">11 days</Result>
+</Results>
+
+</section>
+
+<section id="what-we-learned">
+
+## 04 · What we learned.
+
+Training on real shop photos — bad lighting, grease, odd angles — mattered more than model choice. The first version, trained on clean catalog images, fell apart on a phone photo taken under a lift. *Placeholder copy.*
+
+The lesson generalizes: the data that's annoying to collect is usually the data that makes the tool actually work.
+
+</section>
