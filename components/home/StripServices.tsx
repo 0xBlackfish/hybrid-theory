@@ -31,13 +31,13 @@ export function StripServices() {
         <header className="sec-overhead">
           <div className="sec-marker mono">
             <span className="sec-num">§ 01</span>
-            <span className="sec-name">Services</span>
+            <span className="sec-name">Where it leaks</span>
           </div>
           <h2 className="sec-h">
-            Outcomes you can ship in <span className="italic" style={{ color: "var(--accent)" }}>weeks</span>, not quarters.
+            Every business is leaking <span className="italic" style={{ color: "var(--amber)" }}>time and value</span>. These are the most common places.
           </h2>
           <div className="sec-sub">
-            <p>Five cases. The demo cycles every few seconds — click a tile to lock in, or pause and explore.</p>
+            <p>Money slips out at every stage — from the lead you never called back to the invoice you never chased. Your free assessment finds where yours is going.</p>
           </div>
         </header>
 
@@ -108,7 +108,7 @@ export function StripServices() {
           <p className="strip-foot-desc" key={c.id + "-desc"}>{c.desc}</p>
           <div className="strip-foot-cta">
             <a className="btn btn-primary" href="#contact" data-calendly>
-              Talk about this build <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
+              Learn where your business can benefit <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
             </a>
           </div>
         </div>
