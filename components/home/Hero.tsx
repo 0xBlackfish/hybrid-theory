@@ -81,15 +81,14 @@ export function Hero() {
 
       <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
         <h1 className="hero-h fade-up">
-          Every company is a tech company now.<br />
-          <span className="italic" style={{ color: "var(--accent)" }}>We make AI the easy part.</span>
+          Let AI work <span className="italic" style={{ color: "var(--amber)" }}>in</span> your business — so you can work <span className="italic" style={{ color: "var(--amber)" }}>on</span> it.
         </h1>
         <div className="hero-row fade-up d2">
           <p className="hero-tag">
             We find your busywork, build the AI that automates it, and show you how to run it.
           </p>
           <div className="hero-cta-row">
-            <a href="#contact" data-calendly className="btn btn-warm">
+            <a href="#contact" data-calendly className="btn btn-primary">
               Get a free assessment
             </a>
             <a href="#services" className="btn btn-ghost">
