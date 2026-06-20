@@ -90,7 +90,7 @@ export function Hero() {
           </p>
           <div className="hero-cta-row">
             <a href="#contact" data-calendly className="btn btn-primary">
-              Book your AI Audit <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
+              Get a free mini-audit <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
             </a>
             <a href="#services" className="btn btn-ghost">
               See what we automate
