@@ -5,34 +5,6 @@ import { useEffect, useRef } from "react";
 const MARKUP = `<div class="bg"><div class="glow"></div><div class="grid"></div><div class="vignette"></div></div>
 
 <!-- ===================== HERO ===================== -->
-<!-- ===================== REFRAME / LEVERS ===================== -->
-<section id="reframe" class="band">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="kicker">Why it works</span>
-      <h2>We're not here to sell you "AI."<br>We're here to <em>grow your business</em> — and hand you your time back.</h2>
-      <p>Every project we take on has to move at least one of three needles for you. The best ones move all three at once — which is usually the whole point.</p>
-    </div>
-    <div class="levers">
-      <div class="lever">
-        <div class="num">01</div>
-        <h3>Make more money</h3>
-        <p>Answer first, quote faster, follow up until it's a yes. The customers are already reaching out — we just stop letting them slip away.</p>
-      </div>
-      <div class="lever">
-        <div class="num">02</div>
-        <h3>Win back your time</h3>
-        <p>Hand off the repetitive busywork so your days go to the work only you can do — and to the life outside the business.</p>
-      </div>
-      <div class="lever">
-        <div class="num">03</div>
-        <h3>Raise your game</h3>
-        <p>Every customer gets your best — fast, sharp, on-brand — not just whatever your most hectic day happens to allow.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ===================== OPPORTUNITY ===================== -->
 <section id="opps">
   <div class="wrap">
@@ -78,7 +50,7 @@ const MARKUP = `<div class="bg"><div class="glow"></div><div class="grid"></div>
         <p>Your past customers are your easiest next sale. Bring them back before they forget you.</p>
       </div>
       <div class="opp more">
-        <svg class="ic" viewBox="0 0 100 96"><style>.el0{fill:#F4F6F3}.el1{fill:#C2F24F}</style><path class="el0" d="m76.8 92.6h-53.5c-9.7 0-18.2-7.6-18.2-18.3v-57.9c0-6.8 5.6-13.1 12.9-13.1h63.9c7-0.2 13.1 5.9 13.1 13.1v57.9c0.1 10.8-7.9 18.3-18.2 18.3zm-58.9-86.1c-5.3 0-9.5 4.5-9.5 9.8v58.1c0 8.2 6.5 15 14.8 15h53.8c8 0 14.7-6.1 14.7-14.8l0.1-58.2c0-5.2-4.1-9.9-9.7-9.9h-64.2z"/><path class="el1" d="m27.6 57.5c-5.2 0-9.7-4-9.8-9.5-0.1-4.9 4.1-9.6 9.8-9.5 5.1 0 9.7 4.1 9.7 9.6s-4.2 9.4-9.7 9.4zm0-15.6c-3 0-6.2 2.4-6.2 6.1 0 3.5 2.9 6.1 6.2 6 3.3 0 6.2-2.7 6.2-6s-2.8-6.1-6.2-6.1z"/><path class="el1" d="m50 57.5c-5.2 0-9.4-3.8-9.5-9.3-0.1-4.8 4-9.8 9.6-9.7 4.8 0 9.4 3.9 9.4 9.5-0.1 5.2-4 9.5-9.5 9.5zm0-15.6c-2.9 0-6.1 2.3-6.1 6.1 0 3.1 2.6 6 6 6 3.2 0.1 6-2.5 6-6 0.1-3.2-2.6-6.1-5.9-6.1z"/><path class="el1" d="m72.4 57.5c-5.1-0.1-9.5-3.9-9.7-9.4-0.1-4.7 3.9-9.8 9.8-9.6 4.8 0 9.4 3.7 9.5 9.2 0.1 5.4-4.1 9.8-9.6 9.8zm0-15.6c-2.7 0-6.1 2.4-6.1 6 0 2.9 2.2 6.1 6.1 6.1 3.2 0.1 6.1-2.6 6.1-6 0-3.3-2.8-6.1-6.1-6.1z"/></svg>
+        <svg class="ic" viewBox="0 0 100 96"><style>.el0{fill:#F4F6F3}.el1{fill:#C2F24F}</style><path class="el0" d="m76.8 92.6h-53.5c-9.7 0-18.2-7.6-18.2-18.3v-57.9c0-6.8 5.6-13.1 12.9-13.1h63.9c7-0.2 13.1 5.9 13.1 13.1v57.9c0.1 10.8-7.9 18.3-18.2 18.3zm-58.9-86.1c-5.3 0-9.5 4.5-9.5 9.8v58.1c0 8.2 6.5 15 14.8 15h53.8c8 0 14.7-6.1 14.7-14.8l0.1-58.2c0-5.2-4.1-9.9-9.7-9.9h-64.2z"/><path class="el1" d="m27.6 57.5c-5.2 0-9.7-4-9.8-9.5-0.1-4.9 4.1-9.6 9.8-9.5 5.1 0 9.7 4.1 9.7 9.6s-4.2 9.4-9.7 9.4zm0-15.6c-3 0-6.2 2.4-6.2 6.1 0 3.5 2.9 6.1 6.2 6.1 3.3 0 6.2-2.7 6.2-6s-2.8-6.1-6.2-6.1z"/><path class="el1" d="m50 57.5c-5.2 0-9.4-3.8-9.5-9.3-0.1-4.8 4-9.8 9.6-9.7 4.8 0 9.4 3.9 9.4 9.5-0.1 5.2-4 9.5-9.5 9.5zm0-15.6c-2.9 0-6.1 2.3-6.1 6.1 0 3.1 2.6 6 6 6 3.2 0.1 6-2.5 6-6 0.1-3.2-2.6-6.1-5.9-6.1z"/><path class="el1" d="m72.4 57.5c-5.1-0.1-9.5-3.9-9.7-9.4-0.1-4.7 3.9-9.8 9.8-9.6 4.8 0 9.4 3.7 9.5 9.2 0.1 5.4-4.1 9.8-9.6 9.8zm0-15.6c-2.7 0-6.1 2.4-6.1 6 0 2.9 2.2 6.1 6.1 6.1 3.2 0.1 6.1-2.6 6.1-6 0-3.3-2.8-6.1-6.1-6.1z"/></svg>
         <h3>…and the ones that are yours alone</h3>
         <p>Every business has its own quiet wins waiting. Finding yours is exactly what the audit is for.</p>
       </div>
@@ -276,7 +248,7 @@ export function HomeRest() {
           if (i < 2) {
             const a = document.createElement("div");
             a.className = "flow-arrow";
-            a.textContent = "\u2192";
+            a.textContent = "→";
             flowEl.appendChild(a);
           }
         });

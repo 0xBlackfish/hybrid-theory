@@ -179,22 +179,6 @@
   #ht-v2 .surf-cap{text-align:center;font-family:Inter;font-size:11px;color:var(--faint);margin-top:22px}
 
 
-  /* ===================== LEVERS ===================== */
-  #ht-v2 .levers{display:grid;gap:18px;grid-template-columns:1fr}
-
-  @media(min-width:760px){#ht-v2 .levers{grid-template-columns:repeat(3,1fr)}
-}
-  #ht-v2 .lever{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:28px 26px;transition:border-color .2s,transform .2s}
-
-  #ht-v2 .lever:hover{border-color:var(--line-2);transform:translateY(-3px)}
-
-  #ht-v2 .lever .num{font-family:'Inter';font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--lime)}
-
-  #ht-v2 .lever h3{font-size:21px;margin:14px 0 9px}
-
-  #ht-v2 .lever p{color:var(--muted);font-size:14.5px}
-
-
   /* ===================== OPPORTUNITY ===================== */
   #ht-v2 .opps{display:grid;gap:16px;grid-template-columns:repeat(2,1fr)}
 
