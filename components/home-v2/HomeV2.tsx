@@ -4,12 +4,6 @@ import { useEffect, useRef } from "react";
 
 const MARKUP = `<div class="bg"><div class="glow"></div><div class="grid"></div><div class="vignette"></div></div>
 
-<nav><div class="wrap nav-inner">
-  <div class="logo"><span class="dot"></span>Hybrid&nbsp;Theory</div>
-  <div class="nav-links"><a href="#opps">The opportunity</a><a href="#how">How it works</a><a href="#approach">Our approach</a><a href="#who">Who it's for</a></div>
-  <a href="#book" class="btn-primary">Book your free assessment</a>
-</div></nav>
-
 <!-- ===================== HERO ===================== -->
 <header class="hero">
   <div class="wrap hero-grid">
@@ -301,13 +295,11 @@ export function HomeV2() {
     const root = ref.current;
     if (!root) return;
 
-    // live lock-screen date
     const ld = root.querySelector<HTMLElement>("#lock-date");
     if (ld) {
       ld.textContent = new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
     }
 
-    // process cycler
     const tabsEl = root.querySelector<HTMLElement>("#cyc-tabs");
     const flowEl = root.querySelector<HTMLElement>("#cyc-flow");
     let timer: ReturnType<typeof setInterval> | null = null;

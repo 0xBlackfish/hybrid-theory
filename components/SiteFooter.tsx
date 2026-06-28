@@ -13,18 +13,17 @@ export function SiteFooter() {
             </p>
           </div>
           <div>
-            <h4>Services</h4>
+            <h4>Explore</h4>
             <ul>
-              <li><Link href="/services#automation">Automation &amp; Custom Tools</Link></li>
-              <li><Link href="/services#strategy">AI Strategy</Link></li>
-              <li><Link href="/services#training">Team Training</Link></li>
-              <li><Link href="/services">All services ↗</Link></li>
+              <li><Link href="/#opps">The opportunity</Link></li>
+              <li><Link href="/#how">How it works</Link></li>
+              <li><Link href="/#approach">Our approach</Link></li>
+              <li><Link href="/#who">Who it&apos;s for</Link></li>
             </ul>
           </div>
           <div>
             <h4>Firm</h4>
             <ul>
-              <li><Link href="/about">About</Link></li>
               <li><Link href="/insights">Insights</Link></li>
               <li><Link href="/contact">Contact</Link></li>
             </ul>

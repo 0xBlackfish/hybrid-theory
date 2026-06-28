@@ -6,17 +6,16 @@ import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
 
 const NAV_LINKS = [
-  { href: "/services", label: "Services" },
-  { href: "/insights", label: "Insights" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/#opps", label: "The opportunity" },
+  { href: "/#how", label: "How it works" },
+  { href: "/#approach", label: "Our approach" },
+  { href: "/#who", label: "Who it's for" },
 ];
 
 export function SiteNav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const isActive = (href: string) =>
-    href === "/insights" ? pathname.startsWith("/insights") : pathname === href;
+  const isActive = (href: string) => pathname === href;
 
   useEffect(() => {
     const onScroll = () => {
