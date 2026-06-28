@@ -1,4 +1,4 @@
-import { LockDate } from "../LockDate";
+import { LockDate, LockTime } from "../LockDate";
 
 export function Hero() {
   return (
@@ -20,9 +20,6 @@ export function Hero() {
           <a href="#" data-calendly className="btn btn-primary">
             Book your free 15-min AI Assessment
           </a>
-          <p className="htv-micro">
-            No tech skills required. You&apos;ll see exactly where the upside is — before you build a thing.
-          </p>
         </div>
 
         <div className="htv-device-wrap">
@@ -36,7 +33,7 @@ export function Hero() {
               <div className="htv-island" />
 
               <div className="htv-statusbar">
-                <div className="htv-sb-time">6:42</div>
+                <div className="htv-sb-time"><LockTime /></div>
                 <div className="htv-sb-right">
                   <svg width="18" height="12" viewBox="0 0 18 12" fill="#fff">
                     <rect x="0" y="8" width="3" height="4" rx="1" />
@@ -59,7 +56,7 @@ export function Hero() {
 
               <div className="htv-lock">
                 <LockDate />
-                <div className="htv-lock-time">6:42</div>
+                <div className="htv-lock-time"><LockTime /></div>
               </div>
 
               <div className="htv-notifs">
@@ -113,10 +110,6 @@ export function Hero() {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="wrap">
-        <div className="htv-surf-cap">Illustrative — sample notifications</div>
       </div>
     </header>
   );
