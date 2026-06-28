@@ -6070,3 +6070,37 @@ footer {
 .htv-gmap-foot .htv-fl{font-size:12.5px;color:var(--ink-soft)}
 .htv-gmap-foot .htv-fl b{color:var(--ink)}
 .htv-gmap-foot .htv-tag{font-family:var(--sans);font-weight:600;font-size:10.5px;color:#0A0C0B;background:var(--accent);padding:4px 10px;border-radius:6px}
+
+/* ============================================================
+   Home v2 — Approach (AOA) / Who / Final CTA / Footer / ambient bg
+   ============================================================ */
+.htv-aoa { display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 760px) { .htv-aoa { grid-template-columns: repeat(3, 1fr); } }
+.htv-aoa-step { padding: 28px 24px; border: 1px solid var(--rule); border-radius: 14px; background: var(--paper-2); position: relative; }
+.htv-aoa-step .htv-letter { font-family: var(--serif); font-weight: 700; font-size: 40px; color: var(--accent); line-height: 1; }
+.htv-aoa-step h3 { font-size: 18px; margin: 12px 0 8px; }
+.htv-aoa-step p { color: var(--ink-soft); font-size: 14px; }
+
+.htv-niches { display: flex; flex-wrap: wrap; gap: 12px; }
+.htv-niche { border: 1px solid var(--rule); border-radius: 999px; padding: 11px 20px; font-size: 14.5px; color: var(--ink-soft); font-family: var(--serif); font-weight: 500; transition: border-color .18s, color .18s; }
+.htv-niche:hover { border-color: rgba(255,255,255,0.16); color: var(--ink); }
+
+.htv-final { text-align: center; padding: 110px 0; position: relative; z-index: 1; }
+@media (max-width: 640px) { .htv-final { padding: 80px 0; } }
+.htv-final .htv-kicker { justify-content: center; }
+.htv-final h2 { font-family: var(--serif); font-weight: 600; line-height: 1.05; letter-spacing: -0.022em; color: var(--ink); font-size: clamp(30px, 5vw, 52px); max-width: 20ch; margin: 0 auto 20px; }
+.htv-final p { color: var(--ink-soft); font-size: 18px; max-width: 50ch; margin: 0 auto 32px; }
+
+.htv-footer { border-top: 1px solid var(--rule); padding: 40px 0; color: var(--ink-mute); font-size: 13px; position: relative; z-index: 1; }
+.htv-foot-inner { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
+.htv-footer-logo { font-family: var(--serif); font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 10px; color: var(--ink); }
+.htv-footer-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 14px var(--accent); display: inline-block; }
+
+/* page-wide ambient background (migrated from #ht-v2 .bg) */
+.htv-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.htv-bg-glow { position: absolute; top: -220px; right: -140px; width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(185,255,53,0.10), transparent 64%); filter: blur(40px); }
+.htv-bg-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px); background-size: 56px 56px; -webkit-mask-image: radial-gradient(ellipse 80% 70% at 55% 18%, #000 35%, transparent 78%); mask-image: radial-gradient(ellipse 80% 70% at 55% 18%, #000 35%, transparent 78%); }
+.htv-bg-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse 100% 100% at 50% 30%, transparent 60%, rgba(0,0,0,0.45)); }
+
+/* lift all content above the fixed ambient bg */
+.htv-hero, .htv-section, .htv-reframe { position: relative; z-index: 1; }
