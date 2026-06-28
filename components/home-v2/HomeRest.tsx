@@ -1,26 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-
 const MARKUP = `<div class="bg"><div class="glow"></div><div class="grid"></div><div class="vignette"></div></div>
 
 <!-- ===================== HERO ===================== -->
 
-<!-- ===================== SEE IT IN ACTION (cycler placement) ===================== -->
-<section id="inaction" style="border-top:1px solid var(--line)">
-  <div class="wrap">
-    <div class="sec-head center">
-      <span class="kicker">See it in action</span>
-      <h2>Here's what "handled" actually looks like.</h2>
-      <p>Pick a moment from a normal day and watch how it plays out — start to finish, without you lifting a finger.</p>
-    </div>
-    <div class="cyc">
-      <div class="cyc-tabs" id="cyc-tabs"></div>
-      <div class="cyc-flow" id="cyc-flow"></div>
-      <div class="cyc-cap">Illustrative preview — a simplified stand-in for the full animated demo</div>
-    </div>
-  </div>
-</section>
 
 <!-- ===================== HOW IT WORKS ===================== -->
 <section id="how" class="band">
@@ -158,75 +141,7 @@ const MARKUP = `<div class="bg"><div class="glow"></div><div class="grid"></div>
   </div>
 </footer>`;
 
-type FlowItem = { tab: string; steps: string[] };
-
-const CYCLER: FlowItem[] = [
-  { tab: "Speed-to-lead", steps: ["A new lead comes in", "Your AI replies in under 5 minutes", "The conversation gets booked"] },
-  { tab: "Missed call", steps: ["A call goes unanswered", "A friendly text goes out instantly", "They book instead of bouncing"] },
-  { tab: "Instant quote", steps: ["A customer asks for a price", "Your AI drafts the quote", "It goes out the same hour"] },
-  { tab: "Reviews", steps: ["A job is marked complete", "A review request goes out", "A new 5-star rolls in"] },
-];
-
 export function HomeRest() {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const root = ref.current;
-    if (!root) return;
-    const tabsEl = root.querySelector<HTMLElement>("#cyc-tabs");
-    const flowEl = root.querySelector<HTMLElement>("#cyc-flow");
-    let timer: ReturnType<typeof setInterval> | null = null;
-
-    if (tabsEl && flowEl) {
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      let idx = 0;
-      let auto = true;
-
-      const render = () => {
-        Array.from(tabsEl.children).forEach((c, i) => {
-          (c as HTMLElement).className = "cyc-tab" + (i === idx ? " on" : "");
-        });
-        const d = CYCLER[idx];
-        flowEl.innerHTML = "";
-        d.steps.forEach((s, i) => {
-          const step = document.createElement("div");
-          step.className = "flow-step cyc-fade" + (i === 2 ? " final" : "");
-          step.innerHTML = '<span class="n">' + (i + 1) + '</span><span class="s">' + s + "</span>";
-          flowEl.appendChild(step);
-          if (i < 2) {
-            const a = document.createElement("div");
-            a.className = "flow-arrow";
-            a.textContent = "→";
-            flowEl.appendChild(a);
-          }
-        });
-      };
-
-      tabsEl.innerHTML = "";
-      CYCLER.forEach((d, i) => {
-        const b = document.createElement("button");
-        b.className = "cyc-tab" + (i === 0 ? " on" : "");
-        b.textContent = d.tab;
-        b.onclick = () => {
-          auto = false;
-          if (timer) clearInterval(timer);
-          idx = i;
-          render();
-        };
-        tabsEl.appendChild(b);
-      });
-      render();
-      if (!reduce) {
-        timer = setInterval(() => {
-          if (auto) {
-            idx = (idx + 1) % CYCLER.length;
-            render();
-          }
-        }, 3600);
-      }
-    }
-    return () => { if (timer) clearInterval(timer); };
-  }, []);
-
-  return <div id="ht-v2" ref={ref} dangerouslySetInnerHTML={{ __html: MARKUP }} />;
+  // eslint-disable-next-line react/no-danger
+  return <div id="ht-v2" dangerouslySetInnerHTML={{ __html: MARKUP }} />;
 }
