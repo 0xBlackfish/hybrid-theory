@@ -5619,7 +5619,8 @@ footer {
 .htv-hero { position: relative; padding: 56px 0 92px; overflow: hidden; background: var(--bg); }
 .htv-hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 .htv-hero-glow { position: absolute; top: -160px; left: 50%; transform: translateX(-50%); width: 760px; height: 520px; background: radial-gradient(ellipse at center, rgba(185,255,53,0.09), transparent 60%); }
-.htv-hero > .wrap { position: relative; z-index: 2; }
+.htv-wrap { max-width: 1140px; margin: 0 auto; padding: 0 6vw; position: relative; z-index: 2; }
+@media (min-width: 760px) { .htv-wrap { padding: 0 52px; } }
 .htv-hero-grid { display: grid; gap: 50px; grid-template-columns: 1fr; align-items: center; justify-items: center; }
 @media (min-width: 1000px) { .htv-hero-grid { grid-template-columns: 1fr 0.78fr; gap: 104px; justify-items: start; } }
 .htv-cleft { max-width: 560px; }
@@ -5675,7 +5676,6 @@ footer {
    ============================================================ */
 .htv-reframe { padding: 104px 0; background: var(--paper-2); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); position: relative; }
 @media (max-width: 640px) { .htv-reframe { padding: 70px 0; } }
-.htv-reframe > .wrap { position: relative; z-index: 2; }
 
 /* shared section heading (v2) */
 .htv-sec-head { max-width: 62ch; margin-bottom: 50px; }

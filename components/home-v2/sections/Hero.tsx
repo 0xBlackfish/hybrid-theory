@@ -7,7 +7,7 @@ export function Hero() {
         <div className="htv-hero-glow" />
       </div>
 
-      <div className="wrap htv-hero-grid">
+      <div className="htv-wrap htv-hero-grid">
         <div className="htv-cleft">
           <span className="htv-eyebrow">AI consulting for real businesses</span>
           <h1 className="htv-hero-title">

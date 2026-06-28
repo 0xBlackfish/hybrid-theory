@@ -1,7 +1,7 @@
 export function Reframe() {
   return (
     <section id="reframe" className="htv-reframe">
-      <div className="wrap">
+      <div className="htv-wrap">
         <div className="htv-sec-head">
           <span className="htv-kicker">Why it works</span>
           <h2>
