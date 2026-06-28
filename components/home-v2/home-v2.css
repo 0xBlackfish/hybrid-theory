@@ -179,29 +179,7 @@
   #ht-v2 .surf-cap{text-align:center;font-family:Inter;font-size:11px;color:var(--faint);margin-top:22px}
 
 
-  /* ===================== OPPORTUNITY ===================== */
-  #ht-v2 .opps{display:grid;gap:16px;grid-template-columns:repeat(2,1fr)}
-
-  @media(min-width:760px){#ht-v2 .opps{grid-template-columns:repeat(4,1fr)}
-}
-  #ht-v2 .opp{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:24px 20px;transition:all .2s}
-
-  #ht-v2 .band .opp{background:var(--panel)}
-
-  #ht-v2 .opp:hover{border-color:rgba(194,242,79,0.35);transform:translateY(-3px)}
-
-  #ht-v2 .opp .ic{width:38px;height:38px;margin-bottom:14px}
-
-  #ht-v2 .opp h3{font-size:16px;margin-bottom:7px}
-
-  #ht-v2 .opp p{color:var(--muted);font-size:13px;line-height:1.5}
-
-  #ht-v2 .opp.more{grid-column:span 2}
-
-  @media(min-width:760px){#ht-v2 .opp.more{grid-column:auto}
-}
-
-  /* ===================== HOW IT WORKS ===================== */
+/* ===================== HOW IT WORKS ===================== */
   #ht-v2 .step-rail{display:flex;align-items:center;gap:14px;margin-bottom:50px;flex-wrap:wrap;justify-content:center}
 
   #ht-v2 .step-chip{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-family:'Inter';font-size:13px;color:var(--muted)}

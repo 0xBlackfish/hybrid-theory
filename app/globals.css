@@ -5696,3 +5696,22 @@ footer {
 .htv-lever-num { font-family: var(--sans); font-weight: 600; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
 .htv-lever h3 { font-family: var(--serif); font-weight: 600; font-size: 21px; line-height: 1.05; letter-spacing: -0.022em; margin: 14px 0 9px; color: var(--ink); }
 .htv-lever p { color: var(--ink-soft); font-size: 14.5px; }
+
+/* ============================================================
+   Home v2 — Opportunity grid (Corey repositioning) · componentized
+   ============================================================ */
+.htv-section { padding: 104px 0; position: relative; }
+@media (max-width: 640px) { .htv-section { padding: 70px 0; } }
+
+.htv-sec-head.htv-center { margin-left: auto; margin-right: auto; text-align: center; }
+.htv-sec-head.htv-center p { margin-left: auto; margin-right: auto; }
+
+.htv-opps { display: grid; gap: 16px; grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 760px) { .htv-opps { grid-template-columns: repeat(4, 1fr); } }
+.htv-opp { background: var(--paper-2); border: 1px solid var(--rule); border-radius: 14px; padding: 24px 20px; transition: border-color .2s, transform .2s; }
+.htv-opp:hover { border-color: rgba(185,255,53,0.35); transform: translateY(-3px); }
+.htv-opp .htv-ic { width: 38px; height: 38px; margin-bottom: 14px; }
+.htv-opp h3 { font-family: var(--serif); font-weight: 600; font-size: 16px; line-height: 1.1; letter-spacing: -0.018em; margin: 0 0 7px; color: var(--ink); }
+.htv-opp p { color: var(--ink-soft); font-size: 13px; line-height: 1.5; }
+.htv-opp--wide { grid-column: span 2; }
+@media (min-width: 760px) { .htv-opp--wide { grid-column: auto; } }

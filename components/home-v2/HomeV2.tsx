@@ -1,5 +1,6 @@
 import { Hero } from "./sections/Hero";
 import { Reframe } from "./sections/Reframe";
+import { Opportunity } from "./sections/Opportunity";
 import { HomeRest } from "./HomeRest";
 
 export function HomeV2() {
@@ -7,6 +8,7 @@ export function HomeV2() {
     <>
       <Hero />
       <Reframe />
+      <Opportunity />
       <HomeRest />
     </>
   );
