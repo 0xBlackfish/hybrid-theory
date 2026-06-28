@@ -9,7 +9,6 @@ const NAV_LINKS = [
   { href: "/services", label: "Services" },
   { href: "/insights", label: "Insights" },
   { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export function SiteNav() {
@@ -48,8 +47,8 @@ export function SiteNav() {
           ))}
         </div>
         <div className="nav-cta">
-          <a href="#" data-calendly className="btn btn-primary nav-btn">
-            Book a call <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
+          <a href="#contact" data-calendly className="btn btn-primary nav-btn">
+            Schedule your free assessment <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
           </a>
         </div>
         <button className="nav-toggle" aria-label="Menu" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
@@ -71,8 +70,8 @@ export function SiteNav() {
           </Link>
         ))}
         <div className="nav-mobile-cta">
-          <a href="#" data-calendly className="btn btn-primary" onClick={() => setOpen(false)}>
-            Book a call <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
+          <a href="#contact" data-calendly className="btn btn-primary" onClick={() => setOpen(false)}>
+            Schedule your free assessment <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
           </a>
         </div>
       </div>

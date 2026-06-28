@@ -30,12 +30,12 @@ export default function HomePage() {
               We&apos;ll tell you if AI can fix it.
             </h2>
             <p className="lead">
-              A 30-minute call, no slides, no pitch. We&apos;ll either point you in the right direction
-              for free, or scope something we can build together.
+              It starts with a fixed-fee AI Audit: in one focused session we map the busywork that&apos;s
+              costing you most and ship one quick win. Like what you see? The fee credits toward whatever we build next.
             </p>
             <div className="cta">
               <a href="#" data-calendly className="btn btn-primary">
-                Book a call <span style={{ opacity: 0.7, fontSize: 11 }}>↗</span>
+                Book your AI Audit <span style={{ opacity: 0.7, fontSize: 11 }}>↗</span>
               </a>
               <a href="mailto:hello@hybridtheory.ai" className="btn btn-ghost">hello@hybridtheory.ai</a>
             </div>
