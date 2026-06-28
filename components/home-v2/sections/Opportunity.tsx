@@ -1,4 +1,76 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+type Variant = { id: string; title: string; body: string };
+
+const ICONS = [
+  (<svg className="htv-ic" viewBox="0 0 146.8 148.5"><path fill="#F4F2EA" d="m139.2 137.9-7.2-19.4c4.5-6.9 7.3-15.4 7.3-25.8 0-22.5-17.8-47.7-46.5-47.7-25.9 0-46.6 21.2-46.6 47.3 0 23 17.9 47.5 46.6 47.5 7.6 0 15-1.9 23.8-6.4l19.8 7.1c1.6 0.5 3.1-0.9 2.8-2.6zm-22-8.9c-0.6-0.2-1.3-0.1-1.9 0.3-5.9 3.7-13.5 6.6-22.5 6.6-23.9 0-42.3-19.6-42.3-43.4 0-20.5 16-43.2 42.3-43.2 23.2 0 42.7 18.4 42.7 43.2 0 7-1.5 15.6-6.6 23.5-1.4 1.6-0.9 1.9-0.9 2.6l6 16.8-16.8-6.4z"/><path fill="#B9FF35" d="m97.5 85.4 3.8-21.8c0.4-2.2-2.4-3.5-3.6-1.5l-24.2 34.3c-1 1.5 0.8 3.2 1.9 3.2h12.8l-4.3 22.7c-0.3 2.2 2.7 3.3 3.8 1.4l24.2-35.1c1-1.4 0.1-3.2-1.6-3.2h-13zm-7.9 28.9 2.8-16.4c0.1-0.9-0.8-2.3-1.9-2.3h-11.2l16.4-23.6-2.8 14.9c-0.2 1.3 0.7 2.6 1.8 2.5h11.6l-16.7 24.9z"/></svg>),
+  (<svg className="htv-ic" viewBox="0 0 150 150"><path fill="#F4F2EA" d="m67.5 72.8v-21.5c11.5 1.8 9.7 10.8 9.8 10.9 0.2 1.4 1.5 2.5 3 2.2s2-1.4 1.9-2.7c-0.2-7.9-6.4-14.5-14.7-15.3v-4.7c0-1.2-1-2-2.2-2s-2.4 1.1-2.4 2.3v4.7c-8.1 0.6-15 6.7-15 15.6 0 6.1 4.4 13.7 14.9 14.6v20.5c-7.2-1.2-9.9-6.6-9.9-9.7 0-1.3-0.9-2.4-2.4-2.4-1.1 0-2.7 1-2.6 2.5 0.4 8.1 6.8 13.3 14.9 14.3v5.1c0.1 2.8 4.6 3.9 4.7 0v-5c6.9-0.5 14.4-5.6 14.2-14.7-0.3-8.4-6.8-14-14.2-14.7zm-4.6-0.4c-6-0.8-10.1-4.5-10.1-9.9s4.2-10 10.1-11.2v21.1zm4.5 25v-20.2c1.9 0.2 9.8 1.8 9.8 10.2 0 5.3-4.8 9.3-9.8 10z"/><path fill="#F4F2EA" d="m114.9 100c-1.1 0.1-2.3 1-2.3 2.3v30.5c0 2.2-1.7 3.9-3.9 3.9h-88.8c-2.1-0.1-4-1.8-4-4.1l-0.1-115c0-2.2 1.7-4.1 4.1-4.1h67.1v17.3c0 4.6 3.5 8.3 8.4 8.3h16.8v10.7c0.1 3.6 5 3.1 5-0.1v-12.8c0-0.7-0.3-1.3-0.6-1.6l-25.2-25.5c-0.7-0.7-1.4-0.9-2.1-0.9h-69.2c-4.7 0-9 3.6-9 8.6v115.3c0 4.6 3.7 8.3 8.7 8.3h88.9c4.7 0.1 8.4-3.5 8.5-8.2v-30.7c-0.1-1.2-1.1-2.3-2.3-2.2zm-23.2-83.4 17.5 17.9h-13.5c-2.1-0.1-4-1.8-4-4.1v-13.8z"/><path fill="#B9FF35" d="m137.6 74.4-21.3-17.1c-1.6-1.2-3.9-0.3-3.9 1.9v9.6l-14.6-11.5c-1.6-1.2-3.9-0.2-3.9 2v33.8c0 2.1 2.4 3.2 4 1.8l14.5-11.3v9.5c0.1 2.3 2.7 3.2 4.1 1.8l21.2-16.8c1-0.7 1.3-2.6-0.1-3.7zm-39 14.1v-24.3l13.8 10.7v2.7l-13.8 10.9zm18.4 0.1v-24.4l15.6 12.1-15.6 12.3z"/></svg>),
+  (<svg className="htv-ic" viewBox="0 0 150.9 150.7"><style>{`.mc1{fill:none;stroke:#F4F2EA;stroke-width:3.4466;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10}.mc2{fill:#B9FF35}.mc3{fill:none;stroke:#F4F2EA;stroke-width:3.4466;stroke-linejoin:round;stroke-miterlimit:10}`}</style><path className="mc1" d="m92.9 65v36.2c0 9.5-7.3 17.8-17.4 17.8-9.7 0-20.1-7.8-20.2-28.3v-22.2c0-11.3 3.5-26.5 19.8-27.3h0.6c2.4 0 4.3 2.8 4.3 4.2v15.9c0 2.2-1.7 4.3-4.3 4.3h-1.5c-2.6 0-4.2 1.4-5 3.4s-2.8 10.9-0.4 20.4c0.6 2.5 2.8 4.3 5.2 4.3h2c2.5 0 4 2 4 4.2v17.2c0 2.2-1.8 3.9-4 3.9"/><path className="mc3" d="m56.4 58.2v-8.6c0-9.3 7.8-17.9 18.2-17.9 10.1 0 18.2 8.1 18.2 17.3v8l-4.8-5.7"/><polyline className="mc1" points="87.6 50.9 92.9 57.4 97.9 51"/><path className="mc2" d="m74.6 104.9c0 2.3-1.8 4.2-4.2 4.7-2.4 0-4.3-1.7-4.3-4.6s2.4-4.6 4.3-4.5c2.3 0 4.2 1.9 4.2 4.4z"/><path className="mc1" d="m73.9 41.7v23.9"/></svg>),
+  (<svg className="htv-ic" viewBox="0 0 155.9 162"><style>{`.fu0{fill:#B9FF35}.fu1{fill:#F4F2EA}`}</style><path className="fu0" d="m109 129.5c-0.9 0-1.7-0.4-2.3-1.1-1.7-2.2-0.1-3.8 0.7-4.3l1.5-1.1c1.1-0.9 2.7-1.6 4.2 0 1.1 1.3 0.8 3.3-0.4 4.2l-2.5 1.8c-0.5 0.3-0.9 0.5-1.2 0.5zm10.1-9c-2.4-0.6-3.6-3.4-1.7-5.1l2.5-2.5c1-1.2 3-1.4 4-0.3 1.2 1.2 1.2 3.2 0 4.3l-2.5 2.5c-0.6 1-1.5 1.2-2.3 1.1zm7.9-12.9c-1.6-1.7-0.7-3.1-0.4-3.6l2.4-3c1-1.4 2.9-1.5 5-0.1 0.9 1.2 1.2 2.7 0 4l-2.2 2.8c-0.8 1.2-3.4 1.7-4.8-0.1z"/><path className="fu0" d="m146.8 57.4c-3.5-7.2-10.6-13.4-20.3-13.5h-2.6v5.6h2c3.5-0.1 8.5 0.9 10.6 4.5s1.1 10.6-5.5 17.4c-3 3.2-6.1 5.7-9.8 8.5-1.6 1.1-3.4 2.5-5.8 4.2-7.1 4.2-21.4 12.2-38 12.3l-5.9-0.3c3.3-10 12.1-22 25.3-32.5 5-4 11.1-8.7 18.7-12v-6.3c-9.1 2.6-17.5 8-22.5 12-13.1 10.3-27 26.2-28.9 44.1-0.2 3.1-0.4 7.5 0.1 14.6 0.6 3.9-1.8 7.5-5.4 11.7-7 7.7-16.9 14.2-27.2 15-8.6 0.3-13.5-2.6-15.7-7.1-2.3-4.7-2.4-12 4.2-21.2l2.3-3.5-5.6-2.9c-0.3 0.5-0.7 1.1-1.2 1.8-8 11.1-8.2 21.1-4.5 28.1 3.4 6 9.7 10.2 19.7 10.2 12.9 0 25.1-7.5 31.8-14.7 2-2 3.9-4.5 4.9-7 3.3 6 8.4 12.2 18.3 12.5 4.6 0.1 8.8-1 14.1-3.5 1.5-0.6 2.2-2.3 1.5-4-0.6-1.3-2.4-2.4-4.3-1.4-4.3 2.3-8.5 3.1-12 3-6-0.4-9.8-3.9-12.3-8.6-3-5.4-5-13-2.9-23.3 19.1 2.5 34.2-4.6 45.5-10.2 4.6-2.5 9.1-5.4 13.5-9 6.6-5.5 14.1-13.4 14.5-20.2 3.6 9.3-2 22.2-7 30.4-0.9 1.3-0.6 3.3 1 4.2 1.2 0.6 3.2 0.6 4.2-1.3 4.3-6.9 8-15 8.4-24 0.1-4.9-0.6-9.4-3.2-13.6z"/><path className="fu1" d="m97.8 13.6h-68.8c-12.1 0-23.2 10.2-23.2 23v52.9c0 9.1 6.8 21.9 22.3 21.9h1.7v11.6c0 3.9 3.6 7.1 7.3 6.9s4.7-1.3 4.8-1.8l17.5-16.7h4.4c-0.2-1.8 0-3.9 0-6h-5.8c-0.6 0-1.2 0.2-2.1 1.1l-17.9 17.4c-0.9 1.2-2.6 0.6-2.6-0.9v-14.9c0-1.5-1-2.7-2.5-2.7h-4.9c-8.9 0.1-16.6-6.5-16.6-15.9v-52.6c0-9 7.5-17.5 17.6-17.6h68.8c9.1 0 17.6 7.3 17.6 17.6v52.9c0 6.6-5.5 15.6-16.4 15.6h-26.7c-0.2 1.4 0 4.5 0 6h26.7c10.8 0 22.1-7.8 22.1-21.4v-53.1c0-11.9-9.2-23.3-23.3-23.3z"/></svg>),
+  (<svg className="htv-ic" viewBox="0 0 160 160"><style>{`.rv0{fill:#B9FF35}.rv1{fill:#F4F2EA}`}</style><path className="rv0" d="m141.7 27.8c-0.8-0.4-1.4-0.3-2.1-0.4-9-1-11.9-7.6-12.1-13.1-0.2-3.7-5.9-4.3-6.2-0.2-0.6 8.9-6.6 12.9-13.8 13.4-3.3 0.2-4.4 5.8-0.4 6.3 7 0.5 13.5 4.7 14.3 13.1l0.1 0.1c0.4 3.6 5.9 3.6 6.1-0.1v-0.2c0.7-7.6 6.6-12.5 14-12.9 3.1-0.3 3.7-4.8 0.1-6zm-17.3 9.5c-1.5-2.5-3.6-4.7-6.6-6.6 2.8-1.3 5.1-3.7 6.6-6.6 1.6 2.6 3.9 5 6.8 6.6-2.8 1.6-5.2 3.8-6.8 6.6z"/><path className="rv1" d="m149.6 68c-0.6-5-4.7-9.1-9.8-9.4l-37.8-0.9-11.8-36.5c-1.3-4-4.8-6.8-9-7.3-4.3-0.7-9.8 2.7-11.3 7.4l-11.7 36.3-38.1 1c-8.9 0.6-13.1 11.2-6.7 18.7l31 22.6-10.8 35.4c-2 7.9 4 14.3 10.9 13.4 2 0 3.9-0.6 5.5-1.7l30-21.1 29.9 21c1.8 1.3 3.9 1.9 6.1 1.9 6.9 0.2 11.9-5.5 10.5-13l-10.8-35.9 30.7-22c2.5-2.1 3.7-5.9 3.2-9.9zm-9.5 1.7c0 0.4-0.1 0.7-0.3 0.9l-32.6 23.7c-1.6 1.2-2.6 3.3-1.7 5.9l11.4 37.4c0.5 1.5-0.6 2.2-1.7 1.4l-32.1-22.4c-1.8-1.3-4.2-1.4-6.2-0.1l-32 22.5c-1.1 0.7-2.2 0.1-1.8-1.4l11.7-37.1 0.1-0.5c0.7-2.6-0.2-4.9-2.1-6l-32.7-23.4c-0.8-0.6-0.6-2.1 0.7-2.1l41.3-1c1.9-0.1 3.7-1.3 4.4-3.3l12.3-39.1c0.5-2.1 1.8-1.9 2.2-0.5l12.6 39.4c0.7 2 2.5 3.4 4.6 3.5l41.3 1c0.3 0.1 0.7 0.5 0.8 0.8l-0.2 0.4z"/></svg>),
+  (<svg className="htv-ic" viewBox="0 0 115.7 99"><style>{`.sb0{fill:#F4F2EA}.sb1{fill:#B9FF35}`}</style><path className="sb0" d="m100.6 5.6h-12.6v-2.7c0-2.5-2.1-4.9-4.7-4.9s-5.4 2-5.4 4.9v2.6h-40.4l0.1-0.1v-2.5c0-2.6-2-4.9-4.9-4.9s-4.9 2.3-4.9 4.9v2.7h-12.7c-3.6 0-7.2 3.1-7.2 7.3v81.2c0 3.8 2.9 6.7 6.9 6.9h86.1c2.9 0 6.7-2.5 6.7-6.7v-81.4c0-3.6-2.8-7.3-7-7.3zm-19.4 8.9c0.4-0.2 0.2-0.7 0.2-5.6v0.1-6c0-0.7 0.6-1.5 1.5-1.5s1.6 0.6 1.6 1.5v11.4c0 0.9 1.2 1.5 1.2 3.2-0.1 1.9-1.6 3.4-3.4 3.4-1.8 0.1-3.8-1.4-3.8-3.4 0-1.7 2-2.9 2.7-3.1zm-50.3 0.4v-11.5c0-0.9 0.7-1.9 1.6-1.9s1.6 0.8 1.6 1.5v10c0 1.8 0.8 1.1 2 2.6 0.3 0.5 0.6 1.1 0.6 2 0 1.9-1.7 3.4-3.4 3.4s-3.6-1.4-3.6-3.3c0-1.2 0.6-2 1.2-2.8zm73 79c0 1.7-1.3 3.3-3.2 3.3h-85.7c-1.7 0-3.3-1.4-3.4-3.3v-80.8c0-1.6 1.3-3.6 3.6-3.6h12.5v3.4c-1 1.2-1.8 2.5-1.9 4.7 0 3.9 3 6.9 7 6.9 4.1 0.1 7.9-2.8 7.9-6.9 0.1-2.1-1-4.7-3.2-6v-2.2h40.5l-0.1 2.2c-1.6 1.2-3.1 3.3-3 6 0.1 3.9 3.2 6.9 7.1 6.9s7.1-2.4 7.5-6.5c0.2-1.9-0.6-4.1-1.5-5.1v-3.5h12.4c2-0.1 3.5 1.7 3.5 3.7v80.8z"/><path className="sb0" d="m95.9 34.1c0-0.9-0.8-2-1.9-1.9h-72.7c-0.9 0-1.9 0.8-1.9 1.9v53.6c0 1 0.8 2 1.9 2h48.8c0.9 0 1.7-0.9 1.7-1.8v-16.1h11c2.2 0.3 2.9-2.7 0.8-3.9h-0.3-11v-13.9h19.8v5.9c0.2 2.2 4 2.2 4 0v-25.8zm-52.1 51.6h-20.6v-13.9h20.6v13.9zm0-18.1h-20.6v-13.6h20.6v13.6zm0-17.4h-20.6v-14h20.6v14zm24.2 35.5h-20.5v-13.9h20.5v13.9zm0-18.1h-20.5v-13.6h20.5v13.6zm0-17.4h-20.5v-14h20.5v14zm24.1 0h-20.3v-14h20.4v14z"/><path className="sb1" d="m82.9 83.5c0.6 0.5 1.9 0.8 2 0.3 0.4-0.1-0.1 0.1 12.7-14.9 1.5-1.6-0.5-5-3-3.2l-11.6 13.8-4.2-4c-1.8-1.5-4.2 0.3-3 2.6l5.9 5.8"/></svg>),
+  (<svg className="htv-ic" viewBox="0 0 150 150"><style>{`.wb0{fill:#B9FF35}.wb1{fill:none;stroke:#F4F2EA;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}.wb2{fill:none;stroke:#F4F2EA;stroke-width:3.2;stroke-miterlimit:10}`}</style><polygon className="wb0" points="71.9 9.1 71.9 36.8 91.1 22.9"/><path className="wb1" d="m83.5 9.7c29.2 2.8 57.8 28.4 57.8 65.8 0 35.5-27 65.5-66.3 65.5-38 0-66.3-29.3-66.3-65.5 0-32.5 24.1-60.9 57-65.7"/><path className="wb1" d="m91.3 31.1c12.7 4.5 30.9 18.9 30.9 44.3 0 24.2-19.2 46.6-47 46.6-25.9 0.1-47.5-20.7-47.5-46.6 0-23.6 19.8-46.1 44.2-47v8.4l19.2-13.9-19-13.9v8.3"/><path className="wb2" d="m87.2 60c0 6.3-5.1 12.4-12.2 12.4s-12.2-5.4-12.2-12.3 5.3-13.2 12.3-13.2c6.4 0 12.1 5.5 12.1 13v0.1z"/><path className="wb1" d="m50.1 102.4c0.5-11.8 10.7-22.3 24.8-22.3 11.5 0 24.1 8.5 25 22.3"/></svg>),
+];
+
+const SLOTS: Variant[][] = [
+  [
+    { id: "speed", title: "Speed-to-lead", body: "First to reply usually wins the job. Be first, every time — without lifting a finger." },
+    { id: "sdr", title: "Outbound that never sleeps", body: "An AI rep finds, researches, and messages net-new prospects while you work." },
+    { id: "dm", title: "DM-to-sale closer", body: "Turns Instagram, LinkedIn, and Facebook DMs into booked calls." },
+    { id: "qualify", title: "Lead qualification", body: "Scores and routes every inbound, so you only talk to the ready-to-buy ones." }
+  ],
+  [
+    { id: "quote", title: "Instant quotes", body: "A quote that lands the same hour hits different than one that takes three days." },
+    { id: "proposal", title: "Proposals & contracts", body: "Personalized proposals and contracts drafted on demand — interest to signature, faster." },
+    { id: "bid", title: "Bid & RFP responses", body: "Sharp, personalized bid responses — more contracts won, fewer late nights." }
+  ],
+  [
+    { id: "missed", title: "Missed-call text-back", body: "Every missed call gets a friendly text right back — before they call someone else." },
+    { id: "reception", title: "24/7 AI receptionist", body: "Answers, qualifies, and books calls around the clock — even after hours." }
+  ],
+  [
+    { id: "followup", title: "Follow-up that finishes", body: "Most yeses come after the first try. Keep following up, gently, until they decide." },
+    { id: "abandoned", title: "Abandoned-quote recovery", body: "Re-engages anyone who started a quote and drifted off — already half-sold." },
+    { id: "invoice", title: "Invoice & payment chasing", body: "Chases unpaid invoices until the cash actually lands in your account." },
+    { id: "docs", title: "Document chaser", body: "Collects the missing paperwork automatically, so the real work never stalls." }
+  ],
+  [
+    { id: "reviews", title: "Reviews on autopilot", body: "Turn happy customers into 5-star reviews — asked at exactly the right moment." },
+    { id: "referrals", title: "Referral mining", body: "Spots your happiest customers and makes the referral ask for you." },
+    { id: "reviewmine", title: "Review mining", body: "Pulls the exact words customers use — fuel for your sales and content." }
+  ],
+  [
+    { id: "booking", title: "Self-booking", body: "Let customers grab the right slot themselves — no more endless phone tag." },
+    { id: "noshow", title: "No-show recovery", body: "Reminds and reschedules until they show — fewer empty slots on the calendar." },
+    { id: "intake", title: "Smart intake", body: "Gathers what your team actually needs up front, so nothing bounces back." }
+  ],
+  [
+    { id: "winback", title: "Win-back & repeat", body: "Your past customers are your easiest next sale. Bring them back before they forget you." },
+    { id: "reorder", title: "Reorder reminders", body: "Nudges customers to rebuy or renew at exactly the right moment." },
+    { id: "reactivation", title: "CRM reactivation", body: "Mines the dead leads already sitting in your CRM — found money." },
+    { id: "upsell", title: "Upsell & cross-sell", body: "Offers the right add-on at the perfect moment — bigger orders, automatically." }
+  ]
+];
+
 export function Opportunity() {
+  const [idx, setIdx] = useState<number[]>(() => SLOTS.map(() => 0));
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let slot = 0;
+    const timer = setInterval(() => {
+      setIdx((prev) => {
+        const next = prev.slice();
+        next[slot] = (next[slot] + 1) % SLOTS[slot].length;
+        return next;
+      });
+      slot = (slot + 1) % SLOTS.length;
+    }, 2000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section id="opps" className="htv-section">
       <div className="htv-wrap">
@@ -9,46 +81,23 @@ export function Opportunity() {
         </div>
 
         <div className="htv-opps">
-        <div className="htv-opp">
-          <svg className="htv-ic" viewBox="0 0 146.8 148.5"><path fill="#F4F2EA" d="m139.2 137.9-7.2-19.4c4.5-6.9 7.3-15.4 7.3-25.8 0-22.5-17.8-47.7-46.5-47.7-25.9 0-46.6 21.2-46.6 47.3 0 23 17.9 47.5 46.6 47.5 7.6 0 15-1.9 23.8-6.4l19.8 7.1c1.6 0.5 3.1-0.9 2.8-2.6zm-22-8.9c-0.6-0.2-1.3-0.1-1.9 0.3-5.9 3.7-13.5 6.6-22.5 6.6-23.9 0-42.3-19.6-42.3-43.4 0-20.5 16-43.2 42.3-43.2 23.2 0 42.7 18.4 42.7 43.2 0 7-1.5 15.6-6.6 23.5-1.4 1.6-0.9 1.9-0.9 2.6l6 16.8-16.8-6.4z"/><path fill="#B9FF35" d="m97.5 85.4 3.8-21.8c0.4-2.2-2.4-3.5-3.6-1.5l-24.2 34.3c-1 1.5 0.8 3.2 1.9 3.2h12.8l-4.3 22.7c-0.3 2.2 2.7 3.3 3.8 1.4l24.2-35.1c1-1.4 0.1-3.2-1.6-3.2h-13zm-7.9 28.9 2.8-16.4c0.1-0.9-0.8-2.3-1.9-2.3h-11.2l16.4-23.6-2.8 14.9c-0.2 1.3 0.7 2.6 1.8 2.5h11.6l-16.7 24.9z"/></svg>
-          <h3>Speed-to-lead</h3>
-          <p>First to reply usually wins the job. Be first, every time — without lifting a finger.</p>
-        </div>
-        <div className="htv-opp">
-          <svg className="htv-ic" viewBox="0 0 150 150"><path fill="#F4F2EA" d="m67.5 72.8v-21.5c11.5 1.8 9.7 10.8 9.8 10.9 0.2 1.4 1.5 2.5 3 2.2s2-1.4 1.9-2.7c-0.2-7.9-6.4-14.5-14.7-15.3v-4.7c0-1.2-1-2-2.2-2s-2.4 1.1-2.4 2.3v4.7c-8.1 0.6-15 6.7-15 15.6 0 6.1 4.4 13.7 14.9 14.6v20.5c-7.2-1.2-9.9-6.6-9.9-9.7 0-1.3-0.9-2.4-2.4-2.4-1.1 0-2.7 1-2.6 2.5 0.4 8.1 6.8 13.3 14.9 14.3v5.1c0.1 2.8 4.6 3.9 4.7 0v-5c6.9-0.5 14.4-5.6 14.2-14.7-0.3-8.4-6.8-14-14.2-14.7zm-4.6-0.4c-6-0.8-10.1-4.5-10.1-9.9s4.2-10 10.1-11.2v21.1zm4.5 25v-20.2c1.9 0.2 9.8 1.8 9.8 10.2 0 5.3-4.8 9.3-9.8 10z"/><path fill="#F4F2EA" d="m114.9 100c-1.1 0.1-2.3 1-2.3 2.3v30.5c0 2.2-1.7 3.9-3.9 3.9h-88.8c-2.1-0.1-4-1.8-4-4.1l-0.1-115c0-2.2 1.7-4.1 4.1-4.1h67.1v17.3c0 4.6 3.5 8.3 8.4 8.3h16.8v10.7c0.1 3.6 5 3.1 5-0.1v-12.8c0-0.7-0.3-1.3-0.6-1.6l-25.2-25.5c-0.7-0.7-1.4-0.9-2.1-0.9h-69.2c-4.7 0-9 3.6-9 8.6v115.3c0 4.6 3.7 8.3 8.7 8.3h88.9c4.7 0.1 8.4-3.5 8.5-8.2v-30.7c-0.1-1.2-1.1-2.3-2.3-2.2zm-23.2-83.4 17.5 17.9h-13.5c-2.1-0.1-4-1.8-4-4.1v-13.8z"/><path fill="#B9FF35" d="m137.6 74.4-21.3-17.1c-1.6-1.2-3.9-0.3-3.9 1.9v9.6l-14.6-11.5c-1.6-1.2-3.9-0.2-3.9 2v33.8c0 2.1 2.4 3.2 4 1.8l14.5-11.3v9.5c0.1 2.3 2.7 3.2 4.1 1.8l21.2-16.8c1-0.7 1.3-2.6-0.1-3.7zm-39 14.1v-24.3l13.8 10.7v2.7l-13.8 10.9zm18.4 0.1v-24.4l15.6 12.1-15.6 12.3z"/></svg>
-          <h3>Instant quotes</h3>
-          <p>A quote that lands the same hour hits different than one that takes three days.</p>
-        </div>
-        <div className="htv-opp">
-          <svg className="htv-ic" viewBox="0 0 150.9 150.7"><style>{`.mc1{fill:none;stroke:#F4F2EA;stroke-width:3.4466;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10}.mc2{fill:#B9FF35}.mc3{fill:none;stroke:#F4F2EA;stroke-width:3.4466;stroke-linejoin:round;stroke-miterlimit:10}`}</style><path className="mc1" d="m92.9 65v36.2c0 9.5-7.3 17.8-17.4 17.8-9.7 0-20.1-7.8-20.2-28.3v-22.2c0-11.3 3.5-26.5 19.8-27.3h0.6c2.4 0 4.3 2.8 4.3 4.2v15.9c0 2.2-1.7 4.3-4.3 4.3h-1.5c-2.6 0-4.2 1.4-5 3.4s-2.8 10.9-0.4 20.4c0.6 2.5 2.8 4.3 5.2 4.3h2c2.5 0 4 2 4 4.2v17.2c0 2.2-1.8 3.9-4 3.9"/><path className="mc3" d="m56.4 58.2v-8.6c0-9.3 7.8-17.9 18.2-17.9 10.1 0 18.2 8.1 18.2 17.3v8l-4.8-5.7"/><polyline className="mc1" points="87.6 50.9 92.9 57.4 97.9 51"/><path className="mc2" d="m74.6 104.9c0 2.3-1.8 4.2-4.2 4.7-2.4 0-4.3-1.7-4.3-4.6s2.4-4.6 4.3-4.5c2.3 0 4.2 1.9 4.2 4.4z"/><path className="mc1" d="m73.9 41.7v23.9"/></svg>
-          <h3>Missed-call text-back</h3>
-          <p>Every missed call gets a friendly text right back — before they call someone else.</p>
-        </div>
-        <div className="htv-opp">
-          <svg className="htv-ic" viewBox="0 0 155.9 162"><style>{`.fu0{fill:#B9FF35}.fu1{fill:#F4F2EA}`}</style><path className="fu0" d="m109 129.5c-0.9 0-1.7-0.4-2.3-1.1-1.7-2.2-0.1-3.8 0.7-4.3l1.5-1.1c1.1-0.9 2.7-1.6 4.2 0 1.1 1.3 0.8 3.3-0.4 4.2l-2.5 1.8c-0.5 0.3-0.9 0.5-1.2 0.5zm10.1-9c-2.4-0.6-3.6-3.4-1.7-5.1l2.5-2.5c1-1.2 3-1.4 4-0.3 1.2 1.2 1.2 3.2 0 4.3l-2.5 2.5c-0.6 1-1.5 1.2-2.3 1.1zm7.9-12.9c-1.6-1.7-0.7-3.1-0.4-3.6l2.4-3c1-1.4 2.9-1.5 5-0.1 0.9 1.2 1.2 2.7 0 4l-2.2 2.8c-0.8 1.2-3.4 1.7-4.8-0.1z"/><path className="fu0" d="m146.8 57.4c-3.5-7.2-10.6-13.4-20.3-13.5h-2.6v5.6h2c3.5-0.1 8.5 0.9 10.6 4.5s1.1 10.6-5.5 17.4c-3 3.2-6.1 5.7-9.8 8.5-1.6 1.1-3.4 2.5-5.8 4.2-7.1 4.2-21.4 12.2-38 12.3l-5.9-0.3c3.3-10 12.1-22 25.3-32.5 5-4 11.1-8.7 18.7-12v-6.3c-9.1 2.6-17.5 8-22.5 12-13.1 10.3-27 26.2-28.9 44.1-0.2 3.1-0.4 7.5 0.1 14.6 0.6 3.9-1.8 7.5-5.4 11.7-7 7.7-16.9 14.2-27.2 15-8.6 0.3-13.5-2.6-15.7-7.1-2.3-4.7-2.4-12 4.2-21.2l2.3-3.5-5.6-2.9c-0.3 0.5-0.7 1.1-1.2 1.8-8 11.1-8.2 21.1-4.5 28.1 3.4 6 9.7 10.2 19.7 10.2 12.9 0 25.1-7.5 31.8-14.7 2-2 3.9-4.5 4.9-7 3.3 6 8.4 12.2 18.3 12.5 4.6 0.1 8.8-1 14.1-3.5 1.5-0.6 2.2-2.3 1.5-4-0.6-1.3-2.4-2.4-4.3-1.4-4.3 2.3-8.5 3.1-12 3-6-0.4-9.8-3.9-12.3-8.6-3-5.4-5-13-2.9-23.3 19.1 2.5 34.2-4.6 45.5-10.2 4.6-2.5 9.1-5.4 13.5-9 6.6-5.5 14.1-13.4 14.5-20.2 3.6 9.3-2 22.2-7 30.4-0.9 1.3-0.6 3.3 1 4.2 1.2 0.6 3.2 0.6 4.2-1.3 4.3-6.9 8-15 8.4-24 0.1-4.9-0.6-9.4-3.2-13.6z"/><path className="fu1" d="m97.8 13.6h-68.8c-12.1 0-23.2 10.2-23.2 23v52.9c0 9.1 6.8 21.9 22.3 21.9h1.7v11.6c0 3.9 3.6 7.1 7.3 6.9s4.7-1.3 4.8-1.8l17.5-16.7h4.4c-0.2-1.8 0-3.9 0-6h-5.8c-0.6 0-1.2 0.2-2.1 1.1l-17.9 17.4c-0.9 1.2-2.6 0.6-2.6-0.9v-14.9c0-1.5-1-2.7-2.5-2.7h-4.9c-8.9 0.1-16.6-6.5-16.6-15.9v-52.6c0-9 7.5-17.5 17.6-17.6h68.8c9.1 0 17.6 7.3 17.6 17.6v52.9c0 6.6-5.5 15.6-16.4 15.6h-26.7c-0.2 1.4 0 4.5 0 6h26.7c10.8 0 22.1-7.8 22.1-21.4v-53.1c0-11.9-9.2-23.3-23.3-23.3z"/></svg>
-          <h3>Follow-up that finishes</h3>
-          <p>Most yeses come after the first try. Keep following up, gently, until they decide.</p>
-        </div>
-        <div className="htv-opp">
-          <svg className="htv-ic" viewBox="0 0 160 160"><style>{`.rv0{fill:#B9FF35}.rv1{fill:#F4F2EA}`}</style><path className="rv0" d="m141.7 27.8c-0.8-0.4-1.4-0.3-2.1-0.4-9-1-11.9-7.6-12.1-13.1-0.2-3.7-5.9-4.3-6.2-0.2-0.6 8.9-6.6 12.9-13.8 13.4-3.3 0.2-4.4 5.8-0.4 6.3 7 0.5 13.5 4.7 14.3 13.1l0.1 0.1c0.4 3.6 5.9 3.6 6.1-0.1v-0.2c0.7-7.6 6.6-12.5 14-12.9 3.1-0.3 3.7-4.8 0.1-6zm-17.3 9.5c-1.5-2.5-3.6-4.7-6.6-6.6 2.8-1.3 5.1-3.7 6.6-6.6 1.6 2.6 3.9 5 6.8 6.6-2.8 1.6-5.2 3.8-6.8 6.6z"/><path className="rv1" d="m149.6 68c-0.6-5-4.7-9.1-9.8-9.4l-37.8-0.9-11.8-36.5c-1.3-4-4.8-6.8-9-7.3-4.3-0.7-9.8 2.7-11.3 7.4l-11.7 36.3-38.1 1c-8.9 0.6-13.1 11.2-6.7 18.7l31 22.6-10.8 35.4c-2 7.9 4 14.3 10.9 13.4 2 0 3.9-0.6 5.5-1.7l30-21.1 29.9 21c1.8 1.3 3.9 1.9 6.1 1.9 6.9 0.2 11.9-5.5 10.5-13l-10.8-35.9 30.7-22c2.5-2.1 3.7-5.9 3.2-9.9zm-9.5 1.7c0 0.4-0.1 0.7-0.3 0.9l-32.6 23.7c-1.6 1.2-2.6 3.3-1.7 5.9l11.4 37.4c0.5 1.5-0.6 2.2-1.7 1.4l-32.1-22.4c-1.8-1.3-4.2-1.4-6.2-0.1l-32 22.5c-1.1 0.7-2.2 0.1-1.8-1.4l11.7-37.1 0.1-0.5c0.7-2.6-0.2-4.9-2.1-6l-32.7-23.4c-0.8-0.6-0.6-2.1 0.7-2.1l41.3-1c1.9-0.1 3.7-1.3 4.4-3.3l12.3-39.1c0.5-2.1 1.8-1.9 2.2-0.5l12.6 39.4c0.7 2 2.5 3.4 4.6 3.5l41.3 1c0.3 0.1 0.7 0.5 0.8 0.8l-0.2 0.4z"/></svg>
-          <h3>Reviews on autopilot</h3>
-          <p>Turn happy customers into 5-star reviews — asked at exactly the right moment.</p>
-        </div>
-        <div className="htv-opp">
-          <svg className="htv-ic" viewBox="0 0 115.7 99"><style>{`.sb0{fill:#F4F2EA}.sb1{fill:#B9FF35}`}</style><path className="sb0" d="m100.6 5.6h-12.6v-2.7c0-2.5-2.1-4.9-4.7-4.9s-5.4 2-5.4 4.9v2.6h-40.4l0.1-0.1v-2.5c0-2.6-2-4.9-4.9-4.9s-4.9 2.3-4.9 4.9v2.7h-12.7c-3.6 0-7.2 3.1-7.2 7.3v81.2c0 3.8 2.9 6.7 6.9 6.9h86.1c2.9 0 6.7-2.5 6.7-6.7v-81.4c0-3.6-2.8-7.3-7-7.3zm-19.4 8.9c0.4-0.2 0.2-0.7 0.2-5.6v0.1-6c0-0.7 0.6-1.5 1.5-1.5s1.6 0.6 1.6 1.5v11.4c0 0.9 1.2 1.5 1.2 3.2-0.1 1.9-1.6 3.4-3.4 3.4-1.8 0.1-3.8-1.4-3.8-3.4 0-1.7 2-2.9 2.7-3.1zm-50.3 0.4v-11.5c0-0.9 0.7-1.9 1.6-1.9s1.6 0.8 1.6 1.5v10c0 1.8 0.8 1.1 2 2.6 0.3 0.5 0.6 1.1 0.6 2 0 1.9-1.7 3.4-3.4 3.4s-3.6-1.4-3.6-3.3c0-1.2 0.6-2 1.2-2.8zm73 79c0 1.7-1.3 3.3-3.2 3.3h-85.7c-1.7 0-3.3-1.4-3.4-3.3v-80.8c0-1.6 1.3-3.6 3.6-3.6h12.5v3.4c-1 1.2-1.8 2.5-1.9 4.7 0 3.9 3 6.9 7 6.9 4.1 0.1 7.9-2.8 7.9-6.9 0.1-2.1-1-4.7-3.2-6v-2.2h40.5l-0.1 2.2c-1.6 1.2-3.1 3.3-3 6 0.1 3.9 3.2 6.9 7.1 6.9s7.1-2.4 7.5-6.5c0.2-1.9-0.6-4.1-1.5-5.1v-3.5h12.4c2-0.1 3.5 1.7 3.5 3.7v80.8z"/><path className="sb0" d="m95.9 34.1c0-0.9-0.8-2-1.9-1.9h-72.7c-0.9 0-1.9 0.8-1.9 1.9v53.6c0 1 0.8 2 1.9 2h48.8c0.9 0 1.7-0.9 1.7-1.8v-16.1h11c2.2 0.3 2.9-2.7 0.8-3.9h-0.3-11v-13.9h19.8v5.9c0.2 2.2 4 2.2 4 0v-25.8zm-52.1 51.6h-20.6v-13.9h20.6v13.9zm0-18.1h-20.6v-13.6h20.6v13.6zm0-17.4h-20.6v-14h20.6v14zm24.2 35.5h-20.5v-13.9h20.5v13.9zm0-18.1h-20.5v-13.6h20.5v13.6zm0-17.4h-20.5v-14h20.5v14zm24.1 0h-20.3v-14h20.4v14z"/><path className="sb1" d="m82.9 83.5c0.6 0.5 1.9 0.8 2 0.3 0.4-0.1-0.1 0.1 12.7-14.9 1.5-1.6-0.5-5-3-3.2l-11.6 13.8-4.2-4c-1.8-1.5-4.2 0.3-3 2.6l5.9 5.8"/></svg>
-          <h3>Self-booking</h3>
-          <p>Let customers grab the right slot themselves — no more endless phone tag.</p>
-        </div>
-        <div className="htv-opp">
-          <svg className="htv-ic" viewBox="0 0 150 150"><style>{`.wb0{fill:#B9FF35}.wb1{fill:none;stroke:#F4F2EA;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}.wb2{fill:none;stroke:#F4F2EA;stroke-width:3.2;stroke-miterlimit:10}`}</style><polygon className="wb0" points="71.9 9.1 71.9 36.8 91.1 22.9"/><path className="wb1" d="m83.5 9.7c29.2 2.8 57.8 28.4 57.8 65.8 0 35.5-27 65.5-66.3 65.5-38 0-66.3-29.3-66.3-65.5 0-32.5 24.1-60.9 57-65.7"/><path className="wb1" d="m91.3 31.1c12.7 4.5 30.9 18.9 30.9 44.3 0 24.2-19.2 46.6-47 46.6-25.9 0.1-47.5-20.7-47.5-46.6 0-23.6 19.8-46.1 44.2-47v8.4l19.2-13.9-19-13.9v8.3"/><path className="wb2" d="m87.2 60c0 6.3-5.1 12.4-12.2 12.4s-12.2-5.4-12.2-12.3 5.3-13.2 12.3-13.2c6.4 0 12.1 5.5 12.1 13v0.1z"/><path className="wb1" d="m50.1 102.4c0.5-11.8 10.7-22.3 24.8-22.3 11.5 0 24.1 8.5 25 22.3"/></svg>
-          <h3>Win-back &amp; repeat</h3>
-          <p>Your past customers are your easiest next sale. Bring them back before they forget you.</p>
-        </div>
-        <div className="htv-opp htv-opp--wide">
-          <svg className="htv-ic" viewBox="0 0 100 96"><style>{`.el0{fill:#F4F2EA}.el1{fill:#B9FF35}`}</style><path className="el0" d="m76.8 92.6h-53.5c-9.7 0-18.2-7.6-18.2-18.3v-57.9c0-6.8 5.6-13.1 12.9-13.1h63.9c7-0.2 13.1 5.9 13.1 13.1v57.9c0.1 10.8-7.9 18.3-18.2 18.3zm-58.9-86.1c-5.3 0-9.5 4.5-9.5 9.8v58.1c0 8.2 6.5 15 14.8 15h53.8c8 0 14.7-6.1 14.7-14.8l0.1-58.2c0-5.2-4.1-9.9-9.7-9.9h-64.2z"/><path className="el1" d="m27.6 57.5c-5.2 0-9.7-4-9.8-9.5-0.1-4.9 4.1-9.6 9.8-9.5 5.1 0 9.7 4.1 9.7 9.6s-4.2 9.4-9.7 9.4zm0-15.6c-3 0-6.2 2.4-6.2 6.1 0 3.5 2.9 6.1 6.2 6.1 3.3 0 6.2-2.7 6.2-6s-2.8-6.1-6.2-6.1z"/><path className="el1" d="m50 57.5c-5.2 0-9.4-3.8-9.5-9.3-0.1-4.8 4-9.8 9.6-9.7 4.8 0 9.4 3.9 9.4 9.5-0.1 5.2-4 9.5-9.5 9.5zm0-15.6c-2.9 0-6.1 2.3-6.1 6.1 0 3.1 2.6 6 6 6 3.2 0.1 6-2.5 6-6 0.1-3.2-2.6-6.1-5.9-6.1z"/><path className="el1" d="m72.4 57.5c-5.1-0.1-9.5-3.9-9.7-9.4-0.1-4.7 3.9-9.8 9.8-9.6 4.8 0 9.4 3.7 9.5 9.2 0.1 5.4-4.1 9.8-9.6 9.8zm0-15.6c-2.7 0-6.1 2.4-6.1 6 0 2.9 2.2 6.1 6.1 6.1 3.2 0.1 6.1-2.6 6.1-6 0-3.3-2.8-6.1-6.1-6.1z"/></svg>
-          <h3>…and the ones that are yours alone</h3>
-          <p>Every business has its own quiet wins waiting. Finding yours is exactly what the audit is for.</p>
-        </div>
+          {SLOTS.map((variants, i) => {
+            const v = variants[idx[i]];
+            return (
+              <div className="htv-opp htv-opp-cycle" key={i}>
+                <span className="htv-ic-slot">{ICONS[i]}</span>
+                <div className="htv-opp-face" key={v.id}>
+                  <h3>{v.title}</h3>
+                  <p>{v.body}</p>
+                </div>
+              </div>
+            );
+          })}
+          <div className="htv-opp htv-opp--wide">
+            <svg className="htv-ic" viewBox="0 0 100 96"><style>{`.el0{fill:#F4F2EA}.el1{fill:#B9FF35}`}</style><path className="el0" d="m76.8 92.6h-53.5c-9.7 0-18.2-7.6-18.2-18.3v-57.9c0-6.8 5.6-13.1 12.9-13.1h63.9c7-0.2 13.1 5.9 13.1 13.1v57.9c0.1 10.8-7.9 18.3-18.2 18.3zm-58.9-86.1c-5.3 0-9.5 4.5-9.5 9.8v58.1c0 8.2 6.5 15 14.8 15h53.8c8 0 14.7-6.1 14.7-14.8l0.1-58.2c0-5.2-4.1-9.9-9.7-9.9h-64.2z"/><path className="el1" d="m27.6 57.5c-5.2 0-9.7-4-9.8-9.5-0.1-4.9 4.1-9.6 9.8-9.5 5.1 0 9.7 4.1 9.7 9.6s-4.2 9.4-9.7 9.4zm0-15.6c-3 0-6.2 2.4-6.2 6.1 0 3.5 2.9 6.1 6.2 6.1 3.3 0 6.2-2.7 6.2-6s-2.8-6.1-6.2-6.1z"/><path className="el1" d="m50 57.5c-5.2 0-9.4-3.8-9.5-9.3-0.1-4.8 4-9.8 9.6-9.7 4.8 0 9.4 3.9 9.4 9.5-0.1 5.2-4 9.5-9.5 9.5zm0-15.6c-2.9 0-6.1 2.3-6.1 6.1 0 3.1 2.6 6 6 6 3.2 0.1 6-2.5 6-6 0.1-3.2-2.6-6.1-5.9-6.1z"/><path className="el1" d="m72.4 57.5c-5.1-0.1-9.5-3.9-9.7-9.4-0.1-4.7 3.9-9.8 9.8-9.6 4.8 0 9.4 3.7 9.5 9.2 0.1 5.4-4.1 9.8-9.6 9.8zm0-15.6c-2.7 0-6.1 2.4-6.1 6 0 2.9 2.2 6.1 6.1 6.1 3.2 0.1 6.1-2.6 6.1-6 0-3.3-2.8-6.1-6.1-6.1z"/></svg>
+            <h3>…and the ones that are yours alone</h3>
+            <p>Every business has its own quiet wins waiting. Finding yours is exactly what the audit is for.</p>
+          </div>
         </div>
       </div>
     </section>

@@ -6104,3 +6104,11 @@ footer {
 
 /* lift all content above the fixed ambient bg */
 .htv-hero, .htv-section, .htv-reframe { position: relative; z-index: 1; }
+
+/* Home v2 — Opportunity cycling tiles (flip-reveal) */
+.htv-opp { min-height: 172px; }
+.htv-opp-cycle { perspective: 640px; }
+.htv-ic-slot { display: block; }
+.htv-opp-face { transform-origin: top center; animation: htv-flipin 0.52s cubic-bezier(0.2, 0.8, 0.25, 1); }
+@keyframes htv-flipin { 0% { opacity: 0; transform: rotateX(-70deg); } 60% { opacity: 1; } 100% { opacity: 1; transform: rotateX(0deg); } }
+@media (prefers-reduced-motion: reduce) { .htv-opp-face { animation: none; } }
