@@ -18,7 +18,7 @@ export function Hero() {
             <b>quietly handled by AI built around how you already work.</b> You run the business. It takes care of the busywork.
           </p>
           <a href="#" data-calendly className="btn btn-primary">
-            Book your free 15-min AI Assessment
+            Book your free business assessment
           </a>
         </div>
 
