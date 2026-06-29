@@ -251,7 +251,7 @@ const IDEAS: Record<string, { title: string; body: string }> = {
   quote: { title: "Instant quotes", body: "A quote that lands the same hour hits different than one that takes three days." },
   proposal: { title: "Proposals & contracts", body: "Personalized proposals and contracts drafted on demand — interest to signature, faster." },
   bid: { title: "Bid & RFP responses", body: "Sharp, personalized bid responses — more contracts won, fewer late nights." },
-  missed: { title: "Missed-call text-back", body: "Every missed call gets a friendly text right back — before they call someone else." },
+  missed: { title: "Missed-call text-back", body: "Every missed call gets a friendly text right back." },
   reception: { title: "24/7 AI receptionist", body: "Answers, qualifies, and books calls around the clock — even after hours." },
   abandoned: { title: "Abandoned-quote recovery", body: "Re-engages anyone who started a quote and drifted off — recovering warm leads." },
   invoice: { title: "Invoice & payment chasing", body: "Chases unpaid invoices so you don't have to." },
@@ -266,7 +266,7 @@ const IDEAS: Record<string, { title: string; body: string }> = {
   reorder: { title: "Reorder reminders", body: "Nudges customers to rebuy or renew." },
   reactivation: { title: "CRM reactivation", body: "Mines the dead leads already sitting in your CRM." },
   upsell: { title: "Upsell & cross-sell", body: "Offers the right add-on at the perfect moment." },
-  yours: { title: "…and the ones that are yours alone", body: "Every business has its own quiet wins waiting. Finding yours is exactly what the audit is for." },
+  yours: { title: "…and the ones that are yours alone", body: "Every business has its own quiet wins waiting. Let\u2019s find yours together." },
 };
 
 const POOLS: string[][] = [
