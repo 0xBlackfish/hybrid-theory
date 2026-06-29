@@ -295,7 +295,7 @@ function OppTile({ pool, idx, token }: { pool: string[]; idx: number; token: num
       return;
     }
     el.classList.add("htv-flipping");
-    const swap = setTimeout(() => setShown(idx), 320);
+    const swap = setTimeout(() => setShown(idx), 550);
     const done = () => el.classList.remove("htv-flipping");
     el.addEventListener("animationend", done, { once: true });
     return () => {
