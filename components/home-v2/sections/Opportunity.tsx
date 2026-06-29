@@ -279,9 +279,20 @@ const POOLS: string[][] = [
   ["reactivation", "winback", "reorder", "upsell"],
 ];
 
+function Face({ id }: { id: string }) {
+  return (
+    <>
+      <span className="htv-ic-slot">{ICONS[id]}</span>
+      <h3>{IDEAS[id].title}</h3>
+      <p>{IDEAS[id].body}</p>
+    </>
+  );
+}
+
 function OppTile({ pool, idx, token }: { pool: string[]; idx: number; token: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [shown, setShown] = useState(0);
+  const [flipped, setFlipped] = useState(false);
+  const [front, setFront] = useState(pool[0]);
+  const [back, setBack] = useState(pool[0]);
   const mounted = useRef(false);
 
   useEffect(() => {
@@ -289,28 +300,20 @@ function OppTile({ pool, idx, token }: { pool: string[]; idx: number; token: num
       mounted.current = true;
       return;
     }
-    const el = ref.current;
-    if (!el) {
-      setShown(idx);
-      return;
-    }
-    el.classList.add("htv-flipping");
-    const swap = setTimeout(() => setShown(idx), 550);
-    const done = () => el.classList.remove("htv-flipping");
-    el.addEventListener("animationend", done, { once: true });
-    return () => {
-      clearTimeout(swap);
-      el.removeEventListener("animationend", done);
-    };
+    const id = pool[idx];
+    // set the hidden face to the new idea, then turn the whole card over to reveal it
+    setFlipped((f) => {
+      if (f) setFront(id);
+      else setBack(id);
+      return !f;
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
-  const id = pool[shown];
   return (
-    <div className="htv-opp htv-opp-flip" ref={ref}>
-      <span className="htv-ic-slot">{ICONS[id]}</span>
-      <h3>{IDEAS[id].title}</h3>
-      <p>{IDEAS[id].body}</p>
+    <div className={"htv-opp htv-opp-flip" + (flipped ? " is-flipped" : "")}>
+      <div className="htv-face htv-front"><Face id={front} /></div>
+      <div className="htv-face htv-back"><Face id={back} /></div>
     </div>
   );
 }
