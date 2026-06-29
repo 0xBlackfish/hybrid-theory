@@ -48,9 +48,8 @@ export function LeakCycler() {
 
     const stage = root.querySelector<HTMLElement>(".stage");
     const sbname = root.querySelector<HTMLElement>("[data-sbname]");
-    const sbctx = root.querySelector<HTMLElement>("[data-sbctx]");
     const cards = Array.from(root.querySelectorAll<HTMLElement>(".card"));
-    if (!stage || !sbname || !sbctx) return;
+    if (!stage || !sbname) return;
 
     let si = 0;
     let k = 0;
@@ -116,7 +115,6 @@ export function LeakCycler() {
       root!.querySelectorAll<HTMLElement>(".scene").forEach((s) => s.classList.toggle("active", s.dataset.flow === sc.flow));
       stage!.style.setProperty("--c", sc.hex);
       sbname!.textContent = sc.name;
-      sbctx!.textContent = sc.ctx;
       cards.forEach((c, i) => {
         const on = i === si;
         c.classList.toggle("active", on);

@@ -14,12 +14,6 @@ export function LiveDemo() {
         </div>
 
         <LeakCycler />
-
-        <p className="htv-demo-cap">
-          Six of the most common leaks &mdash; each a working build, each in the industry it fits
-          best. Tap any card to jump in; they run on their own. Your free assessment finds where{" "}
-          <strong>yours</strong> is going.
-        </p>
       </div>
     </section>
   );
