@@ -49,11 +49,16 @@ export function LeakCycler() {
     const stage = root.querySelector<HTMLElement>(".stage");
     const sbname = root.querySelector<HTMLElement>("[data-sbname]");
     const cards = Array.from(root.querySelectorAll<HTMLElement>(".seg"));
+    const pp = root.querySelector<HTMLElement>("[data-playpause]");
     if (!stage || !sbname) return;
 
     let si = 0;
     let k = 0;
     let timer: ReturnType<typeof setInterval> | null = null;
+    let userPaused = false;
+    const syncPP = () => {
+      if (pp) { pp.classList.toggle("paused", userPaused); pp.setAttribute("aria-label", userPaused ? "Play" : "Pause"); }
+    };
 
     const panelOf = (flow: string) => root.querySelector<HTMLElement>('.scene[data-flow="' + flow + '"]');
     const typing = (t: string) => t + ' <span class="typing"><i></i><i></i><i></i></span>';
@@ -150,15 +155,20 @@ export function LeakCycler() {
       setProgress(true);
     }
 
-    function start() { if (!timer) timer = setInterval(tick, INTERVAL); }
+    function start() { if (userPaused || timer) return; timer = setInterval(tick, INTERVAL); }
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
 
     const detach: Array<() => void> = [];
     cards.forEach((c, i) => {
-      const handler = () => { stop(); gotoScene(i); start(); };
+      const handler = () => { userPaused = false; syncPP(); stop(); gotoScene(i); start(); };
       c.addEventListener("click", handler);
       detach.push(() => c.removeEventListener("click", handler));
     });
+    if (pp) {
+      const toggle = () => { userPaused = !userPaused; if (userPaused) stop(); else start(); syncPP(); };
+      pp.addEventListener("click", toggle);
+      detach.push(() => pp.removeEventListener("click", toggle));
+    }
 
     gotoScene(0);
 

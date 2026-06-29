@@ -5730,6 +5730,12 @@ footer {
 .htleak .stagebar .l .dot{width:7px;height:7px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 22%,transparent);transition:background .4s,box-shadow .4s}
 .htleak .stagebar .l b{color:var(--c);font-weight:500;transition:color .4s}
 .htleak .stagebar .r{font-family:var(--mono);font-size:10.5px;color:var(--ink-mute);letter-spacing:.08em}
+.htleak .playpause{appearance:none;border:1px solid var(--rule);background:rgba(255,255,255,.03);color:var(--ink-soft);width:28px;height:28px;border-radius:8px;display:grid;place-items:center;cursor:pointer;padding:0;transition:color .2s,border-color .2s,background .2s}
+.htleak .playpause:hover{color:var(--ink);border-color:color-mix(in srgb,var(--c) 45%,var(--rule));background:color-mix(in srgb,var(--c) 9%,transparent)}
+.htleak .playpause svg{width:14px;height:14px;display:block}
+.htleak .playpause .i-play{display:none}
+.htleak .playpause.paused .i-pause{display:none}
+.htleak .playpause.paused .i-play{display:block}
 .htleak .scene{display:none;gap:24px;padding:28px;position:relative;z-index:1;height:var(--scene-h)}
 .htleak .scene.active{display:flex}
 .htleak .pane{flex:1;min-width:0;display:flex;flex-direction:column}
