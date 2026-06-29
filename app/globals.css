@@ -5721,7 +5721,7 @@ footer {
    Scoped under .htleak. Tokens/keyframes namespaced to avoid collisions.
    Generated from the approved prototype — see components/home/leakMarkup.ts
    ============================================================ */
-.htleak{--teal:#3FE0A8;--violet:#A78BFA;--star:#F5A623;--lite:#FBFAF6;--lite-2:#F0EFE8;--lite-ink:#1B1C21;--lite-soft:#6E6F77;--lite-rule:#E7E6DE;--rule-2:#2E313A;--stage-h:548px;--c:var(--amber)}
+.htleak{--teal:#3FE0A8;--violet:#A78BFA;--star:#F5A623;--lite:#FBFAF6;--lite-2:#F0EFE8;--lite-ink:#1B1C21;--lite-soft:#6E6F77;--lite-rule:#E7E6DE;--rule-2:#2E313A;--stage-h:548px;--scene-h:768px;--c:var(--amber)}
 .htleak *{box-sizing:border-box;margin:0;padding:0}
 .htleak .stage{position:relative;margin-top:44px;background:var(--paper-2);border:1px solid color-mix(in srgb,var(--c) 30%,var(--rule));border-radius:24px;overflow:hidden;transition:border-color .55s}
 .htleak .stage::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 120% at 88% -10%,color-mix(in srgb,var(--c) 15%,transparent),transparent 60%);pointer-events:none;transition:background .55s}
@@ -5730,7 +5730,7 @@ footer {
 .htleak .stagebar .l .dot{width:7px;height:7px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 22%,transparent);transition:background .4s,box-shadow .4s}
 .htleak .stagebar .l b{color:var(--c);font-weight:500;transition:color .4s}
 .htleak .stagebar .r{font-family:var(--mono);font-size:10.5px;color:var(--ink-mute);letter-spacing:.08em}
-.htleak .scene{display:none;gap:24px;padding:28px;position:relative;z-index:1;height:573px}
+.htleak .scene{display:none;gap:24px;padding:28px;position:relative;z-index:1;height:var(--scene-h)}
 .htleak .scene.active{display:flex}
 .htleak .pane{flex:1;min-width:0;display:flex;flex-direction:column}
 .htleak .panelcap{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:12px;height:13px;white-space:nowrap;overflow:hidden}
@@ -5741,7 +5741,7 @@ footer {
 .htleak .typing i{width:4px;height:4px;border-radius:50%;background:var(--c);animation:htbk 1.2s infinite}
 .htleak .typing i:nth-child(2){animation-delay:.18s}
 .htleak .typing i:nth-child(3){animation-delay:.36s}
-.htleak .lite{background:var(--lite);border:1px solid var(--lite-rule);border-radius:14px;color:var(--lite-ink);box-shadow:0 16px 38px -22px rgba(0,0,0,.75);overflow:hidden;height:var(--stage-h);display:flex;flex-direction:column}
+.htleak .lite{background:var(--lite);border:1px solid var(--lite-rule);border-radius:14px;color:var(--lite-ink);box-shadow:0 16px 38px -22px rgba(0,0,0,.75);overflow:hidden;flex:1;min-height:0;display:flex;flex-direction:column}
 .htleak .lhead{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 14px;border-bottom:1px solid var(--lite-rule);font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--lite-soft);flex:none}
 .htleak .ltitle{display:flex;align-items:center;gap:8px}
 .htleak .brandmark{width:16px;height:16px;border-radius:5px;background:linear-gradient(135deg,color-mix(in srgb,var(--c) 55%,#fff),color-mix(in srgb,var(--c) 90%,#000))}
@@ -5762,7 +5762,7 @@ footer {
 @keyframes htbk{0%,60%,100%{opacity:.25}30%{opacity:1}}
 @keyframes htwv{0%,100%{height:5px}50%{height:18px}}
 .htleak [data-flow="missed"] .pane{justify-content:center}
-@media(max-width:860px){.htleak .scene{height:auto;flex-direction:column}.htleak .lite{height:auto;min-height:420px}.htleak [data-flow="missed"] .pane{justify-content:flex-start}.htleak .cards{grid-template-columns:repeat(3,1fr)}.htleak .fgrow{display:none}}
+@media(max-width:860px){.htleak .scene{height:auto;flex-direction:column}.htleak .lite{flex:none;height:auto;min-height:420px}.htleak [data-flow="missed"] .pane{justify-content:flex-start}.htleak .cards{grid-template-columns:repeat(3,1fr)}.htleak .fgrow{display:none}}
 @media(max-width:560px){.htleak .cards{grid-template-columns:repeat(2,1fr)}}
 .htleak [data-flow="missed"] .pane.r{justify-content:center;gap:16px}
 .htleak [data-flow="missed"] .phone{width:248px;margin:0 auto;background:#0b0c0f;border-radius:32px;padding:9px;box-shadow:0 36px 70px -28px rgba(0,0,0,.9);border:1px solid #2b2d35}
