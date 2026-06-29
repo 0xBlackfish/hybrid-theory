@@ -5751,19 +5751,21 @@ footer {
 .htleak .pill.mute{background:var(--lite-2);color:var(--lite-soft)}
 .htleak .pill.ok{background:#dcf2e6;color:var(--ok)}
 .htleak .pill.bad{background:#fbe4de;color:var(--bad)}
-.htleak .cards{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:16px}
-.htleak .card{position:relative;background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;padding:14px;overflow:hidden;opacity:.5;transition:.25s;cursor:pointer;text-align:left;font:inherit}
-.htleak .card:hover{opacity:.85}
-.htleak .card.active{opacity:1;border-color:color-mix(in srgb,var(--cc) 55%,var(--rule-2));background:color-mix(in srgb,var(--cc) 8%,var(--paper-2))}
-.htleak .card .ck{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--cc);display:flex;align-items:center;gap:6px;margin-bottom:8px}
-.htleak .card .ck .d{width:5px;height:5px;border-radius:50%;background:var(--cc)}
-.htleak .card .ct{font-size:13px;font-weight:600;line-height:1.25;color:var(--ink)}
-.htleak .card .next{font-family:var(--mono);font-size:8.5px;color:var(--ink-mute);margin-top:7px;letter-spacing:.08em;min-height:11px}
+.htleak .cards{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:20px}
+.htleak .seg{background:none;border:none;padding:0;cursor:pointer;text-align:left;font:inherit;display:block}
+.htleak .seg .track{display:block;height:3px;border-radius:999px;background:rgba(255,255,255,.10);overflow:hidden;transition:background .3s}
+.htleak .seg .fill{display:block;height:100%;width:0;border-radius:999px;background:var(--accent)}
+.htleak .seg.active .track{background:rgba(255,255,255,.14)}
+.htleak .seg.active .fill{background:var(--sc,var(--accent))}
+.htleak .seg .lab{display:block;margin-top:11px;font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .3s}
+.htleak .seg:hover .lab{color:var(--ink-soft)}
+.htleak .seg.done .lab{color:var(--ink-soft)}
+.htleak .seg.active .lab{color:var(--ink)}
 @keyframes htbk{0%,60%,100%{opacity:.25}30%{opacity:1}}
 @keyframes htwv{0%,100%{height:5px}50%{height:18px}}
 .htleak [data-flow="missed"] .pane{justify-content:flex-start}
-@media(max-width:860px){.htleak .scene{height:auto;flex-direction:column}.htleak .lite{flex:none;height:auto;min-height:420px}.htleak [data-flow="missed"] .pane{justify-content:flex-start}.htleak .cards{grid-template-columns:repeat(3,1fr)}.htleak .fgrow{display:none}}
-@media(max-width:560px){.htleak .cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){.htleak .scene{height:auto;flex-direction:column}.htleak .lite{flex:none;height:auto;min-height:420px}.htleak [data-flow="missed"] .pane{justify-content:flex-start}.htleak .cards{gap:8px}.htleak .seg .lab{font-size:9px;letter-spacing:.03em}.htleak .fgrow{display:none}}
+@media(max-width:560px){.htleak .seg .lab{display:none}}
 .htleak [data-flow="missed"] .pane.r{justify-content:flex-start;gap:20px}
 .htleak [data-flow="missed"] .phone{width:312px;margin:0 auto;background:#0b0c0f;border-radius:40px;padding:11px;box-shadow:0 36px 70px -28px rgba(0,0,0,.9);border:1px solid #2b2d35}
 .htleak [data-flow="missed"] .screen{background:var(--lite);border-radius:30px;overflow:hidden}

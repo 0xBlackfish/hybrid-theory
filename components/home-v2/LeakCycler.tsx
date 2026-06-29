@@ -48,7 +48,7 @@ export function LeakCycler() {
 
     const stage = root.querySelector<HTMLElement>(".stage");
     const sbname = root.querySelector<HTMLElement>("[data-sbname]");
-    const cards = Array.from(root.querySelectorAll<HTMLElement>(".card"));
+    const cards = Array.from(root.querySelectorAll<HTMLElement>(".seg"));
     if (!stage || !sbname) return;
 
     let si = 0;
@@ -110,20 +110,28 @@ export function LeakCycler() {
       if (rate) rate.classList.remove("lit");
     }
 
+    function setProgress(smooth: boolean) {
+      const total = SCENES[si].seq.length - 1 + HOLD;
+      cards.forEach((c, i) => {
+        const fill = c.querySelector<HTMLElement>(".fill");
+        if (!fill) return;
+        const w = i < si ? 100 : i === si ? (Math.min(k, total) / total) * 100 : 0;
+        fill.style.transition = smooth && i === si ? "width " + INTERVAL + "ms linear" : "none";
+        fill.style.width = w + "%";
+      });
+    }
+
     function renderScene() {
       const sc = SCENES[si];
       root!.querySelectorAll<HTMLElement>(".scene").forEach((s) => s.classList.toggle("active", s.dataset.flow === sc.flow));
       stage!.style.setProperty("--c", sc.hex);
       sbname!.textContent = sc.name;
       cards.forEach((c, i) => {
-        const on = i === si;
-        c.classList.toggle("active", on);
-        const nx = c.querySelector<HTMLElement>(".next");
-        if (nx) {
-          if (on) { nx.textContent = "● Showing · " + (c.dataset.ind || ""); nx.style.color = "var(--cc)"; }
-          else { nx.textContent = c.dataset.ind || ""; nx.style.color = ""; }
-        }
+        c.classList.toggle("active", i === si);
+        c.classList.toggle("done", i < si);
+        if (i === si) c.style.setProperty("--sc", sc.hex);
       });
+      setProgress(false);
     }
 
     function gotoScene(i: number) {
@@ -139,6 +147,7 @@ export function LeakCycler() {
       if (k >= L - 1 + HOLD) { gotoScene((si + 1) % SCENES.length); return; }
       k++;
       renderPhase(Math.min(k, L - 1));
+      setProgress(true);
     }
 
     function start() { if (!timer) timer = setInterval(tick, INTERVAL); }
