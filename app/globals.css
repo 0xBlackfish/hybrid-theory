@@ -5730,18 +5730,18 @@ footer {
 .htleak .stagebar .l .dot{width:7px;height:7px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 22%,transparent);transition:background .4s,box-shadow .4s}
 .htleak .stagebar .l b{color:var(--c);font-weight:500;transition:color .4s}
 .htleak .stagebar .r{font-family:var(--mono);font-size:10.5px;color:var(--ink-mute);letter-spacing:.08em}
-.htleak .scene{display:none;gap:24px;padding:28px;position:relative;z-index:1;height:var(--scene-h);align-items:flex-start}
+.htleak .scene{display:none;gap:24px;padding:28px;position:relative;z-index:1;height:var(--scene-h)}
 .htleak .scene.active{display:flex}
 .htleak .pane{flex:1;min-width:0;display:flex;flex-direction:column}
 .htleak .panelcap{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:12px;height:13px;white-space:nowrap;overflow:hidden}
-.htleak .fgrow{display:none}
+.htleak .fgrow{flex:1;min-height:8px}
 .htleak .reveal{opacity:0;transform:translateY(9px);transition:opacity .55s,transform .55s}
 .htleak .reveal.on{opacity:1;transform:none}
 .htleak .typing{display:inline-flex;gap:3px;vertical-align:middle}
 .htleak .typing i{width:4px;height:4px;border-radius:50%;background:var(--c);animation:htbk 1.2s infinite}
 .htleak .typing i:nth-child(2){animation-delay:.18s}
 .htleak .typing i:nth-child(3){animation-delay:.36s}
-.htleak .lite{background:var(--lite);border:1px solid var(--lite-rule);border-radius:14px;color:var(--lite-ink);box-shadow:0 16px 38px -22px rgba(0,0,0,.75);overflow:hidden;flex:none;display:flex;flex-direction:column}
+.htleak .lite{background:var(--lite);border:1px solid var(--lite-rule);border-radius:14px;color:var(--lite-ink);box-shadow:0 16px 38px -22px rgba(0,0,0,.75);overflow:hidden;flex:1;min-height:0;display:flex;flex-direction:column}
 .htleak .lhead{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 14px;border-bottom:1px solid var(--lite-rule);font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--lite-soft);flex:none}
 .htleak .ltitle{display:flex;align-items:center;gap:8px}
 .htleak .brandmark{width:16px;height:16px;border-radius:5px;background:linear-gradient(135deg,color-mix(in srgb,var(--c) 55%,#fff),color-mix(in srgb,var(--c) 90%,#000))}
@@ -5761,7 +5761,7 @@ footer {
 .htleak .card .next{font-family:var(--mono);font-size:8.5px;color:var(--ink-mute);margin-top:7px;letter-spacing:.08em;min-height:11px}
 @keyframes htbk{0%,60%,100%{opacity:.25}30%{opacity:1}}
 @keyframes htwv{0%,100%{height:5px}50%{height:18px}}
-.htleak [data-flow="missed"] .pane{justify-content:center;align-self:stretch}
+.htleak [data-flow="missed"] .pane{justify-content:center}
 @media(max-width:860px){.htleak .scene{height:auto;flex-direction:column}.htleak .lite{flex:none;height:auto;min-height:420px}.htleak [data-flow="missed"] .pane{justify-content:flex-start}.htleak .cards{grid-template-columns:repeat(3,1fr)}.htleak .fgrow{display:none}}
 @media(max-width:560px){.htleak .cards{grid-template-columns:repeat(2,1fr)}}
 .htleak [data-flow="missed"] .pane.r{justify-content:center;gap:16px}
