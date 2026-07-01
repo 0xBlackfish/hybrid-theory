@@ -32,8 +32,8 @@ export function HowItWorks() {
             <div className="htv-how-copy">
               <span className="htv-tag">Step 02 · the full picture</span>
               <h3>Want the whole map? That’s the audit.</h3>
-              <p>The $999 audit is the full report: every opportunity plotted by <b>impact</b> and <b>effort</b>, your <b>six quick wins</b>, the exact tools to use, a 4-day rollout plan, and the ROI to expect.</p>
-              <p>You start where the map says to — <em>high impact, low effort</em> — and it’s yours to keep. If we build together, <b>the $999 comes off your first month.</b></p>
+              <p>The paid audit is the full report: every opportunity plotted by <b>impact</b> and <b>effort</b>, your <b>quick wins</b>, the exact tools to use, a 4-day rollout plan, and the ROI to expect.</p>
+              <p>You start where the map says to — <em>high impact, low effort</em> — and it’s yours to keep. If we build together, <b>the cost comes off your first month.</b></p>
             </div>
             <div>
               <div className="htv-gmap" role="img" aria-label="Growth Map: a 2 by 2 matrix plotting opportunities by impact and effort, with the quick-wins quadrant highlighted.">
@@ -48,17 +48,16 @@ export function HowItWorks() {
                       <div className="htv-quad htv-tr">Major projects</div>
                       <div className="htv-quad htv-bl">Fill-ins</div>
                       <div className="htv-quad htv-br">Ignore these</div>
-                      <div className="htv-pt" style={{"top": "13%", "left": "18%"}}><span className="htv-d"></span><span className="htv-lbl">Speed-to-lead</span></div>
-                      <div className="htv-pt" style={{"top": "25%", "left": "40%"}}><span className="htv-d"></span><span className="htv-lbl">Instant quotes</span></div>
-                      <div className="htv-pt" style={{"top": "36%", "left": "22%"}}><span className="htv-d"></span><span className="htv-lbl">Missed-call text-back</span></div>
-                      <div className="htv-pt" style={{"top": "47%", "left": "33%"}}><span className="htv-d"></span><span className="htv-lbl">Review requests</span></div>
-                      <div className="htv-pt htv-amber htv-lft" style={{"top": "19%", "left": "83%"}}><span className="htv-d"></span><span className="htv-lbl">Custom CRM build</span></div>
+                      <div className="htv-pt" style={{"top": "13%", "left": "18%"}}><span className="htv-d"></span></div>
+                      <div className="htv-pt" style={{"top": "25%", "left": "40%"}}><span className="htv-d"></span></div>
+                      <div className="htv-pt" style={{"top": "36%", "left": "22%"}}><span className="htv-d"></span></div>
+                      <div className="htv-pt" style={{"top": "47%", "left": "33%"}}><span className="htv-d"></span></div>
+                      <div className="htv-pt htv-amber" style={{"top": "19%", "left": "83%"}}><span className="htv-d"></span></div>
                     </div>
                     <div className="htv-x-ax"><span>Low effort</span><span>High effort</span></div>
                   </div>
                 </div>
               </div>
-              <div className="htv-mock-cap">Illustrative sample — your map is built in the audit</div>
             </div>
           </div>
 
