@@ -11,20 +11,19 @@ export function HowItWorks() {
           <div className="htv-how-block">
             <div className="htv-how-copy">
               <span className="htv-tag">Step 01 · free</span>
-              <h3>It starts with a 15-minute conversation.</h3>
+              <h3>It starts with a 30-minute conversation.</h3>
               <p>A few quick questions about how you work, and we pinpoint your <b>single biggest bottleneck</b> — the spot where high frequency meets high friction — then prescribe <b>one tool</b> to fix it.</p>
               <p>You leave with one clear, specific win you could act on tomorrow. Free, no commitment.</p>
             </div>
             <div>
               <div className="htv-assess">
-                <div className="htv-assess-top"><div className="htv-t">Free Assessment</div></div>
-                <div className="htv-assess-list">
-                  <div className="htv-it"><span className="htv-ck">✓</span>A few quick questions about how you work</div>
-                  <div className="htv-it"><span className="htv-ck">✓</span>We pinpoint your #1 bottleneck</div>
-                  <div className="htv-it"><span className="htv-ck">✓</span>You get one specific tool to fix it</div>
-                  <div className="htv-it"><span className="htv-ck">✓</span>A straight answer on whether AI fits</div>
+                <div className="htv-assess-top"><div className="htv-t">Your assessment</div><div className="htv-samp">sample</div></div>
+                <div className="htv-res-list">
+                  <div className="htv-res"><div className="htv-res-l">Biggest bottleneck</div><div className="htv-res-v">After-hours calls going cold</div><div className="htv-res-sub">~9 leads a week slipping to whoever calls back first</div></div>
+                  <div className="htv-res"><div className="htv-res-l">The one fix</div><div className="htv-res-v htv-accent">Speed-to-lead text-back agent</div><div className="htv-res-sub">Replies in under 5 minutes</div></div>
+                  <div className="htv-res"><div className="htv-res-l">Your win, starting tomorrow</div><div className="htv-res-v">Jobs booked from calls that used to go to voicemail</div></div>
                 </div>
-                <div className="htv-assess-foot">No prep needed. One clear next step.</div>
+                <div className="htv-assess-foot">One bottleneck, one fix, one clear next step.</div>
               </div>
             </div>
           </div>
