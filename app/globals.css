@@ -6094,6 +6094,8 @@ footer {
 @media (min-width: 760px) { .htv-aoa { grid-template-columns: repeat(3, 1fr); } }
 .htv-aoa-step { padding: 28px 24px; border: 1px solid var(--rule); border-radius: 14px; background: var(--paper-2); position: relative; }
 .htv-aoa-step .htv-letter { font-family: var(--serif); font-weight: 700; font-size: 40px; color: var(--accent); line-height: 1; }
+.htv-aoa-step .htv-aoa-ic { height: 52px; display: flex; align-items: center; margin-bottom: 6px; }
+.htv-aoa-step .htv-aoa-ic svg { height: 52px; width: auto; max-width: 100%; display: block; }
 .htv-aoa-step h3 { font-size: 18px; margin: 12px 0 8px; }
 .htv-aoa-step p { color: var(--ink-soft); font-size: 14px; }
 
