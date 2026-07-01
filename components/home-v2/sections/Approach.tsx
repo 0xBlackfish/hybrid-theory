@@ -3,7 +3,7 @@ export function Approach() {
     <section id="approach" className="htv-section">
       <div className="htv-wrap">
         <div className="htv-sec-head htv-center">
-          <span className="htv-kicker">Built by operators, not engineers</span>
+          <span className="htv-kicker">Built by operators</span>
           <h2>
             AI doesn&rsquo;t fix a broken process. It <em>scales</em> one.
           </h2>
