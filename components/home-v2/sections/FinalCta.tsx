@@ -1,7 +1,7 @@
 export function FinalCta() {
   return (
     <section id="book" className="htv-final htv-sig">
-      <div className="htv-aurora" aria-hidden="true" />
+      <div className="htv-aurora htv-aurora--center" aria-hidden="true" />
       <div className="htv-wrap">
         <span className="htv-kicker" style={{ justifyContent: "center", display: "inline-flex" }}>
           Your move

@@ -6146,6 +6146,13 @@ footer {
     radial-gradient(40% 60% at 100% 82%, rgba(245,166,35,0.11), transparent 70%); }
 .htv-sig { overflow: hidden; }
 .htv-sig > .htv-wrap { position: relative; z-index: 1; }
+/* Centered, lime-forward aurora variant — for the Final CTA bookend (mirrors the hero, distinct from the right-anchored default) */
+.htv-aurora.htv-aurora--center {
+  background:
+    radial-gradient(46% 56% at 50% 40%, rgba(185,255,53,0.10), transparent 66%),
+    radial-gradient(40% 52% at 26% 72%, rgba(91,227,255,0.09), transparent 70%),
+    radial-gradient(40% 52% at 74% 70%, rgba(167,139,250,0.10), transparent 70%),
+    radial-gradient(40% 46% at 50% 98%, rgba(245,166,35,0.08), transparent 72%); }
 
 /* lift all content above the fixed ambient bg */
 .htv-hero, .htv-section, .htv-reframe { position: relative; z-index: 1; }
