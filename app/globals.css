@@ -5618,7 +5618,11 @@ footer {
    ============================================================ */
 .htv-hero { position: relative; padding: 56px 0 92px; overflow: hidden; background: var(--bg); }
 .htv-hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-.htv-hero-glow { position: absolute; top: -160px; left: 50%; transform: translateX(-50%); width: 760px; height: 520px; background: radial-gradient(ellipse at center, rgba(185,255,53,0.09), transparent 60%); }
+.htv-hero-glow { position: absolute; inset: 0; background:
+  radial-gradient(50% 62% at 50% -8%, rgba(185,255,53,0.10), transparent 62%),
+  radial-gradient(42% 58% at 12% 6%, rgba(91,227,255,0.10), transparent 68%),
+  radial-gradient(44% 58% at 88% 2%, rgba(167,139,250,0.11), transparent 68%),
+  radial-gradient(42% 52% at 80% 42%, rgba(255,61,165,0.08), transparent 70%); }
 .htv-wrap { max-width: 1140px; margin: 0 auto; padding: 0 6vw; position: relative; z-index: 2; }
 @media (min-width: 760px) { .htv-wrap { padding: 0 52px; } }
 .htv-hero-grid { display: grid; gap: 50px; grid-template-columns: 1fr; align-items: center; justify-items: center; }
@@ -6130,9 +6134,18 @@ footer {
 
 /* page-wide ambient background (migrated from #ht-v2 .bg) */
 .htv-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-.htv-bg-glow { position: absolute; top: -220px; right: -140px; width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(185,255,53,0.10), transparent 64%); filter: blur(40px); }
-.htv-bg-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px); background-size: 56px 56px; -webkit-mask-image: radial-gradient(ellipse 80% 70% at 55% 18%, #000 35%, transparent 78%); mask-image: radial-gradient(ellipse 80% 70% at 55% 18%, #000 35%, transparent 78%); }
-.htv-bg-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse 100% 100% at 50% 30%, transparent 60%, rgba(0,0,0,0.45)); }
+/* L0 base texture — quiet blueprint dot-grid, present site-wide */
+.htv-bg-dots { position: absolute; inset: 0; background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 1.6px); background-size: 30px 30px; }
+.htv-bg-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse 110% 100% at 50% 12%, transparent 52%, rgba(0,0,0,0.55)); }
+/* L2 signature aurora + section modifier (drop-in on a color-moment section) */
+.htv-aurora { position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(38% 55% at 84% 6%, rgba(91,227,255,0.15), transparent 70%),
+    radial-gradient(42% 55% at 98% 40%, rgba(255,61,165,0.15), transparent 70%),
+    radial-gradient(46% 60% at 72% 26%, rgba(167,139,250,0.12), transparent 72%),
+    radial-gradient(40% 60% at 100% 82%, rgba(245,166,35,0.11), transparent 70%); }
+.htv-sig { overflow: hidden; }
+.htv-sig > .htv-wrap { position: relative; z-index: 1; }
 
 /* lift all content above the fixed ambient bg */
 .htv-hero, .htv-section, .htv-reframe { position: relative; z-index: 1; }

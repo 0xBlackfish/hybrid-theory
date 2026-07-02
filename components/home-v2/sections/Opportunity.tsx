@@ -341,7 +341,8 @@ export function Opportunity() {
   }, []);
 
   return (
-    <section id="opps" className="htv-section">
+    <section id="opps" className="htv-section htv-sig">
+      <div className="htv-aurora" aria-hidden="true" />
       <div className="htv-wrap">
         <div className="htv-sec-head htv-center">
           <span className="htv-kicker">Where the upside lives</span>
