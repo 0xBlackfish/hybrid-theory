@@ -1,19 +1,10 @@
-const NICHES = [
-  "Roofers",
-  "Dentists",
-  "Landscapers",
-  "Med spas",
-  "Realtors",
-  "Accounting firms",
-  "HVAC & plumbing",
-  "Law practices",
-  "Auto shops",
-  "Contractors",
-];
+import type { CSSProperties } from "react";
+import { INDUSTRIES } from "../whoForIcons";
 
 export function WhoFor() {
   return (
-    <section id="who" className="htv-section htv-band">
+    <section id="who" className="htv-section htv-band htv-whofor">
+      <div className="htv-whofor-aurora" aria-hidden="true" />
       <div className="htv-wrap">
         <div className="htv-sec-head">
           <span className="htv-kicker">Who it&rsquo;s for</span>
@@ -23,11 +14,13 @@ export function WhoFor() {
             few we know well &mdash; and the list keeps growing:
           </p>
         </div>
-        <div className="htv-niches">
-          {NICHES.map((n) => (
-            <span className="htv-niche" key={n}>
-              {n}
-            </span>
+        <div className="htv-whofor-grid">
+          {INDUSTRIES.map((ind) => (
+            <div className="htv-whofor-tile" key={ind.label} style={{ "--c": ind.accent } as CSSProperties}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="htv-whofor-ic" src={ind.icon} alt="" aria-hidden="true" />
+              <span className="htv-whofor-nm">{ind.label}</span>
+            </div>
           ))}
         </div>
       </div>
