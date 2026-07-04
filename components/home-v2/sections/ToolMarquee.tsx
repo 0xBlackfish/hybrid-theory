@@ -5,7 +5,7 @@ export function ToolMarquee() {
   const track = [...TOOL_LOGOS, ...TOOL_LOGOS];
   return (
     <section className="htv-toolmq" aria-label="Tools we work with">
-      <p className="htv-toolmq-label">Works with the tools you already run</p>
+      <p className="htv-toolmq-label">Leverage the tools you already use in your business</p>
       <div className="htv-toolmq-viewport">
         <div className="htv-toolmq-track">
           {track.map((t, i) => (
