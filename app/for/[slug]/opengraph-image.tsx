@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { getVertical, VERTICALS } from "@/content/verticals";
+import { OgBrand, deDollarReceipt } from "@/components/og/brand";
 
 export const alt = "Hybrid Theory — AI for service businesses";
 export const size = { width: 1200, height: 630 };
@@ -15,7 +16,7 @@ export default async function OgImage({ params }: { params: Promise<{ slug: stri
   const { slug } = await params;
   const v = getVertical(slug);
   const headline = v?.hero.headline ?? "Run the business you always pictured.";
-  const receipt = v?.spotlight?.receipt ?? "Booked · $420 · Thu 9:00 AM";
+  const receipt = deDollarReceipt(v?.spotlight?.receipt ?? "New job booked · Thu 9:00 AM");
   const label = v?.label ?? "Service businesses";
 
   return new ImageResponse(
@@ -33,27 +34,7 @@ export default async function OgImage({ params }: { params: Promise<{ slug: stri
         }}
       >
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-            <div
-              style={{
-                width: 52,
-                height: 52,
-                borderRadius: 12,
-                background: "#B9FF35",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#171D18",
-                fontSize: 30,
-                fontWeight: 800,
-              }}
-            >
-              H
-            </div>
-            <div style={{ display: "flex", fontSize: 30, fontWeight: 700, color: "#171D18", letterSpacing: -0.5 }}>
-              Hybrid Theory
-            </div>
-          </div>
+          <OgBrand />
           <div
             style={{
               display: "flex",

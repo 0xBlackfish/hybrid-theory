@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { OgBrand } from "@/components/og/brand";
 
 export const alt = "Hybrid Theory — AI for service businesses";
 export const size = { width: 1200, height: 630 };
@@ -22,27 +23,7 @@ export default function OgImage() {
         }}
       >
         {/* brand row */}
-        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-          <div
-            style={{
-              width: 52,
-              height: 52,
-              borderRadius: 12,
-              background: "#B9FF35",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#171D18",
-              fontSize: 30,
-              fontWeight: 800,
-            }}
-          >
-            H
-          </div>
-          <div style={{ display: "flex", fontSize: 30, fontWeight: 700, color: "#171D18", letterSpacing: -0.5 }}>
-            Hybrid Theory
-          </div>
-        </div>
+        <OgBrand />
 
         {/* headline */}
         <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
@@ -59,7 +40,7 @@ export default function OgImage() {
             Run the business you always pictured.
           </div>
           <div style={{ display: "flex", fontSize: 32, color: "#5C6159", letterSpacing: -0.5 }}>
-            AI that answers, quotes, follows up, and books — for service businesses.
+            More customers. Faster answers. Nothing slipping through the cracks.
           </div>
         </div>
 
@@ -81,7 +62,7 @@ export default function OgImage() {
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#171D18" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
               <path d="M20 6 9 17l-5-5" />
             </svg>
-            Booked · $420 · Thu 9:00 AM
+            New job booked · Thu 9:00 AM
           </div>
           <div
             style={{
