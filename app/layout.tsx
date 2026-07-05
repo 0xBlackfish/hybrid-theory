@@ -14,6 +14,12 @@ export const metadata: Metadata = {
     siteName: "Hybrid Theory",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hybrid Theory — AI for service businesses",
+    description:
+      "AI that answers, quotes, follows up, and books for local service businesses — built around the tools you already use.",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

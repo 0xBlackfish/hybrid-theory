@@ -1,0 +1,37 @@
+# Hybrid Theory
+
+> AI automation consultancy for local service businesses. We build AI that
+> answers calls and messages, sends quotes, follows up, and books work —
+> around the tools each business already uses (ServiceTitan, Dentrix, Clio,
+> Jobber, Follow Up Boss, QuickBooks, and similar). The owner keeps every
+> judgment call; the AI handles the busywork.
+
+How it works: a free 30-minute assessment identifies the single biggest
+bottleneck and one fix; a flat-fee audit maps every opportunity by impact and
+effort (the fee comes off the first month if we build together); then we build
+it either alongside the owner (AI Concierge) or fully managed (Managed Agents).
+
+## Who we help
+
+- [HVAC & plumbing](https://hybridtheory.ai/for/hvac-plumbing): after-hours call answering, emergency triage, tune-up and maintenance-agreement renewals
+- [Roofers](https://hybridtheory.ai/for/roofers): storm-week lead triage, same-hour photo-to-quote, insurance paperwork chasing
+- [Contractors & remodelers](https://hybridtheory.ai/for/contractors): same-day estimates, change orders captured and e-signed, bid follow-up
+- [Dentists](https://hybridtheory.ai/for/dentists): same-day cancellation backfill, hygiene recall, unscheduled-treatment follow-up
+- [Med spas](https://hybridtheory.ai/for/med-spas): Instagram DM-to-consult booking, rebooking cadence, no-show defense
+- [Landscapers](https://hybridtheory.ai/for/landscapers): spring-rush estimating, maintenance-contract renewals with enhancement upsells
+- [Auto shops](https://hybridtheory.ai/for/auto-shops): missed-call recovery, declined-DVI-work revival, status updates
+- [Realtors](https://hybridtheory.ai/for/realtors): portal-lead speed-to-lead, open-house follow-up, long-nurture reactivation
+- [Accounting firms](https://hybridtheory.ai/for/accounting-firms): tax-season document chasing at scale, organizer completion, engagement letters
+- [Law practices](https://hybridtheory.ai/for/law-practices): intake to signed engagement letter, consult scheduling, document collection (scheduling and fact-gathering only — never legal advice)
+- [Tutoring companies](https://hybridtheory.ai/for/tutoring): inquiry-to-enrollment funnel, session backfill, re-enrollment with progress stories
+
+## Key pages
+
+- [Home](https://hybridtheory.ai/): how it works, live workflow demonstrations, all industries
+- [Contact](https://hybridtheory.ai/contact): book a free 30-minute assessment (also via Calendly: https://calendly.com/hybridtheory/30min)
+
+## Notes
+
+- Pricing: the assessment is free; the audit is a flat fee quoted on the call and credited against the first month of a build.
+- Every displayed statistic on the site cites a named source (Clio Legal Trends Report 2024, NAR 2025, AICPA 2025, CFMA 2024, AAA, Harvard Business Review 2011).
+- Contact: hello@hybridtheory.ai
