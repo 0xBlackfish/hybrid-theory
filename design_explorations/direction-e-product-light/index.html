@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hybrid Theory — AI for service businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+<style>
+  /* ============================================================
+     DIRECTION E — PRODUCT-FORWARD, LIGHT
+     Linear's visual-first storytelling, translated to daylight.
+     Every major section is anchored by a rendered UI artifact
+     showing the AI's work, built in pure HTML/CSS.
+     ============================================================ */
+
+  :root {
+    /* Canvas + ink */
+    --paper:      #FAF8F1;   /* warm off-white */
+    --paper-2:    #F3F0E7;   /* recessed warm */
+    --ink:        #171D18;   /* deep warm ink */
+    --ink-2:      #3B443C;   /* secondary text */
+    --ink-3:      #6B746C;   /* muted / labels */
+    --hair:       #E5E1D6;   /* hairline border on paper */
+    --hair-card:  #ECEAE3;   /* hairline inside white cards */
+
+    /* Accent — ONE disciplined accent */
+    --lime:       #B9FF35;   /* fills-with-dark-text only */
+    --lime-soft:  #EAFFC2;
+    --green:      #3E7B27;   /* accent text */
+    --green-ink:  #2C5A1C;
+
+    /* Product surfaces */
+    --card:       #FFFFFF;
+    --card-2:     #FBFAF7;
+
+    /* Shadow tiers — layered, soft, "product shot" */
+    --sh-1: 0 1px 2px rgba(23,29,24,.05), 0 1px 1px rgba(23,29,24,.04);
+    --sh-2: 0 2px 4px rgba(23,29,24,.05), 0 6px 12px rgba(23,29,24,.06);
+    --sh-3: 0 4px 8px rgba(23,29,24,.05), 0 14px 30px rgba(23,29,24,.09), 0 2px 4px rgba(23,29,24,.04);
+    --sh-4: 0 10px 24px rgba(23,29,24,.10), 0 30px 60px rgba(23,29,24,.14);
+
+    --r-lg: 22px;
+    --r-md: 16px;
+    --r-sm: 12px;
+    --maxw: 1160px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  /* Shared label / eyebrow */
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12.5px; font-weight: 600; letter-spacing: .10em;
+    text-transform: uppercase; color: var(--green);
+  }
+  .eyebrow::before {
+    content: ""; width: 7px; height: 7px; border-radius: 2px;
+    background: var(--lime); box-shadow: 0 0 0 3px var(--lime-soft);
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    font-weight: 600; font-size: 16px; letter-spacing: -.01em;
+    padding: 15px 26px; border-radius: 999px; cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    border: 1px solid transparent;
+  }
+  .btn-primary {
+    background: var(--lime); color: var(--ink);
+    box-shadow: 0 1px 2px rgba(23,29,24,.10), 0 8px 20px rgba(120,170,20,.28);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 2px 4px rgba(23,29,24,.12), 0 14px 30px rgba(120,170,20,.36); }
+  .btn-primary svg { width: 17px; height: 17px; }
+  .btn-ghost {
+    background: var(--card); color: var(--ink);
+    border: 1px solid var(--hair); box-shadow: var(--sh-1);
+  }
+  .btn-ghost:hover { transform: translateY(-2px); box-shadow: var(--sh-2); }
+
+  /* ============================================================ NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 60;
+    background: rgba(250,248,241,.82);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--hair);
+  }
+  .nav-in { display: flex; align-items: center; justify-content: space-between; height: 66px; }
+  .brand { display: flex; align-items: center; gap: 11px; font-weight: 700; letter-spacing: -.02em; font-size: 17px; }
+  .brand-mark {
+    width: 30px; height: 30px; border-radius: 9px; background: var(--ink);
+    display: grid; place-items: center; box-shadow: var(--sh-1);
+  }
+  .brand-mark span { color: var(--lime); font-weight: 800; font-size: 16px; line-height: 1; }
+  .nav-links { display: flex; align-items: center; gap: 30px; }
+  .nav-links a { font-size: 14.5px; color: var(--ink-2); font-weight: 500; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { padding: 10px 18px; font-size: 14.5px; }
+  @media (max-width: 860px) { .nav-links a:not(.nav-cta) { display: none; } }
+
+  /* ============================================================ HERO */
+  .hero { position: relative; padding: 74px 0 90px; overflow: hidden; }
+  .hero::before { /* soft warm wash */
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(60% 50% at 78% 8%, rgba(185,255,53,.16), transparent 70%),
+      radial-gradient(50% 40% at 8% 4%, rgba(62,123,39,.06), transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: relative; display: grid; grid-template-columns: 1.02fr 1.15fr;
+    gap: 48px; align-items: center;
+  }
+  .hero-title {
+    font-size: clamp(38px, 5vw, 60px); line-height: 1.02;
+    letter-spacing: -.033em; font-weight: 800; margin: 20px 0 0;
+  }
+  .hero-title em {
+    font-style: normal; position: relative; white-space: nowrap;
+    background: linear-gradient(180deg, transparent 62%, var(--lime) 62%);
+    padding: 0 2px;
+  }
+  .hero-lead { font-size: 19px; color: var(--ink-2); margin: 22px 0 0; max-width: 30em; line-height: 1.6; }
+  .hero-lead b { color: var(--ink); font-weight: 600; }
+  .hero-actions { display: flex; align-items: center; gap: 14px; margin-top: 30px; flex-wrap: wrap; }
+  .hero-trust {
+    margin-top: 18px; font-size: 14px; color: var(--ink-3);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .hero-trust .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--green); }
+
+  /* ---- HERO artifact composition ---- */
+  .stage { position: relative; height: 560px; }
+  @media (max-width: 980px) { .stage { height: auto; } }
+
+  /* generic product-card shell */
+  .card {
+    background: var(--card); border: 1px solid var(--hair-card);
+    border-radius: var(--r-md); box-shadow: var(--sh-3);
+  }
+
+  /* SMS thread — the hero anchor */
+  .sms {
+    position: absolute; top: 12px; left: 4%; width: 340px; z-index: 3;
+    transform: rotate(-1.4deg);
+    overflow: hidden;
+  }
+  .sms-head {
+    display: flex; align-items: center; gap: 11px;
+    padding: 13px 15px; border-bottom: 1px solid var(--hair-card);
+    background: var(--card-2);
+  }
+  .sms-ava {
+    width: 38px; height: 38px; border-radius: 50%; flex: none;
+    background: linear-gradient(135deg, #3E7B27, #6BB13F);
+    color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 15px;
+  }
+  .sms-who { flex: 1; min-width: 0; }
+  .sms-name { font-weight: 600; font-size: 14.5px; letter-spacing: -.01em; }
+  .sms-sub { font-size: 12px; color: var(--ink-3); display: flex; align-items: center; gap: 5px; }
+  .sms-sub svg { width: 11px; height: 11px; }
+  .sms-badge {
+    font-size: 10.5px; font-weight: 600; color: var(--green);
+    background: var(--lime-soft); border: 1px solid #DCF3AE;
+    padding: 3px 8px; border-radius: 999px; white-space: nowrap;
+  }
+  .sms-body { padding: 14px 15px 16px; display: flex; flex-direction: column; gap: 8px; background: var(--card); }
+  .sms-sys { text-align: center; font-size: 11px; color: var(--ink-3); margin: 2px 0 4px; }
+  .sms-sys b { color: var(--ink-2); font-weight: 600; }
+  .bub {
+    max-width: 82%; padding: 9px 13px; border-radius: 17px; font-size: 13.5px;
+    line-height: 1.42; position: relative;
+  }
+  .bub.in { align-self: flex-start; background: var(--paper-2); color: var(--ink); border-bottom-left-radius: 5px; }
+  .bub.out { align-self: flex-end; background: var(--ink); color: #F4F7F2; border-bottom-right-radius: 5px; }
+  .bub.out.ai { background: #234B16; }
+  .bub .t { display: block; font-size: 10px; margin-top: 4px; opacity: .55; }
+  .bub.out .t { text-align: right; }
+  .aitag {
+    align-self: flex-end; display: inline-flex; align-items: center; gap: 5px;
+    font-size: 10px; color: var(--ink-3); margin: -2px 2px 0;
+  }
+  .aitag b { color: var(--green); font-weight: 600; }
+  .aitag .g { width: 6px; height: 6px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 2px var(--lime-soft); }
+
+  /* cascade-in animation */
+  .rise { opacity: 0; transform: translateY(10px); animation: rise .5s cubic-bezier(.22,.9,.3,1) forwards; }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+  /* Morning digest — dark focal notification, top-right */
+  .digest {
+    position: absolute; top: 8px; right: 2%; width: 292px; z-index: 5;
+    transform: rotate(1.6deg);
+    background: #14180F; border: 1px solid #2A3222; border-radius: var(--r-md);
+    box-shadow: var(--sh-4); padding: 15px 16px 16px; color: #EAF0E6;
+  }
+  .digest-head { display: flex; align-items: center; gap: 8px; margin-bottom: 11px; }
+  .digest-ico {
+    width: 22px; height: 22px; border-radius: 6px; background: var(--lime);
+    display: grid; place-items: center; color: #14180F; font-weight: 800; font-size: 12px;
+  }
+  .digest-app { font-size: 12px; font-weight: 600; letter-spacing: .01em; }
+  .digest-time { margin-left: auto; font-size: 11px; color: #7E8A76; }
+  .digest-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .digest-body { font-size: 13px; line-height: 1.5; color: #B7C2AE; }
+  .digest-num { color: var(--lime); font-weight: 700; }
+  .digest-row {
+    margin-top: 12px; padding-top: 11px; border-top: 1px solid #262E1F;
+    display: flex; gap: 14px;
+  }
+  .digest-stat .k { font-size: 17px; font-weight: 700; letter-spacing: -.02em; }
+  .digest-stat .l { font-size: 10.5px; color: #7E8A76; letter-spacing: .02em; }
+
+  /* Calendar day — bottom, slot filling in */
+  .cal {
+    position: absolute; bottom: 6px; right: 6%; width: 288px; z-index: 4;
+    transform: rotate(-1deg); overflow: hidden;
+  }
+  .cal-head {
+    display: flex; align-items: baseline; gap: 8px; padding: 13px 15px 11px;
+    border-bottom: 1px solid var(--hair-card);
+  }
+  .cal-dow { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .cal-date { font-size: 15px; font-weight: 700; letter-spacing: -.01em; }
+  .cal-live { margin-left: auto; font-size: 11px; font-weight: 600; color: var(--green); display: flex; align-items: center; gap: 5px; }
+  .cal-live .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 0 rgba(62,123,39,.5); animation: pulse 2s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 6px rgba(62,123,39,0); } 100% { box-shadow: 0 0 0 0 rgba(62,123,39,0); } }
+  .cal-grid { padding: 8px 15px 15px; }
+  .slot { display: grid; grid-template-columns: 46px 1fr; gap: 10px; align-items: start; padding: 7px 0; }
+  .slot-t { font-size: 11px; color: var(--ink-3); padding-top: 3px; }
+  .slot-e { border-radius: 9px; padding: 8px 10px; font-size: 12px; }
+  .slot-e.empty { border: 1px dashed var(--hair); color: var(--ink-3); }
+  .slot-e.filled {
+    background: var(--lime-soft); border: 1px solid #CFEE93; color: var(--green-ink);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.5);
+    animation: rise .5s .9s both cubic-bezier(.22,.9,.3,1);
+  }
+  .slot-e.filled .st { font-weight: 600; font-size: 12.5px; display: flex; align-items: center; justify-content: space-between; }
+  .slot-e.filled .ss { font-size: 11px; color: var(--green); opacity: .85; margin-top: 2px; }
+  .slot-e .just { font-size: 9.5px; font-weight: 700; background: var(--lime); color: var(--ink); padding: 2px 6px; border-radius: 999px; letter-spacing: .03em; }
+  /* the value receipt — an outcome, shown not claimed */
+  .receipt {
+    margin-top: 8px; display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 700; letter-spacing: -.01em; color: var(--ink);
+    background: var(--lime); padding: 5px 10px; border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(120,170,20,.30);
+    font-variant-numeric: tabular-nums;
+  }
+  .receipt svg { width: 13px; height: 13px; flex: none; }
+
+  /* ---- Hero quote card (roofer: photos → line-item quote → sent) ---- */
+  .qc-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 13px 15px 11px; border-bottom: 1px solid var(--hair-card); }
+  .qc-co { font-size: 13px; font-weight: 700; letter-spacing: -.01em; }
+  .qc-st { font-size: 10.5px; font-weight: 600; color: var(--green); background: var(--lime-soft); border: 1px solid #DCF3AE; padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
+  .qc-body { padding: 11px 15px 15px; }
+  .qc-photos { display: flex; align-items: center; gap: 6px; margin-bottom: 11px; }
+  .qc-photo { width: 42px; height: 32px; border-radius: 7px; background: linear-gradient(135deg,#c8d4bd,#e8eee0); border: 1px solid var(--hair-card); display: grid; place-items: center; color: #6B746C; }
+  .qc-photo svg { width: 14px; height: 14px; }
+  .qc-photos .lab { font-size: 11px; color: var(--ink-3); margin-left: 2px; }
+  .qc-line { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; padding: 5px 0; border-bottom: 1px dashed var(--hair-card); }
+  .qc-line span:first-child { color: var(--ink-2); }
+  .qc-line span:last-child { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .qc-total { display: flex; justify-content: space-between; align-items: baseline; margin: 8px 0 0; }
+  .qc-total .lab { font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-3); }
+  .qc-total .amt { font-size: 19px; font-weight: 800; letter-spacing: -.02em; }
+  .qc-body .receipt { margin-top: 11px; }
+
+  /* effortless swap: digest + value card fade as they change */
+  @keyframes fadeSwap { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  /* ---- Industry switcher — "pick your business" ---- */
+  .hero-visual { display: flex; flex-direction: column; gap: 18px; }
+  .switcher { display: flex; flex-direction: column; gap: 10px; }
+  .sw-lab { font-size: 12px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); }
+  .sw-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 7px; font-family: inherit;
+    font-size: 13.5px; font-weight: 600; color: var(--ink-2);
+    background: var(--card); border: 1px solid var(--hair); border-radius: 999px;
+    padding: 8px 14px; cursor: pointer; box-shadow: var(--sh-1);
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease, color .15s ease;
+  }
+  .chip svg { width: 15px; height: 15px; color: var(--green); }
+  .chip:hover { transform: translateY(-1px); box-shadow: var(--sh-2); }
+  .chip.active { background: var(--ink); color: #F4F7F2; border-color: var(--ink); box-shadow: var(--sh-2); }
+  .chip.active svg { color: var(--lime); }
+
+  /* stack for mobile: cards flow instead of absolute */
+  @media (max-width: 980px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .stage { display: flex; flex-direction: column; align-items: center; gap: 20px; padding-top: 6px; }
+    .sms, .digest, .cal { position: static; transform: none; width: min(360px, 100%); }
+    .digest { order: -1; }
+  }
+
+  /* ============================================================ TOOLS STRIP */
+  .tools { padding: 26px 0 6px; }
+  .tools-lab { text-align: center; font-size: 12.5px; color: var(--ink-3); font-weight: 500; letter-spacing: .02em; margin-bottom: 18px; }
+  .tools-lab b { color: var(--ink-2); font-weight: 600; }
+  .tools-row {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+    gap: 10px 12px;
+  }
+  .tool {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--card); border: 1px solid var(--hair); border-radius: 999px;
+    padding: 8px 15px 8px 11px; font-size: 13.5px; font-weight: 500; color: var(--ink-2);
+    box-shadow: var(--sh-1);
+  }
+  .tool .g { width: 18px; height: 18px; border-radius: 5px; display: grid; place-items: center; flex: none; }
+  .tool .g svg { width: 13px; height: 13px; display: block; }
+
+  /* ============================================================ SECTION HEAD */
+  .section { padding: 96px 0; }
+  .sec-head { max-width: 640px; }
+  .sec-head.center { margin: 0 auto; text-align: center; }
+  .sec-head h2 {
+    font-size: clamp(28px, 3.6vw, 40px); line-height: 1.08; letter-spacing: -.028em;
+    font-weight: 800; margin: 16px 0 0;
+  }
+  .sec-head h2 em { font-style: normal; color: var(--green); }
+  .sec-head p { font-size: 18px; color: var(--ink-2); margin: 16px 0 0; line-height: 1.6; }
+  .sec-head.center p { margin-left: auto; margin-right: auto; }
+
+  /* ============================================================ OPPORTUNITY */
+  .opps { background: linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%); }
+  .opp-groups { margin-top: 52px; display: grid; gap: 30px; }
+  .opp-group { }
+  .opp-glabel {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: 13px; font-weight: 700; letter-spacing: -.01em; color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .opp-glabel .n {
+    font-size: 11px; font-weight: 700; color: var(--ink-3);
+    border: 1px solid var(--hair); border-radius: 6px; padding: 2px 7px; background: var(--card);
+  }
+  .opp-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 780px) { .opp-pair { grid-template-columns: 1fr; } }
+
+  .opp {
+    background: var(--card); border: 1px solid var(--hair-card); border-radius: var(--r-lg);
+    box-shadow: var(--sh-2); padding: 22px 22px 24px;
+    display: flex; flex-direction: column; transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .opp:hover { transform: translateY(-3px); box-shadow: var(--sh-3); }
+  .opp-title { font-size: 18px; font-weight: 700; letter-spacing: -.02em; margin: 16px 0 6px; }
+  .opp-copy { font-size: 14.5px; color: var(--ink-2); line-height: 1.55; }
+
+  /* micro-artifact frame */
+  .mini {
+    background: var(--card-2); border: 1px solid var(--hair-card); border-radius: var(--r-sm);
+    padding: 12px; box-shadow: inset 0 1px 2px rgba(23,29,24,.03);
+    min-height: 118px; display: flex; flex-direction: column; gap: 7px;
+  }
+  .mini-top { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--ink-3); }
+  .mini-top .dotg { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+  .mini-top .r { margin-left: auto; font-weight: 600; color: var(--green); font-size: 10.5px; }
+
+  /* mini message bubbles */
+  .mbub { max-width: 88%; padding: 7px 11px; border-radius: 13px; font-size: 12px; line-height: 1.4; }
+  .mbub.in  { align-self: flex-start; background: #fff; border: 1px solid var(--hair-card); border-bottom-left-radius: 4px; color: var(--ink); }
+  .mbub.out { align-self: flex-end; background: #234B16; color: #EAF4E2; border-bottom-right-radius: 4px; }
+  .mbub .mt { display: block; font-size: 9px; opacity: .6; margin-top: 3px; }
+  .mbub.out .mt { text-align: right; }
+
+  /* mini quote / invoice */
+  .qline { display: flex; justify-content: space-between; font-size: 12px; padding: 4px 0; border-bottom: 1px dashed var(--hair-card); }
+  .qline span:first-child { color: var(--ink-2); }
+  .qline span:last-child { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .qtotal { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
+  .qtotal .lab { font-size: 11px; color: var(--ink-3); text-transform: uppercase; letter-spacing: .05em; }
+  .qtotal .amt { font-size: 18px; font-weight: 800; letter-spacing: -.02em; }
+  .qhead { display: flex; align-items: center; justify-content: space-between; }
+  .qhead .co { font-size: 12px; font-weight: 700; }
+  .qhead .st { font-size: 10px; font-weight: 600; color: var(--green); background: var(--lime-soft); border: 1px solid #DCF3AE; padding: 2px 7px; border-radius: 999px; }
+
+  /* mini booking */
+  .bk-head { display: flex; align-items: baseline; gap: 6px; }
+  .bk-head .m { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); }
+  .bk-head .d { font-size: 13px; font-weight: 700; }
+  .bk-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .bk-slot { text-align: center; font-size: 11px; font-weight: 600; padding: 7px 0; border-radius: 8px; border: 1px solid var(--hair-card); background: #fff; color: var(--ink-2); }
+  .bk-slot.taken { color: var(--ink-3); text-decoration: line-through; opacity: .55; background: var(--paper-2); }
+  .bk-slot.sel { background: var(--lime); border-color: var(--lime); color: var(--ink); box-shadow: 0 2px 6px rgba(120,170,20,.3); }
+  .bk-conf { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--green-ink); font-weight: 600; }
+  .bk-conf svg { width: 13px; height: 13px; }
+
+  /* mini review */
+  .rev-stars { color: #E9A600; font-size: 15px; letter-spacing: 2px; }
+  .rev-quote { font-size: 12.5px; line-height: 1.45; color: var(--ink); }
+  .rev-foot { display: flex; align-items: center; gap: 7px; margin-top: auto; }
+  .rev-ava { width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg,#3E7B27,#6BB13F); color:#fff; display:grid; place-items:center; font-size:9px; font-weight:700; }
+  .rev-name { font-size: 11px; font-weight: 600; }
+  .rev-src { font-size: 10px; color: var(--ink-3); margin-left: auto; }
+
+  .opp-more { margin-top: 34px; text-align: center; font-size: 15px; color: var(--ink-3); }
+  .opp-more b { color: var(--ink-2); font-weight: 600; }
+
+  /* ============================================================ LEVERS */
+  .levers-grid { margin-top: 52px; display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+  @media (max-width: 860px) { .levers-grid { grid-template-columns: 1fr; } }
+  .lever {
+    background: var(--card); border: 1px solid var(--hair-card); border-radius: var(--r-lg);
+    box-shadow: var(--sh-2); padding: 26px 24px 24px;
+  }
+  .lever-num { font-size: 12px; font-weight: 700; color: var(--green); letter-spacing: .04em; }
+  .lever h3 { font-size: 20px; font-weight: 700; letter-spacing: -.02em; margin: 8px 0 8px; }
+  .lever p { font-size: 14.5px; color: var(--ink-2); line-height: 1.55; }
+  /* stat readout */
+  .readout {
+    margin-top: 18px; background: var(--card-2); border: 1px solid var(--hair-card);
+    border-radius: var(--r-sm); padding: 14px 15px;
+  }
+  .readout-top { display: flex; align-items: baseline; gap: 8px; }
+  .readout-num { font-size: 27px; font-weight: 800; letter-spacing: -.03em; }
+  .readout-unit { font-size: 13px; font-weight: 600; color: var(--ink-3); }
+  .readout-lab { font-size: 11.5px; color: var(--ink-3); margin-top: 2px; }
+  .readout-delta { margin-left: auto; font-size: 11px; font-weight: 700; color: var(--green); display: inline-flex; align-items: center; gap: 3px; }
+  .readout-delta svg { width: 11px; height: 11px; }
+  .bars { display: flex; align-items: flex-end; gap: 4px; height: 30px; margin-top: 12px; }
+  .bars i { flex: 1; border-radius: 3px 3px 0 0; background: var(--hair); display: block; }
+  .bars i.hi { background: var(--lime); }
+  .bars i.mid { background: #CFEE93; }
+  .stars-row { margin-top: 12px; display: flex; align-items: center; gap: 8px; }
+  .stars-row .s { color: #E9A600; font-size: 16px; letter-spacing: 2px; }
+  .stars-row .c { font-size: 11.5px; color: var(--ink-3); }
+
+  /* ============================================================ FINAL CTA */
+  .final { padding: 100px 0 110px; position: relative; overflow: hidden; }
+  .final::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(52% 60% at 50% 0%, rgba(185,255,53,.18), transparent 66%);
+    pointer-events: none;
+  }
+  .final-in { position: relative; text-align: center; max-width: 680px; margin: 0 auto; }
+  .final h2 { font-size: clamp(30px, 4vw, 46px); line-height: 1.06; letter-spacing: -.03em; font-weight: 800; margin: 18px 0 0; }
+  .final p { font-size: 19px; color: var(--ink-2); margin: 18px auto 0; max-width: 34em; line-height: 1.6; }
+  .final .btn { margin-top: 30px; }
+  .final-trust { margin-top: 16px; font-size: 14px; color: var(--ink-3); }
+
+  /* echo artifact — small confirmation card */
+  .echo {
+    margin: 40px auto 0; max-width: 380px;
+    background: var(--card); border: 1px solid var(--hair-card); border-radius: var(--r-md);
+    box-shadow: var(--sh-3); padding: 15px 17px; text-align: left;
+    display: flex; align-items: center; gap: 13px;
+  }
+  .echo-ic {
+    width: 42px; height: 42px; border-radius: 11px; flex: none;
+    background: var(--lime); display: grid; place-items: center; color: var(--ink);
+  }
+  .echo-ic svg { width: 22px; height: 22px; }
+  .echo-t { font-size: 14px; font-weight: 700; letter-spacing: -.01em; }
+  .echo-s { font-size: 12.5px; color: var(--ink-2); margin-top: 2px; }
+  .echo-time { margin-left: auto; font-size: 11px; color: var(--ink-3); align-self: flex-start; }
+
+  /* ============================================================ FOOTER */
+  .foot { border-top: 1px solid var(--hair); padding: 30px 0; }
+  .foot-in { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .foot-in .c { font-size: 13px; color: var(--ink-3); }
+  .foot-in .b { display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 15px; }
+
+  @media (max-width: 560px) {
+    body { font-size: 16px; }
+    .section { padding: 72px 0; }
+    .wrap { padding: 0 20px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ===================== NAV ===================== -->
+  <nav class="nav">
+    <div class="wrap nav-in">
+      <a class="brand" href="#">
+        <span class="brand-mark"><span>H</span></span>
+        Hybrid Theory
+      </a>
+      <div class="nav-links">
+        <a href="#opps">Where the upside is</a>
+        <a href="#levers">What we do</a>
+        <a href="#book" class="btn btn-primary nav-cta">Book a free assessment</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">AI for service businesses</span>
+        <h1 class="hero-title">More jobs <em>booked</em>. Nothing slipping through the cracks.</h1>
+        <p class="hero-lead">
+          Hybrid Theory builds AI that answers, quotes, follows up, and books for local
+          service businesses — <b>built around the tools you already use.</b> You keep every
+          judgment call; it takes the busywork.
+        </p>
+        <div class="hero-actions">
+          <a href="#book" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Book your free 30-minute assessment
+          </a>
+        </div>
+        <p class="hero-trust"><span class="dot"></span>Free · 30 minutes · leave with one specific fix</p>
+      </div>
+
+      <!-- industry switcher + layered artifact composition -->
+      <div class="hero-visual">
+
+        <div class="switcher" role="tablist" aria-label="Pick your business">
+          <span class="sw-lab">I run a&hellip;</span>
+          <div class="sw-chips" id="swChips">
+            <button class="chip active" role="tab" aria-selected="true" data-ind="roofer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 4l9 7"/><path d="M5 10v9h14v-9"/></svg>Roofing company
+            </button>
+            <button class="chip" role="tab" aria-selected="false" data-ind="hvac">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1.2 3 3.6 3.8 3.6 7.2A3.6 3.6 0 0 1 8.4 11c0-1.6.8-2.6 1.8-3.6"/></svg>HVAC company
+            </button>
+            <button class="chip" role="tab" aria-selected="false" data-ind="dentist">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3c-2 0-3 1.8-3 4 0 3 1 4 1.6 8 .3 2 .5 4 1.4 4s1.1-2.4 1.4-4.2c.2-1 .5-1.6 1.6-1.6s1.4.6 1.6 1.6c.3 1.8.5 4.2 1.4 4.2s1.1-2 1.4-4c.6-4 1.6-5 1.6-8 0-2.2-1-4-3-4-1.3 0-2 .7-3 .7S8.3 3 7 3z"/></svg>Dental practice
+            </button>
+            <button class="chip" role="tab" aria-selected="false" data-ind="tutoring">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8 12 4l10 4-10 4L2 8z"/><path d="M6 10.5V15c0 1 2.7 2 6 2s6-1 6-2v-4.5"/></svg>Tutoring company
+            </button>
+          </div>
+        </div>
+
+      <!-- layered artifact composition -->
+      <div class="stage">
+
+        <!-- SMS thread (anchor) -->
+        <div class="card sms" id="smsCard">
+          <div class="sms-head">
+            <div class="sms-ava">MR</div>
+            <div class="sms-who">
+              <div class="sms-name">Mike Reyes</div>
+              <div class="sms-sub">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#6B746C" stroke-width="2.4" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>
+                (512) 555-0148
+              </div>
+            </div>
+            <span class="sms-badge">Same-hour quote</span>
+          </div>
+          <div class="sms-body">
+            <div class="sms-sys rise" style="animation-delay:.05s"><b>Photos received</b> · Today 2:04 PM</div>
+
+            <div class="bub in rise" style="animation-delay:.55s">
+              Here are pics of the storm damage over the garage 📷 📷
+              <span class="t">2:04 PM</span>
+            </div>
+
+            <div class="bub out ai rise" style="animation-delay:1.05s">
+              Got them, thanks Mike! Looks like ~18 squares plus some flashing. I'll have an itemized quote over within the hour.
+              <span class="t">2:05 PM</span>
+            </div>
+            <div class="aitag rise" style="animation-delay:1.25s"><span class="g"></span>Sent by <b>Hybrid</b> · reading the photos now</div>
+
+            <div class="bub out ai rise" style="animation-delay:1.75s">
+              Here's your estimate — <b>$6,450</b>, good for 30 days. Want me to hold an install date?
+              <span class="t">2:31 PM</span>
+            </div>
+
+            <div class="bub in rise" style="animation-delay:2.25s">
+              That's fair — yes, let's book it
+              <span class="t">2:34 PM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Morning digest (dark focal) -->
+        <div class="digest" id="digestCard">
+          <div class="digest-head">
+            <div class="digest-ico">H</div>
+            <div class="digest-app">Hybrid</div>
+            <div class="digest-time">now</div>
+          </div>
+          <div class="digest-title">Good morning, Matt ☀️</div>
+          <div class="digest-body"><span class="digest-num">$11,900</span> in quotes sent same-day — every photo answered within the hour.</div>
+          <div class="digest-row">
+            <div class="digest-stat"><div class="k">4</div><div class="l">QUOTES SENT</div></div>
+            <div class="digest-stat"><div class="k">0</div><div class="l">WAITING</div></div>
+            <div class="digest-stat"><div class="k">22m</div><div class="l">AVG TURNAROUND</div></div>
+          </div>
+        </div>
+
+        <!-- Value card — roofer default is a sent, itemized quote -->
+        <div class="card cal" id="calCard">
+          <div class="qc-head">
+            <span class="qc-co">Summit Roofing · Estimate</span>
+            <span class="qc-st">Sent 2:31 PM</span>
+          </div>
+          <div class="qc-body">
+            <div class="qc-photos">
+              <div class="qc-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="m21 16-5-5L5 19"/></svg></div>
+              <div class="qc-photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="m21 16-5-5L5 19"/></svg></div>
+              <span class="lab">2 photos from the customer</span>
+            </div>
+            <div class="qc-line"><span>Tear-off &amp; disposal</span><span>$1,150</span></div>
+            <div class="qc-line"><span>Architectural shingles (18 sq)</span><span>$4,320</span></div>
+            <div class="qc-line"><span>Underlayment &amp; flashing</span><span>$980</span></div>
+            <div class="qc-total"><span class="lab">Estimate total</span><span class="amt">$6,450</span></div>
+            <div class="receipt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Sent · $6,450 · 2:31 PM · same hour</div>
+          </div>
+        </div>
+
+      </div><!-- /stage -->
+      </div><!-- /hero-visual -->
+    </div>
+  </header>
+
+  <!-- ===================== TOOLS STRIP ===================== -->
+  <section class="tools">
+    <div class="wrap">
+      <div class="tools-lab">Built around the tools you <b>already use</b> — nothing to rip out.</div>
+      <div class="tools-row">
+        <span class="tool"><span class="g" style="background:#EAF3FF"><svg viewBox="0 0 24 24" fill="#1A73E8"><path d="M12 11v2h5.5c-.2 1.2-1.6 3.6-5.5 3.6-3.3 0-6-2.7-6-6s2.7-6 6-6c1.9 0 3.1.8 3.9 1.5l1.6-1.5C16.9 3 14.7 2 12 2 6.9 2 2.7 6.1 2.7 11.2S6.9 20.5 12 20.5c5.5 0 9.1-3.9 9.1-9.3 0-.6-.1-1.1-.2-1.5H12z"/></svg></span>Google Calendar</span>
+        <span class="tool"><span class="g" style="background:#E9F8EE"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M12 2A10 10 0 0 0 3.5 17.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4c0-.1-.5-1.3-.7-1.7s-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c2 .8 2 .5 2.4.5a2.5 2.5 0 0 0 1.6-1.2 2 2 0 0 0 .1-1.1c0-.1-.2-.1-.4-.2z"/></svg></span>WhatsApp</span>
+        <span class="tool"><span class="g" style="background:#FFF0EC"><svg viewBox="0 0 24 24" fill="#FF5A1F"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm4.5 6.8-2 6.6a.7.7 0 0 1-1 .4l-2.8-2-1.4 1.3a.5.5 0 0 1-.4.2l.2-2.9 5.2-4.7c.2-.2-.1-.3-.3-.1L7.3 12l-2.7-.9c-.6-.2-.6-.6.1-.9l10.9-4.2c.5-.2.9.1.8.8z"/></svg></span>Housecall Pro</span>
+        <span class="tool"><span class="g" style="background:#F0EEFF"><svg viewBox="0 0 24 24" fill="#635BFF"><path d="M13.5 9.4c0-.7.6-1 1.5-1a9.6 9.6 0 0 1 4.3 1.1V5.5A11.4 11.4 0 0 0 15 4.8c-3.5 0-5.9 1.8-5.9 4.9 0 4.7 6.5 4 6.5 6 0 .8-.7 1.1-1.7 1.1a10.8 10.8 0 0 1-4.8-1.4v4.1a12.2 12.2 0 0 0 4.8 1c3.6 0 6.1-1.8 6.1-4.9 0-5.1-6.5-4.2-6.5-6.2z"/></svg></span>Stripe</span>
+        <span class="tool"><span class="g" style="background:#EAF6FF"><svg viewBox="0 0 24 24" fill="#00A1E0"><path d="M10 5.5a3.6 3.6 0 0 1 6.1 1 4 4 0 0 1 5.4 3.7 4 4 0 0 1-4 4 3.9 3.9 0 0 1-.8-.1 2.9 2.9 0 0 1-3.8 1.2 3.3 3.3 0 0 1-6.1-.2 3.5 3.5 0 0 1-4-3.4 3.6 3.6 0 0 1 2.1-3.2A3.9 3.9 0 0 1 10 5.5z"/></svg></span>Salesforce</span>
+        <span class="tool"><span class="g" style="background:#FFF3E9"><svg viewBox="0 0 24 24" fill="#F06A6A"><circle cx="12" cy="6.5" r="2.6"/><circle cx="6.8" cy="15.5" r="2.6"/><circle cx="17.2" cy="15.5" r="2.6"/></svg></span>Jobber</span>
+        <span class="tool"><span class="g" style="background:#EAF1FF"><svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M4.5 3.5A2 2 0 1 0 4.5 7.5 2 2 0 0 0 4.5 3.5zM3 9h3v11H3zM9 9h2.9v1.5A3.2 3.2 0 0 1 14.7 9c3 0 3.6 2 3.6 4.6V20h-3v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V20H9z"/></svg></span>LinkedIn</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== OPPORTUNITY ===================== -->
+  <section id="opps" class="section opps">
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="eyebrow" style="justify-content:center">Where the upside lives</span>
+        <h2>The growth is hiding in the <em>everyday moments</em>.</h2>
+        <p>You don't need a new system or ten new tools. Just a handful of everyday moments, handled well — and each one quietly adds up.</p>
+      </div>
+
+      <div class="opp-groups">
+
+        <!-- GROUP 1 — WIN THE LEAD -->
+        <div class="opp-group">
+          <div class="opp-glabel"><span class="n">01</span> Win the lead</div>
+          <div class="opp-pair">
+
+            <!-- speed -->
+            <div class="opp">
+              <div class="mini">
+                <div class="mini-top"><span class="dotg"></span>New website lead<span class="r">replied in 47s</span></div>
+                <div class="mbub in">Hi, do you install standing-seam metal roofs? Getting quotes.<span class="mt">2:14:06 PM</span></div>
+                <div class="mbub out">Yes we do! I can have a rough range to you today. What's the address?<span class="mt">2:14:53 PM</span></div>
+              </div>
+              <h3 class="opp-title">Speed-to-lead</h3>
+              <p class="opp-copy">First to reply usually wins the job. Be first, every time.</p>
+            </div>
+
+            <!-- missed -->
+            <div class="opp">
+              <div class="mini">
+                <div class="mini-top"><span class="dotg" style="background:#C6473A"></span>Missed call · 12:38 PM<span class="r">texted back</span></div>
+                <div class="mbub out">Hi! This is Summit — sorry we couldn't grab your call. How can we help?<span class="mt">12:38 PM</span></div>
+                <div class="mbub in">Need a quote to replace some shingles<span class="mt">12:39 PM</span></div>
+              </div>
+              <h3 class="opp-title">Missed-call text-back</h3>
+              <p class="opp-copy">Every missed call gets a friendly text right back.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- GROUP 2 — WIN THE JOB -->
+        <div class="opp-group">
+          <div class="opp-glabel"><span class="n">02</span> Win the job</div>
+          <div class="opp-pair">
+
+            <!-- quote -->
+            <div class="opp">
+              <div class="mini">
+                <div class="qhead"><span class="co">Summit Roofing · Estimate</span><span class="st">Sent 2:31 PM</span></div>
+                <div class="qline"><span>Tear-off &amp; disposal</span><span>$1,150</span></div>
+                <div class="qline"><span>Architectural shingles (18 sq)</span><span>$4,320</span></div>
+                <div class="qline"><span>Underlayment &amp; flashing</span><span>$980</span></div>
+                <div class="qtotal"><span class="lab">Estimate total</span><span class="amt">$6,450</span></div>
+              </div>
+              <h3 class="opp-title">Instant quotes</h3>
+              <p class="opp-copy">A quote that lands the same hour hits different than one that takes three days.</p>
+            </div>
+
+            <!-- booking -->
+            <div class="opp">
+              <div class="mini">
+                <div class="bk-head"><span class="m">Thu</span><span class="d">October 24</span></div>
+                <div class="bk-slots">
+                  <div class="bk-slot taken">8:00</div>
+                  <div class="bk-slot sel">9:00</div>
+                  <div class="bk-slot">11:00</div>
+                </div>
+                <div class="bk-conf"><svg viewBox="0 0 24 24" fill="none" stroke="#2C5A1C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Confirmed — no phone tag needed</div>
+              </div>
+              <h3 class="opp-title">Self-booking</h3>
+              <p class="opp-copy">Let customers grab the right slot themselves — no more endless phone tag.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- GROUP 3 — WIN THEM BACK -->
+        <div class="opp-group">
+          <div class="opp-glabel"><span class="n">03</span> Win them back</div>
+          <div class="opp-pair">
+
+            <!-- reviews -->
+            <div class="opp">
+              <div class="mini">
+                <div class="rev-stars">★★★★★</div>
+                <div class="rev-quote">"Answered me in minutes and did great work. Crew was on time and cleaned up after."</div>
+                <div class="rev-foot">
+                  <div class="rev-ava">DL</div>
+                  <div class="rev-name">Dana L.</div>
+                  <div class="rev-src">Google · asked for you</div>
+                </div>
+              </div>
+              <h3 class="opp-title">Reviews on autopilot</h3>
+              <p class="opp-copy">Turn happy customers into 5-star reviews — asked at exactly the right moment.</p>
+            </div>
+
+            <!-- winback -->
+            <div class="opp">
+              <div class="mini">
+                <div class="mini-top"><span class="dotg"></span>Last job: 11 months ago<span class="r">re-engaged</span></div>
+                <div class="mbub out">Hi Dana — it's about time for your annual roof check. Want us to swing by?<span class="mt">9:02 AM</span></div>
+                <div class="mbub in">Oh good timing, yes! Same as last year works<span class="mt">9:20 AM</span></div>
+              </div>
+              <h3 class="opp-title">Win-back &amp; repeat</h3>
+              <p class="opp-copy">Your past customers are your easiest next sale. Bring them back to help them again.</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <p class="opp-more">Plus <b>15+ more</b> — reviews, referrals, invoicing, intake… we'll find yours on the call.</p>
+    </div>
+  </section>
+
+  <!-- ===================== LEVERS ===================== -->
+  <section id="levers" class="section">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">What we're actually here to do</span>
+        <h2>We're not here to sell you "AI." We're here to <em>grow your business</em> — and hand you your time back.</h2>
+        <p>Every project we take on has to move at least one of three needles for you. The best ones move all three at once — which is usually the whole point.</p>
+      </div>
+
+      <div class="levers-grid">
+
+        <div class="lever">
+          <div class="lever-num">01</div>
+          <h3>Make more money</h3>
+          <p>Answer first, quote faster, follow up until it's a yes. The customers are already reaching out — we just stop letting them slip away.</p>
+          <div class="readout">
+            <div class="readout-top">
+              <div>
+                <div class="readout-num">$8,400</div>
+                <div class="readout-lab">recovered / month · leads that used to slip</div>
+              </div>
+              <span class="readout-delta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>+31%</span>
+            </div>
+            <div class="bars">
+              <i style="height:30%"></i><i style="height:45%"></i><i class="mid" style="height:40%"></i><i style="height:58%"></i><i class="mid" style="height:66%"></i><i style="height:74%"></i><i class="hi" style="height:88%"></i><i class="hi" style="height:100%"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="lever">
+          <div class="lever-num">02</div>
+          <h3>Win back your time</h3>
+          <p>Hand off the repetitive busywork so your days go to the work only you can do — and to the life outside the business.</p>
+          <div class="readout">
+            <div class="readout-top">
+              <div>
+                <div class="readout-num">9<span class="readout-unit"> hrs</span></div>
+                <div class="readout-lab">back per week · texting, chasing, scheduling</div>
+              </div>
+              <span class="readout-delta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>auto</span>
+            </div>
+            <div class="bars">
+              <i style="height:64%"></i><i class="hi" style="height:64%"></i><i style="height:20%"></i><i class="hi" style="height:64%"></i><i style="height:20%"></i><i class="hi" style="height:64%"></i><i style="height:20%"></i><i style="height:20%"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="lever">
+          <div class="lever-num">03</div>
+          <h3>Raise your game</h3>
+          <p>Every customer gets your best — fast, sharp, on-brand — not just whatever your most hectic day happens to allow.</p>
+          <div class="readout">
+            <div class="readout-top">
+              <div>
+                <div class="readout-num">4.9<span class="readout-unit"> ★</span></div>
+                <div class="readout-lab">average rating · every reply on time, on-brand</div>
+              </div>
+              <span class="readout-delta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>+0.6</span>
+            </div>
+            <div class="stars-row">
+              <span class="s">★★★★★</span>
+              <span class="c">128 reviews · under 1 min avg response</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section id="book" class="final">
+    <div class="wrap final-in">
+      <span class="eyebrow" style="justify-content:center">Your move</span>
+      <h2>See the business you could be running.</h2>
+      <p>Thirty minutes, no slides, no commitment — just a clear read on the one change that would pay for itself the fastest.</p>
+      <a href="#" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Book your free 30-minute assessment
+      </a>
+      <div class="final-trust">Free · 30 minutes · leave with one specific fix</div>
+
+      <!-- echo artifact -->
+      <div class="echo">
+        <div class="echo-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 15 2 2 4-4"/></svg>
+        </div>
+        <div>
+          <div class="echo-t">Assessment · Thu 2:00 PM</div>
+          <div class="echo-s">30 min with Hybrid Theory — added to your calendar</div>
+        </div>
+        <div class="echo-time">confirmed</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="foot">
+    <div class="wrap foot-in">
+      <div class="b"><span class="brand-mark"><span>H</span></span>Hybrid Theory</div>
+      <div class="c">AI for local service businesses · built around the tools you already use.</div>
+    </div>
+  </footer>
+
+  <script>
+  /* ============================================================
+     INDUSTRY SWITCHER — "pick your business"
+     Same artifact components, per-vertical data. Each scenario
+     ENDS in a visible receipt of value (a booked/filled slot with
+     an amount + time) — the outcome is shown, never claimed.
+     ============================================================ */
+  (function () {
+    var PHONE = '<svg viewBox="0 0 24 24" fill="none" stroke="#6B746C" stroke-width="2.4" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>';
+    var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+    var PHOTO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="m21 16-5-5L5 19"/></svg>';
+
+    var DATA = {
+      roofer: {
+        sms: {
+          initials: 'MR', name: 'Mike Reyes', phone: '(512) 555-0148', badge: 'Same-hour quote',
+          sys: '<b>Photos received</b> · Today 2:04 PM',
+          msgs: [
+            { s: 'in',  t: "Here are pics of the storm damage over the garage 📷 📷", time: '2:04 PM' },
+            { s: 'out', t: "Got them, thanks Mike! Looks like ~18 squares plus some flashing. I'll have an itemized quote over within the hour.", time: '2:05 PM', tag: 'Sent by <b>Hybrid</b> · reading the photos now' },
+            { s: 'out', t: "Here's your estimate — <b>$6,450</b>, good for 30 days. Want me to hold an install date?", time: '2:31 PM' },
+            { s: 'in',  t: "That's fair — yes, let's book it", time: '2:34 PM' }
+          ]
+        },
+        digest: { title: 'Good morning, Matt ☀️', body: '<span class="digest-num">$11,900</span> in quotes sent same-day — every photo answered within the hour.',
+          stats: [ { k: '4', l: 'QUOTES SENT' }, { k: '0', l: 'WAITING' }, { k: '22m', l: 'AVG TURNAROUND' } ] },
+        value: { type: 'quote', co: 'Summit Roofing · Estimate', st: 'Sent 2:31 PM', photos: 2,
+          items: [
+            { n: 'Tear-off &amp; disposal', a: '$1,150' },
+            { n: 'Architectural shingles (18 sq)', a: '$4,320' },
+            { n: 'Underlayment &amp; flashing', a: '$980' }
+          ],
+          total: '$6,450', receipt: 'Sent · $6,450 · 2:31 PM · same hour' }
+      },
+
+      hvac: {
+        sms: {
+          initials: 'JT', name: 'Janet Torres', phone: '(480) 555-0172', badge: 'After-hours',
+          sys: '<b>Missed call</b> · Today 7:04 PM',
+          msgs: [
+            { s: 'out', t: "Hi, this is Cardinal Heating &amp; Air — sorry we missed you! Is your heat out?", time: '7:04 PM', tag: 'Sent by <b>Hybrid</b> · 6 sec after the call' },
+            { s: 'in',  t: "Yes! Furnace won't kick on and it's 38° tonight 🥶", time: '7:05 PM' },
+            { s: 'out', t: "That's no good. I can get a tech to you <b>tomorrow 8:00 AM</b> for a no-heat diagnostic. Lock it in?", time: '7:05 PM' },
+            { s: 'in',  t: "Please, yes", time: '7:06 PM' },
+            { s: 'out', t: "Booked ✓ Tomorrow 8:00 AM. Bundle up — reminder coming tonight.", time: '7:06 PM' }
+          ]
+        },
+        digest: { title: 'Good morning ☀️', body: '<span class="digest-num">$2,140</span> in service calls booked overnight. Every after-hours call answered.',
+          stats: [ { k: '5', l: 'CALLS BOOKED' }, { k: '0', l: 'MISSED' }, { k: '6s', l: 'AVG REPLY' } ] },
+        value: { type: 'cal', dow: 'Wednesday', date: 'Nov 6', word: 'JUST ADDED', slots: [
+          { time: '7:00', empty: true },
+          { time: '8:00', title: 'No-heat diagnostic', sub: 'Janet Torres · booked by Hybrid at 7:06 PM', receipt: 'Booked · $289 · Wed 8:00 AM' },
+          { time: '10:30', empty: true }
+        ] }
+      },
+
+      dentist: {
+        sms: {
+          initials: 'MG', name: 'Maria G.', phone: '(602) 555-0143', badge: 'Waitlist fill',
+          sys: '<b>2:00 PM opened up</b> · cancellation just now',
+          msgs: [
+            { s: 'out', t: "Hi Maria, it's Bright Smile Dental — a <b>2:00 PM today</b> just opened for your crown seat. Want it?", time: '11:12 AM', tag: 'Sent by <b>Hybrid</b> · seconds after the cancel' },
+            { s: 'in',  t: "Oh yes! I've been wanting to get in sooner", time: '11:14 AM' },
+            { s: 'out', t: "Perfect — <b>2:00 PM</b> is yours, Maria. Dr. Shah will be glad to finish that crown today!", time: '11:14 AM' }
+          ]
+        },
+        digest: { title: 'Good morning ☀️', body: '<span class="digest-num">$1,800</span> in treatment kept on the books — 3 open chairs refilled from the waitlist.',
+          stats: [ { k: '3', l: 'CHAIRS REFILLED' }, { k: '0', l: 'GAPS LEFT' }, { k: '2m', l: 'AVG FILL' } ] },
+        value: { type: 'cal', dow: 'Tuesday', date: 'Today', word: 'REFILLED', slots: [
+          { time: '12:30', empty: true },
+          { time: '2:00', title: 'Crown seat · Maria G.', sub: 'refilled from waitlist by Hybrid at 11:14 AM', receipt: 'Filled · $1,800 · Today 2:00 PM' },
+          { time: '3:30', empty: true }
+        ] }
+      },
+
+      tutoring: {
+        sms: {
+          initials: 'DL', name: 'David Lin', phone: '(408) 555-0119', badge: 'After-hours',
+          sys: '<b>New inquiry</b> · Today 9:41 PM',
+          msgs: [
+            { s: 'out', t: "Hi, this is BrightPath Tutoring — thanks for reaching out! Which subject and grade are we helping with?", time: '9:41 PM', tag: 'Sent by <b>Hybrid</b> · 9 sec after the form' },
+            { s: 'in',  t: "My daughter's in Algebra II, really struggling before finals", time: '9:43 PM' },
+            { s: 'out', t: "We've got you. I can book a <b>free assessment Saturday 10:00 AM</b> with an algebra specialist. Sound good?", time: '9:43 PM' },
+            { s: 'in',  t: "That would be wonderful, thank you", time: '9:44 PM' },
+            { s: 'out', t: "Booked ✓ Saturday 10:00 AM. We'll email a quick pre-assessment tonight.", time: '9:44 PM' }
+          ]
+        },
+        digest: { title: 'Good morning ☀️', body: '<span class="digest-num">6 new families</span> booked assessments overnight. Not one inquiry left waiting.',
+          stats: [ { k: '6', l: 'ASSESSMENTS' }, { k: '0', l: 'MISSED' }, { k: '9s', l: 'AVG REPLY' } ] },
+        value: { type: 'cal', dow: 'Saturday', date: 'Nov 9', word: 'JUST ADDED', slots: [
+          { time: '9:00', empty: true },
+          { time: '10:00', title: 'Free assessment · Algebra II', sub: 'David Lin · booked by Hybrid at 9:44 PM', receipt: 'Booked · Sat 10:00 AM · assessment' },
+          { time: '11:30', empty: true }
+        ] }
+      }
+    };
+
+    function renderSMS(d) {
+      var delay = 0.05;
+      var h = '<div class="sms-head">'
+        + '<div class="sms-ava">' + d.sms.initials + '</div>'
+        + '<div class="sms-who"><div class="sms-name">' + d.sms.name + '</div>'
+        + '<div class="sms-sub">' + PHONE + d.sms.phone + '</div></div>'
+        + '<span class="sms-badge">' + d.sms.badge + '</span></div>'
+        + '<div class="sms-body">'
+        + '<div class="sms-sys rise" style="animation-delay:' + delay.toFixed(2) + 's">' + d.sms.sys + '</div>';
+      d.sms.msgs.forEach(function (m) {
+        delay += 0.5;
+        var cls = m.s === 'out' ? 'out ai' : 'in';
+        h += '<div class="bub ' + cls + ' rise" style="animation-delay:' + delay.toFixed(2) + 's">' + m.t
+          + '<span class="t">' + m.time + '</span></div>';
+        if (m.tag) {
+          delay += 0.2;
+          h += '<div class="aitag rise" style="animation-delay:' + delay.toFixed(2) + 's"><span class="g"></span>' + m.tag + '</div>';
+        }
+      });
+      h += '</div>';
+      return h;
+    }
+
+    function renderDigest(d) {
+      var stats = d.digest.stats.map(function (s) {
+        return '<div class="digest-stat"><div class="k">' + s.k + '</div><div class="l">' + s.l + '</div></div>';
+      }).join('');
+      return '<div class="digest-head"><div class="digest-ico">H</div><div class="digest-app">Hybrid</div><div class="digest-time">now</div></div>'
+        + '<div class="digest-title">' + d.digest.title + '</div>'
+        + '<div class="digest-body">' + d.digest.body + '</div>'
+        + '<div class="digest-row">' + stats + '</div>';
+    }
+
+    // Calendar variant — the value shows up as a filled slot + receipt.
+    function renderCal(v) {
+      var h = '<div class="cal-head"><div><div class="cal-dow">' + v.dow + '</div>'
+        + '<div class="cal-date">' + v.date + '</div></div>'
+        + '<div class="cal-live"><span class="pulse"></span>Live</div></div>'
+        + '<div class="cal-grid">';
+      v.slots.forEach(function (s) {
+        h += '<div class="slot"><div class="slot-t">' + s.time + '</div>';
+        if (s.empty) {
+          h += '<div class="slot-e empty">Open</div>';
+        } else {
+          h += '<div class="slot-e filled">'
+            + '<div class="st">' + s.title + ' <span class="just">' + (v.word || 'JUST ADDED') + '</span></div>'
+            + '<div class="ss">' + s.sub + '</div>'
+            + '<div class="receipt">' + CHECK + s.receipt + '</div></div>';
+        }
+        h += '</div>';
+      });
+      h += '</div>';
+      return h;
+    }
+
+    // Quote variant — the value shows up as a sent, itemized estimate.
+    function renderQuote(v) {
+      var items = v.items.map(function (it) {
+        return '<div class="qc-line"><span>' + it.n + '</span><span>' + it.a + '</span></div>';
+      }).join('');
+      var photos = '';
+      for (var i = 0; i < v.photos; i++) { photos += '<div class="qc-photo">' + PHOTO + '</div>'; }
+      return '<div class="qc-head"><span class="qc-co">' + v.co + '</span><span class="qc-st">' + v.st + '</span></div>'
+        + '<div class="qc-body">'
+        + '<div class="qc-photos">' + photos + '<span class="lab">' + v.photos + ' photos from the customer</span></div>'
+        + items
+        + '<div class="qc-total"><span class="lab">Estimate total</span><span class="amt">' + v.total + '</span></div>'
+        + '<div class="receipt">' + CHECK + v.receipt + '</div>'
+        + '</div>';
+    }
+
+    function renderValue(d) {
+      return d.value.type === 'quote' ? renderQuote(d.value) : renderCal(d.value);
+    }
+
+    var sms = document.getElementById('smsCard');
+    var digest = document.getElementById('digestCard');
+    var cal = document.getElementById('calCard');
+
+    // Restart a CSS animation on an element (so a swap feels alive, not abrupt).
+    function replay(el, anim) {
+      el.style.animation = 'none';
+      void el.offsetWidth; // force reflow
+      el.style.animation = anim;
+    }
+
+    function render(ind) {
+      var d = DATA[ind];
+      if (!d) return;
+      sms.innerHTML = renderSMS(d);      // fresh nodes => the SMS cascade replays
+      digest.innerHTML = renderDigest(d);
+      cal.innerHTML = renderValue(d);    // calendar or quote, per vertical
+      replay(digest, 'fadeSwap .4s ease both');
+      replay(cal, 'fadeSwap .45s ease .04s both');
+    }
+
+    var chips = Array.prototype.slice.call(document.querySelectorAll('#swChips .chip'));
+    chips.forEach(function (c) {
+      c.addEventListener('click', function () {
+        chips.forEach(function (x) { x.classList.remove('active'); x.setAttribute('aria-selected', 'false'); });
+        c.classList.add('active');
+        c.setAttribute('aria-selected', 'true');
+        render(c.dataset.ind);
+      });
+    });
+
+    // Initial paint from data (also carries the single load cascade).
+    render('roofer');
+  })();
+  </script>
+
+</body>
+</html>

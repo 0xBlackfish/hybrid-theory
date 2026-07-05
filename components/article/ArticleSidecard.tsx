@@ -78,7 +78,7 @@ export function ArticleSidecard({ author, authorTitle, toc }: Props) {
       </div>
 
       <div className="article-sidecard-cta">
-        <a href="#contact" data-calendly className="btn btn-primary">
+        <a href="https://calendly.com/hybridtheory/30min" target="_blank" rel="noopener" data-calendly className="btn btn-primary">
           Talk to {firstName} <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
         </a>
       </div>

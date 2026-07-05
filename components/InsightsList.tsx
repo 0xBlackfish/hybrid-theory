@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import posthog from "posthog-js";
 import type { ListArticle } from "@/lib/posts";
 import { STRIPE_FILTERS } from "@/lib/posts";
 import { StripeRow } from "./StripeRow";
@@ -17,7 +18,7 @@ export function InsightsList({ articles }: { articles: ListArticle[] }) {
         <div className="wrap">
           <div className="stripe-filters">
             {STRIPE_FILTERS.map((f) => (
-              <button key={f} onClick={() => setFilter(f)} className={"stripe-pill " + (filter === f ? "active" : "")}>
+              <button key={f} onClick={() => { setFilter(f); posthog.capture("insights_filter_changed", { filter: f }); }} className={"stripe-pill " + (filter === f ? "active" : "")}>
                 {f}
               </button>
             ))}

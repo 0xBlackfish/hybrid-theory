@@ -1,0 +1,738 @@
+/* ============================================================================
+   ARTIFACT COMPONENT LIBRARY
+   Translated 1:1 from design_explorations/direction-e-product-light.
+   Colors are E's literals (so fidelity never depends on token timing); the
+   layered shadow tiers + card/hair shells reference landing E's :root tokens
+   with local fallbacks (var(--sh-2, <literal>)) so this file stays decoupled.
+   ========================================================================== */
+
+/* ---- generic product-card shell ---- */
+.card {
+  background: var(--card, #fff);
+  border: 1px solid var(--hair-card, #eceae3);
+  border-radius: var(--r-md, 16px);
+  box-shadow: var(
+    --sh-3,
+    0 4px 8px rgba(23, 29, 24, 0.05),
+    0 14px 30px rgba(23, 29, 24, 0.09),
+    0 2px 4px rgba(23, 29, 24, 0.04)
+  );
+}
+
+/* ============================================================ SMS THREAD */
+.sms {
+  width: 340px;
+  overflow: hidden;
+}
+.smsHead {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px 15px;
+  border-bottom: 1px solid var(--hair-card, #eceae3);
+  background: #fbfaf7;
+}
+.smsAva {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  flex: none;
+  background: linear-gradient(135deg, #3e7b27, #6bb13f);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 15px;
+}
+.smsWho {
+  flex: 1;
+  min-width: 0;
+}
+.smsName {
+  font-weight: 600;
+  font-size: 14.5px;
+  letter-spacing: -0.01em;
+}
+.smsSub {
+  font-size: 12px;
+  color: #6b746c;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.smsSub svg {
+  width: 11px;
+  height: 11px;
+}
+.smsBadge {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #3e7b27;
+  background: #eaffc2;
+  border: 1px solid #dcf3ae;
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.smsBody {
+  padding: 14px 15px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--card, #fff);
+}
+.smsSys {
+  text-align: center;
+  font-size: 11px;
+  color: #6b746c;
+  margin: 2px 0 4px;
+}
+.smsSys b {
+  color: #3b443c;
+  font-weight: 600;
+}
+.bub {
+  max-width: 82%;
+  padding: 9px 13px;
+  border-radius: 17px;
+  font-size: 13.5px;
+  line-height: 1.42;
+  position: relative;
+}
+.bubIn {
+  align-self: flex-start;
+  background: #f3f0e7;
+  color: #171d18;
+  border-bottom-left-radius: 5px;
+}
+.bubOut {
+  align-self: flex-end;
+  background: #234b16;
+  color: #f4f7f2;
+  border-bottom-right-radius: 5px;
+}
+.bubTime {
+  display: block;
+  font-size: 10px;
+  margin-top: 4px;
+  opacity: 0.55;
+}
+.bubOut .bubTime {
+  text-align: right;
+}
+.aitag {
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: #6b746c;
+  margin: -2px 2px 0;
+}
+.aitag b {
+  color: #3e7b27;
+  font-weight: 600;
+}
+.aitagDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #b9ff35;
+  box-shadow: 0 0 0 2px #eaffc2;
+}
+
+/* cascade-in animation */
+.rise {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: rise 0.5s cubic-bezier(0.22, 0.9, 0.3, 1) forwards;
+}
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* two-phase business bubble: typing dots → message text (same grid cell).
+   During the dots phase the bubble is clamped to a small pill so it doesn't
+   pre-reserve the finished message's full box; at --swap it grows to fit as the
+   text lands. Runs the shared `rise` entrance AND the grow in one shorthand
+   (with per-animation delays via vars) so it doesn't clobber `.rise`. */
+.bubPhase {
+  display: grid;
+  overflow: hidden;
+  max-width: 36%;
+  max-height: 38px;
+  animation:
+    rise 0.5s cubic-bezier(0.22, 0.9, 0.3, 1) var(--rise-delay, 0s) forwards,
+    bubGrow 0.25s ease-out var(--swap) forwards;
+}
+@keyframes bubGrow {
+  to {
+    max-width: 82%;
+    max-height: 400px;
+  }
+}
+.phDots {
+  grid-area: 1 / 1;
+  align-self: center;
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  padding: 4px 2px;
+  animation: phaseHide 0.18s ease forwards;
+  animation-delay: var(--swap);
+}
+.phDots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.35;
+  animation: dotPulse 1.05s ease-in-out infinite;
+}
+.phDots i:nth-child(2) {
+  animation-delay: 0.14s;
+}
+.phDots i:nth-child(3) {
+  animation-delay: 0.28s;
+}
+.phText {
+  grid-area: 1 / 1;
+  opacity: 0;
+  animation: phaseShow 0.22s ease forwards;
+  animation-delay: var(--swap);
+}
+@keyframes phaseHide {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+@keyframes phaseShow {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes dotPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: none;
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+/* ============================================================ MORNING DIGEST */
+.digest {
+  width: 292px;
+  background: #14180f;
+  border: 1px solid #2a3222;
+  border-radius: var(--r-md, 16px);
+  box-shadow: var(
+    --sh-4,
+    0 10px 24px rgba(23, 29, 24, 0.1),
+    0 30px 60px rgba(23, 29, 24, 0.14)
+  );
+  padding: 15px 16px 16px;
+  color: #eaf0e6;
+}
+.digestHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 11px;
+}
+.digestIco {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: #b9ff35;
+  display: grid;
+  place-items: center;
+  color: #14180f;
+  font-weight: 800;
+  font-size: 12px;
+}
+.digestApp {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.digestTime {
+  margin-left: auto;
+  font-size: 11px;
+  color: #7e8a76;
+}
+.digestTitle {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.digestBody {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #b7c2ae;
+}
+.digestNum {
+  color: #b9ff35;
+  font-weight: 700;
+}
+.digestRow {
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 1px solid #262e1f;
+  display: flex;
+  gap: 14px;
+}
+.digestStat .statK {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.digestStat .statL {
+  font-size: 10.5px;
+  color: #7e8a76;
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================ VALUE CARD */
+.valueCard {
+  width: 288px;
+  overflow: hidden;
+}
+
+/* ---- calendar variant ---- */
+.calHead {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 13px 15px 11px;
+  border-bottom: 1px solid var(--hair-card, #eceae3);
+}
+.calDow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b746c;
+}
+.calDate {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.calLive {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 600;
+  color: #3e7b27;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #3e7b27;
+  box-shadow: 0 0 0 0 rgba(62, 123, 39, 0.5);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  70% {
+    box-shadow: 0 0 0 6px rgba(62, 123, 39, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(62, 123, 39, 0);
+  }
+}
+.calGrid {
+  padding: 8px 15px 15px;
+}
+.slot {
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 7px 0;
+}
+.slotT {
+  font-size: 11px;
+  color: #6b746c;
+  padding-top: 3px;
+}
+.slotE {
+  border-radius: 9px;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+.slotEmpty {
+  border: 1px dashed var(--hair, #e5e1d6);
+  color: #6b746c;
+}
+.slotFilled {
+  background: #eaffc2;
+  border: 1px solid #cfee93;
+  color: #2c5a1c;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  animation: rise 0.5s 0.9s both cubic-bezier(0.22, 0.9, 0.3, 1);
+}
+.slotTitle {
+  font-weight: 600;
+  font-size: 12.5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.slotSub {
+  font-size: 11px;
+  color: #3e7b27;
+  opacity: 0.85;
+  margin-top: 2px;
+}
+.just {
+  font-size: 9.5px;
+  font-weight: 700;
+  background: #b9ff35;
+  color: #171d18;
+  padding: 2px 6px;
+  border-radius: 999px;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+/* the value receipt — an outcome, shown not claimed */
+.receipt {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #171d18;
+  background: #b9ff35;
+  padding: 5px 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(120, 170, 20, 0.3);
+  font-variant-numeric: tabular-nums;
+}
+.receipt svg {
+  width: 13px;
+  height: 13px;
+  flex: none;
+}
+
+/* ---- quote variant ---- */
+.qcHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 13px 15px 11px;
+  border-bottom: 1px solid var(--hair-card, #eceae3);
+}
+.qcCo {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.qcSt {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #3e7b27;
+  background: #eaffc2;
+  border: 1px solid #dcf3ae;
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.qcBody {
+  padding: 11px 15px 15px;
+}
+.qcPhotos {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 11px;
+}
+.qcPhoto {
+  width: 42px;
+  height: 32px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, #c8d4bd, #e8eee0);
+  border: 1px solid var(--hair-card, #eceae3);
+  display: grid;
+  place-items: center;
+  color: #6b746c;
+}
+.qcPhoto svg {
+  width: 14px;
+  height: 14px;
+}
+.qcPhotoLab {
+  font-size: 11px;
+  color: #6b746c;
+  margin-left: 2px;
+}
+.qcLine {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+  padding: 5px 0;
+  border-bottom: 1px dashed var(--hair-card, #eceae3);
+}
+.qcLine span:first-child {
+  color: #3b443c;
+}
+.qcLine span:last-child {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.qcTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 8px 0 0;
+}
+.qcTotalLab {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b746c;
+}
+.qcTotalAmt {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.qcBody .receipt {
+  margin-top: 11px;
+}
+
+/* ============================================================ REVIEW CARD */
+.review {
+  padding: 16px 17px 17px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.reviewStars {
+  color: #e9a600;
+  font-size: 15px;
+  letter-spacing: 2px;
+}
+.reviewQuote {
+  font-size: 13px;
+  line-height: 1.48;
+  color: #171d18;
+}
+.reviewFoot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.reviewAva {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3e7b27, #6bb13f);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 9px;
+  font-weight: 700;
+}
+.reviewName {
+  font-size: 11.5px;
+  font-weight: 600;
+}
+.reviewSrc {
+  font-size: 10.5px;
+  color: #6b746c;
+  margin-left: auto;
+}
+
+/* ============================================================ STAT READOUT */
+.readout {
+  background: #fbfaf7;
+  border: 1px solid var(--hair-card, #eceae3);
+  border-radius: var(--r-sm, 12px);
+  padding: 14px 15px;
+}
+.readoutTop {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.readoutNum {
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.readoutUnit {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b746c;
+}
+.readoutLab {
+  font-size: 11.5px;
+  color: #6b746c;
+  margin-top: 2px;
+}
+.readoutDelta {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  color: #3e7b27;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+.readoutDelta svg {
+  width: 11px;
+  height: 11px;
+}
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 30px;
+  margin-top: 12px;
+}
+.bars i {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  background: var(--hair, #e5e1d6);
+  display: block;
+}
+.barHi {
+  background: #b9ff35 !important;
+}
+.barMid {
+  background: #cfee93 !important;
+}
+.starsRow {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.starsRow .s {
+  color: #e9a600;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+.starsRow .c {
+  font-size: 11.5px;
+  color: #6b746c;
+}
+
+/* ============================================================ COMPOSITION */
+.stage {
+  position: relative;
+  height: 560px;
+}
+.posSms {
+  position: absolute;
+  top: 12px;
+  left: 4%;
+  z-index: 3;
+  transform: rotate(-1.4deg);
+}
+.posDigest {
+  position: absolute;
+  top: 8px;
+  right: 2%;
+  z-index: 5;
+  transform: rotate(1.6deg);
+}
+.posValue {
+  position: absolute;
+  bottom: 6px;
+  right: 6%;
+  z-index: 4;
+  transform: rotate(-1deg);
+}
+
+/* swap fade — replayed on scenario change (fresh key remounts the node).
+   Opacity-only so it never clobbers each card's posDigest/posValue rotation. */
+.swap {
+  animation: fadeSwap 0.45s ease both;
+}
+@keyframes fadeSwap {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* stack for mobile: cards flow instead of layering */
+@media (max-width: 980px) {
+  .stage {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-top: 6px;
+  }
+  .posSms,
+  .posDigest,
+  .posValue {
+    position: static;
+    transform: none;
+  }
+  .sms,
+  .digest,
+  .valueCard {
+    width: min(360px, 100%);
+  }
+  .posDigest {
+    order: -1;
+  }
+}
+
+/* honor reduced motion — no cascade, no pulse, everything at rest */
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .slotFilled {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  /* typing phases resolve instantly: no dots, full text, no clamp/grow */
+  .bubPhase {
+    max-width: 82%;
+    max-height: none;
+    overflow: visible;
+    animation: none !important;
+  }
+  .phDots {
+    display: none !important;
+  }
+  .phDots i {
+    animation: none !important;
+  }
+  .phText {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  .swap {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  .pulse {
+    animation: none !important;
+  }
+}

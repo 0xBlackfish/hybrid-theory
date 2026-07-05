@@ -1,8 +1,15 @@
 "use client";
 
+import posthog from "posthog-js";
+
 export function ContactForm() {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    posthog.capture("contact_form_submitted");
+  }
+
   return (
-    <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
+    <form className="contact-form" onSubmit={handleSubmit}>
       <label className="contact-field">
         <span className="mono contact-field-label">Your name</span>
         <input type="text" placeholder="Jordan Hill" />

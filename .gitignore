@@ -27,3 +27,4 @@ next-env.d.ts
 # agent skills (installed via `npx skills`)
 /.agents/
 /.claude/
+.env.local
