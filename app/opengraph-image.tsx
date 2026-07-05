@@ -62,21 +62,7 @@ export default function OgImage() {
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#171D18" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
               <path d="M20 6 9 17l-5-5" />
             </svg>
-            New job booked · Thu 9:00 AM
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              background: "#14180F",
-              color: "#EAF0E6",
-              fontSize: 25,
-              fontWeight: 600,
-              padding: "16px 26px",
-              borderRadius: 999,
-            }}
-          >
-            while you were on a job
+            New job booked
           </div>
         </div>
       </div>
