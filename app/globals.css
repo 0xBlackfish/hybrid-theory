@@ -5875,9 +5875,17 @@ footer {
     radial-gradient(54% 66% at 72% 26%, rgba(167,139,250,0.08), transparent 74%),
     radial-gradient(48% 66% at 100% 82%, rgba(245,166,35,0.09), transparent 72%); }
 .htv-whofor .htv-wrap { position: relative; z-index: 1; }
-.htv-whofor-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
-@media (max-width: 900px) { .htv-whofor-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 360px) { .htv-whofor-grid { grid-template-columns: 1fr; } }
+/* auto-fit flows the tile count to the width (6→5→4→3→2→1 cols) — a fixed
+   repeat(5,1fr) overflowed at mid widths because 1fr won't shrink below the
+   tile's min-content (icon + label) */
+.htv-whofor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; }
+@media (max-width: 640px) {
+  /* compact tiles so 11 of them don't read as a wall on phones */
+  .htv-whofor-grid { gap: 10px; }
+  .htv-whofor-tile { padding: 10px 12px; gap: 10px; }
+  .htv-whofor-ic { width: 44px; height: 44px; }
+  .htv-whofor-nm { font-size: 13px; }
+}
 /* Intentional DARK forest tiles on the light page: the frosted-glass webp
    icons were baked for dark surfaces, so we give them one (like the phone). */
 .htv-whofor-tile { display: flex; align-items: center; gap: 12px; padding: 14px 15px; border-radius: 14px;
