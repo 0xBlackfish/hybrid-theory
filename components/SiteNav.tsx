@@ -115,6 +115,15 @@ export function SiteNav() {
           )}
         </button>
       </div>
+      {open && (
+        <button
+          type="button"
+          className="nav-scrim"
+          aria-label="Close menu"
+          tabIndex={-1}
+          onClick={() => setOpen(false)}
+        />
+      )}
       <div className="nav-mobile-panel">
         <div className="nav-dd-mobile">
           <div className="nav-dd-mobile-head">Who we help</div>
