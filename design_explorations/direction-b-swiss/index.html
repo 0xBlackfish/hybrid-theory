@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hybrid Theory — AI for service businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ============================================================
+     HYBRID THEORY — Direction B: Swiss Clarity / Premium Print
+     One grotesque (Archivo), forest-green accent, paper canvas.
+     Information design is the hero. Zero autonomous motion.
+     ============================================================ */
+
+  :root {
+    /* --- color tokens ------------------------------------- */
+    --paper:      #F3F1EA;   /* warm near-white canvas          */
+    --paper-2:    #FBFAF6;   /* raised surface (cards, ledger)  */
+    --ink:        #14201B;   /* near-black, forest-tinted text  */
+    --ink-2:      #566159;   /* muted body / secondary          */
+    --ink-3:      #8B928A;   /* faint labels                    */
+    --forest:     #0E3B2E;   /* the one committed accent        */
+    --forest-2:   #14503C;   /* forest, one step lighter        */
+    --lime:       #B9FF35;   /* survives only as a tiny mark    */
+    --rule:       #D7D4C8;   /* hairline on paper               */
+    --rule-2:     #C7C3B6;   /* hairline, stronger              */
+    --rule-dk:    rgba(255,255,255,.16); /* hairline on forest  */
+
+    /* --- type & rhythm ----------------------------------- */
+    --font: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --measure: 60ch;
+    --gutter: clamp(20px, 5vw, 64px);
+    --maxw: 1180px;
+    --sec-y: clamp(72px, 11vw, 148px);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font);
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.55;
+    letter-spacing: -0.006em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "ss01" 1;
+  }
+
+  ::selection { background: var(--forest); color: var(--paper-2); }
+
+  h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.028em; line-height: 1.03; }
+  p { margin: 0; }
+  a { color: inherit; text-decoration: none; }
+
+  .wrap {
+    width: 100%;
+    max-width: var(--maxw);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* --- shared eyebrow / kicker --------------------------- */
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.19em;
+    text-transform: uppercase;
+    color: var(--forest);
+  }
+  .kicker .mark {
+    width: 8px; height: 8px;
+    background: var(--lime);
+    border: 1px solid rgba(14,59,46,.35);
+    flex: none;
+  }
+  .kicker--muted { color: var(--ink-3); }
+
+  /* tabular figures for all data */
+  .tnum { font-feature-settings: "tnum" 1, "kern" 1; font-variant-numeric: tabular-nums; }
+
+  /* ============================================================
+     NAV
+     ============================================================ */
+  .nav {
+    position: sticky; top: 0; z-index: 40;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: saturate(1.4) blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-in {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 66px;
+  }
+  .brand { display: inline-flex; align-items: baseline; gap: 10px; }
+  .brand .logo {
+    font-weight: 800; letter-spacing: -0.04em; font-size: 19px;
+  }
+  .brand .logo b { color: var(--forest); }
+  .brand .tag {
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 600;
+  }
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links a {
+    font-size: 14px; font-weight: 500; color: var(--ink-2);
+    letter-spacing: -0.01em; transition: color .15s ease;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links .navcta { margin-left: 6px; }
+
+  /* --- buttons: state changes only ---------------------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font); font-weight: 600; font-size: 15px;
+    letter-spacing: -0.01em; line-height: 1;
+    padding: 13px 20px; border: 1px solid transparent; cursor: pointer;
+    transition: background .16s ease, color .16s ease, border-color .16s ease, transform .05s ease;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary {
+    background: var(--forest); color: var(--paper-2);
+    border-color: var(--forest);
+  }
+  .btn-primary:hover { background: var(--ink); border-color: var(--ink); }
+  .btn-primary .arw { transition: transform .16s ease; }
+  .btn-primary:hover .arw { transform: translateX(3px); }
+  .btn-ghost {
+    background: transparent; color: var(--ink);
+    border-color: var(--rule-2);
+  }
+  .btn-ghost:hover { border-color: var(--ink); }
+  .btn-lg { padding: 17px 26px; font-size: 16px; }
+
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .hero { padding-top: clamp(48px, 8vw, 92px); padding-bottom: var(--sec-y); }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr);
+    gap: clamp(36px, 6vw, 76px);
+    align-items: center;
+  }
+  .hero-eyebrow { margin-bottom: 26px; }
+  .hero h1 {
+    font-size: clamp(38px, 5.6vw, 68px);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.005;
+  }
+  .hero h1 .soft { color: var(--ink-2); }
+  .hero-lead {
+    margin-top: 26px;
+    max-width: 46ch;
+    font-size: clamp(17px, 1.35vw, 19px);
+    line-height: 1.56;
+    color: var(--ink-2);
+  }
+  .hero-lead b { color: var(--ink); font-weight: 600; }
+  .hero-cta { margin-top: 34px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .hero-note {
+    font-size: 13px; color: var(--ink-3); letter-spacing: -0.005em;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .hero-note .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--forest-2); }
+
+  /* --- THE LEDGER: information design as hero ------------ */
+  .ledger {
+    background: var(--paper-2);
+    border: 1px solid var(--rule-2);
+    box-shadow: 0 1px 0 rgba(20,32,27,.03), 0 22px 44px -30px rgba(20,32,27,.35);
+  }
+  .ledger-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 12px; padding: 18px 22px 14px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .ledger-head .lbl {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.17em; text-transform: uppercase;
+    color: var(--ink);
+  }
+  .ledger-head .meta {
+    font-size: 12px; color: var(--ink-3); letter-spacing: 0.01em;
+  }
+  .ledger-sub {
+    display: grid; grid-template-columns: 62px 1fr auto;
+    gap: 14px; padding: 9px 22px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-3); border-bottom: 1px solid var(--rule);
+  }
+  .ledger-sub .r { text-align: right; }
+  .row {
+    display: grid; grid-template-columns: 62px 1fr auto;
+    gap: 14px; padding: 15px 22px; align-items: baseline;
+    border-bottom: 1px solid var(--rule);
+  }
+  .row .t {
+    font-size: 14px; font-weight: 600; color: var(--forest);
+    letter-spacing: 0.01em;
+  }
+  .row .ev { font-size: 15px; letter-spacing: -0.008em; }
+  .row .ev .sm { display: block; font-size: 12.5px; color: var(--ink-2); margin-top: 3px; }
+  .row .amt {
+    text-align: right; font-size: 15px; font-weight: 600;
+    letter-spacing: -0.01em; white-space: nowrap;
+  }
+  .row .amt.pos { color: var(--ink); }
+  .row .amt.dim { color: var(--ink-3); font-weight: 500; }
+  .row .amt .star { color: var(--forest-2); letter-spacing: 1px; font-size: 13px; }
+  .ledger-foot {
+    display: grid; grid-template-columns: 1fr auto; gap: 14px;
+    align-items: center; padding: 18px 22px;
+    background: var(--forest); color: var(--paper-2);
+  }
+  .ledger-foot .fl {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase;
+    color: color-mix(in srgb, var(--paper-2) 78%, transparent);
+  }
+  .ledger-foot .fl .mark { width: 7px; height: 7px; background: var(--lime); flex: none; }
+  .ledger-foot .fv { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+
+  /* ============================================================
+     TRUST STRIP — works with your tools
+     ============================================================ */
+  .strip { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .strip-in {
+    display: grid; grid-template-columns: max-content 1fr; align-items: center;
+    gap: clamp(20px, 4vw, 52px); padding: 22px 0;
+  }
+  .strip-lbl {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--ink-3); max-width: 15ch; line-height: 1.5;
+  }
+  .strip-tools {
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: 10px 0;
+  }
+  .strip-tools span {
+    font-size: 15px; font-weight: 600; color: var(--ink-2); letter-spacing: -0.01em;
+    padding: 0 22px; border-left: 1px solid var(--rule);
+  }
+  .strip-tools span:first-child { padding-left: 0; border-left: 0; }
+
+  /* ============================================================
+     OPPORTUNITY — numbered catalog grid
+     ============================================================ */
+  .sec-head { max-width: 42ch; }
+  .sec-head.center { max-width: 46ch; margin-inline: auto; text-align: center; }
+  .sec-head .kicker { margin-bottom: 20px; }
+  .sec-head h2 {
+    font-size: clamp(28px, 3.7vw, 44px); letter-spacing: -0.03em; line-height: 1.04;
+  }
+  .sec-head p {
+    margin-top: 18px; color: var(--ink-2); font-size: 17px; line-height: 1.55;
+    max-width: 54ch;
+  }
+  .sec-head.center p { margin-inline: auto; }
+
+  .opps {
+    margin-top: clamp(40px, 6vw, 66px);
+    border-top: 1px solid var(--rule-2);
+    border-left: 1px solid var(--rule-2);
+    display: grid; grid-template-columns: repeat(3, 1fr);
+  }
+  .cat {
+    border-right: 1px solid var(--rule-2);
+    border-bottom: 1px solid var(--rule-2);
+    padding: 30px 30px 34px;
+    background: transparent;
+    transition: background .18s ease;
+  }
+  .cat:hover { background: var(--paper-2); }
+  .cat-top {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .cat-idx {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
+    color: var(--forest);
+  }
+  .cat-tick { width: 22px; height: 1px; background: var(--rule-2); }
+  .cat:hover .cat-tick { background: var(--forest); }
+  .cat h3 {
+    font-size: 20px; font-weight: 700; letter-spacing: -0.022em; line-height: 1.12;
+    margin-bottom: 10px;
+  }
+  .cat p { color: var(--ink-2); font-size: 15px; line-height: 1.5; }
+  .opps-foot {
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--rule);
+    font-size: 14px; color: var(--ink-2);
+  }
+  .opps-foot b { color: var(--ink); font-weight: 600; }
+  .opps-foot a { color: var(--forest); font-weight: 600; border-bottom: 1px solid var(--rule-2); padding-bottom: 1px; transition: border-color .15s ease; }
+  .opps-foot a:hover { border-color: var(--forest); }
+
+  /* ============================================================
+     LEVERS — the three needles
+     ============================================================ */
+  .levers-sec { background: var(--paper-2); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .levers {
+    margin-top: clamp(40px, 6vw, 64px);
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0; border-top: 1px solid var(--rule-2);
+  }
+  .lever {
+    padding: 34px 34px 8px;
+    border-right: 1px solid var(--rule-2);
+  }
+  .lever:last-child { border-right: 0; }
+  .lever:first-child { padding-left: 0; }
+  .lever-num {
+    font-size: 40px; font-weight: 700; letter-spacing: -0.03em;
+    color: var(--ink); line-height: 1;
+  }
+  .lever-num::after { content: ""; display: block; width: 30px; height: 3px; background: var(--forest); margin-top: 18px; }
+  .lever h3 { font-size: 22px; font-weight: 700; letter-spacing: -0.024em; margin-top: 22px; }
+  .lever p { margin-top: 12px; color: var(--ink-2); font-size: 15.5px; line-height: 1.54; max-width: 34ch; }
+
+  /* ============================================================
+     FINAL CTA — the committed forest panel
+     ============================================================ */
+  .final { padding-block: var(--sec-y); }
+  .final-panel {
+    background: var(--forest); color: var(--paper-2);
+    padding: clamp(48px, 8vw, 88px) clamp(28px, 6vw, 80px);
+    display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  .final-panel::before {
+    /* static plotted grid — precision motif, no motion */
+    content: ""; position: absolute; inset: 0;
+    background-image: linear-gradient(var(--rule-dk) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--rule-dk) 1px, transparent 1px);
+    background-size: 46px 46px;
+    opacity: .5; pointer-events: none;
+  }
+  .final-l, .final-r { position: relative; z-index: 1; }
+  .final .kicker { color: var(--lime); }
+  .final .kicker .mark { border-color: rgba(185,255,53,.5); }
+  .final h2 {
+    margin-top: 20px; font-size: clamp(30px, 4vw, 48px);
+    letter-spacing: -0.03em; line-height: 1.02; color: var(--paper-2);
+  }
+  .final p {
+    margin-top: 20px; max-width: 42ch;
+    color: color-mix(in srgb, var(--paper-2) 82%, transparent);
+    font-size: 17px; line-height: 1.56;
+  }
+  .final-r {
+    border-left: 1px solid var(--rule-dk);
+    padding-left: clamp(24px, 4vw, 48px);
+  }
+  .final .btn-primary {
+    background: var(--lime); color: var(--forest); border-color: var(--lime);
+  }
+  .final .btn-primary:hover { background: var(--paper-2); border-color: var(--paper-2); }
+  .final-facts { list-style: none; margin: 0 0 30px; padding: 0; }
+  .final-facts li {
+    display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: baseline;
+    padding: 11px 0; border-bottom: 1px solid var(--rule-dk);
+    font-size: 15px; color: color-mix(in srgb, var(--paper-2) 88%, transparent);
+  }
+  .final-facts li b { color: var(--paper-2); font-weight: 600; font-size: 18px; letter-spacing: -0.01em; }
+  .final-facts .k { font-size: 11px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--lime); }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  .foot { border-top: 1px solid var(--rule); padding-block: 34px; }
+  .foot-in { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+  .foot .logo { font-weight: 800; letter-spacing: -0.04em; font-size: 17px; }
+  .foot .logo b { color: var(--forest); }
+  .foot small { color: var(--ink-3); font-size: 13px; }
+
+  /* ============================================================
+     RESPONSIVE — phone-first buyer, mobile must be genuinely good
+     ============================================================ */
+  @media (max-width: 960px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 42px; }
+    .final-panel { grid-template-columns: 1fr; gap: 34px; }
+    .final-r { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule-dk); padding-top: 32px; }
+    .opps { grid-template-columns: repeat(2, 1fr); }
+    .levers { grid-template-columns: 1fr; }
+    .lever { border-right: 0; border-bottom: 1px solid var(--rule-2); padding: 28px 0; }
+    .lever:first-child { padding-top: 4px; }
+    .lever:last-child { border-bottom: 0; }
+    .lever p { max-width: 52ch; }
+  }
+
+  @media (max-width: 720px) {
+    .nav-links a:not(.navcta) { display: none; }
+    .strip-in { grid-template-columns: 1fr; gap: 16px; }
+    .strip-lbl { max-width: none; }
+    .strip-tools span { padding: 0 16px 0 0; border-left: 0; }
+  }
+
+  @media (max-width: 560px) {
+    body { font-size: 16px; }
+    .hero { padding-top: 40px; }
+    .hero-cta { gap: 14px; }
+    .hero-cta .btn { width: 100%; justify-content: center; }
+    .opps { grid-template-columns: 1fr; }
+    .cat { padding: 26px 0 28px; border-right: 0; }
+    .opps { border-left: 0; }
+    .ledger-head { flex-direction: column; gap: 4px; }
+    .row { grid-template-columns: 54px 1fr; }
+    .row .amt { grid-column: 2; text-align: left; margin-top: 4px; font-size: 14px; }
+    .ledger-sub { display: none; }
+    .brand .tag { display: none; }
+    .foot-in { flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============================ NAV ============================ -->
+  <header class="nav">
+    <div class="wrap nav-in">
+      <a class="brand" href="#top">
+        <span class="logo">Hybrid<b>.</b>Theory</span>
+        <span class="tag">Est. system</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#opps">What it does</a>
+        <a href="#why">Why it works</a>
+        <a href="#tools">Works with</a>
+        <a class="btn btn-primary navcta" href="#book">Book your free 30-minute assessment</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============================ HERO ============================ -->
+  <main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-l">
+        <div class="kicker hero-eyebrow"><span class="mark"></span> AI for service businesses</div>
+        <h1>More jobs booked.<br /><span class="soft">Nothing slipping through the cracks.</span></h1>
+        <p class="hero-lead">
+          More customers. Faster answers. Nothing left waiting —
+          <b>quietly handled by AI built around how you already work.</b>
+          You run the business. It takes care of the busywork.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary btn-lg" href="#book">Book your free 30-minute assessment <span class="arw">→</span></a>
+          <span class="hero-note"><span class="dot"></span> No slides. No commitment.</span>
+        </div>
+      </div>
+
+      <!-- Information design as the hero: the overnight ledger -->
+      <aside class="ledger tnum" aria-label="A ledger of what ran overnight">
+        <div class="ledger-head">
+          <span class="lbl">While you slept</span>
+          <span class="meta">Tue → Wed · 11:40pm–8:12am</span>
+        </div>
+        <div class="ledger-sub">
+          <span>Time</span><span>What happened</span><span class="r">Result</span>
+        </div>
+
+        <div class="row">
+          <span class="t">01:53</span>
+          <span class="ev">Website quote request<span class="sm">Answered, priced, follow-up scheduled</span></span>
+          <span class="amt dim">40s reply</span>
+        </div>
+        <div class="row">
+          <span class="t">03:20</span>
+          <span class="ev">Missed call, after hours<span class="sm">Texted back → job booked to the calendar</span></span>
+          <span class="amt pos">+$420</span>
+        </div>
+        <div class="row">
+          <span class="t">06:41</span>
+          <span class="ev">Job wrapped the day before<span class="sm">Review asked for at the right moment</span></span>
+          <span class="amt"><span class="star">★★★★★</span></span>
+        </div>
+        <div class="row">
+          <span class="t">07:52</span>
+          <span class="ev">Missed call<span class="sm">Texted back, qualified, dispatched to on-call crew</span></span>
+          <span class="amt pos">+$1,180</span>
+        </div>
+        <div class="row">
+          <span class="t">08:04</span>
+          <span class="ev">Invoice, 14 days overdue<span class="sm">Chased on its own — and paid</span></span>
+          <span class="amt pos">+$1,600</span>
+        </div>
+
+        <div class="ledger-foot">
+          <span class="fl"><span class="mark"></span> Booked while you slept</span>
+          <span class="fv">$3,200</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ====================== TRUST / TOOLS STRIP ====================== -->
+  <section id="tools" class="strip">
+    <div class="wrap strip-in">
+      <div class="strip-lbl">Plugs into the tools you already run</div>
+      <div class="strip-tools">
+        <span>Jobber</span>
+        <span>Housecall Pro</span>
+        <span>ServiceTitan</span>
+        <span>QuickBooks</span>
+        <span>Google Calendar</span>
+        <span>Twilio</span>
+        <span>HubSpot</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= OPPORTUNITY ======================= -->
+  <section id="opps" class="wrap" style="padding-block: var(--sec-y);">
+    <div class="sec-head">
+      <div class="kicker"><span class="mark"></span> Where the upside lives</div>
+      <h2>The growth is hiding in the everyday moments.</h2>
+      <p>You don’t need a new system or ten new tools — just a handful of everyday moments, handled well. Each one quietly adds up.</p>
+    </div>
+
+    <div class="opps">
+      <article class="cat">
+        <div class="cat-top"><span class="cat-idx">01</span><span class="cat-tick"></span></div>
+        <h3>Speed-to-lead</h3>
+        <p>First to reply usually wins the job. Be first, every time.</p>
+      </article>
+      <article class="cat">
+        <div class="cat-top"><span class="cat-idx">02</span><span class="cat-tick"></span></div>
+        <h3>Missed-call text-back</h3>
+        <p>Every missed call gets a friendly text right back — before they call the next name on the list.</p>
+      </article>
+      <article class="cat">
+        <div class="cat-top"><span class="cat-idx">03</span><span class="cat-tick"></span></div>
+        <h3>24/7 AI receptionist</h3>
+        <p>Answers, qualifies, and books calls around the clock — even after hours.</p>
+      </article>
+      <article class="cat">
+        <div class="cat-top"><span class="cat-idx">04</span><span class="cat-tick"></span></div>
+        <h3>Instant quotes</h3>
+        <p>A quote that lands the same hour hits different than one that takes three days.</p>
+      </article>
+      <article class="cat">
+        <div class="cat-top"><span class="cat-idx">05</span><span class="cat-tick"></span></div>
+        <h3>Reviews on autopilot</h3>
+        <p>Turn happy customers into 5-star reviews — asked at exactly the right moment.</p>
+      </article>
+      <article class="cat">
+        <div class="cat-top"><span class="cat-idx">06</span><span class="cat-tick"></span></div>
+        <h3>Invoice &amp; payment chasing</h3>
+        <p>Chases unpaid invoices so you don’t have to.</p>
+      </article>
+    </div>
+
+    <div class="opps-foot">
+      <span><b>Twenty-plus of these</b> — from bid responses to no-show recovery to reactivating dead leads in your CRM.</span>
+      <a href="#book">See which few matter for your business →</a>
+    </div>
+  </section>
+
+  <!-- ========================= LEVERS ========================= -->
+  <section id="why" class="levers-sec">
+    <div class="wrap" style="padding-block: var(--sec-y);">
+      <div class="sec-head">
+        <div class="kicker"><span class="mark"></span> Why it works</div>
+        <h2>We’re not here to sell you “AI.” We’re here to grow your business — and hand you your time back.</h2>
+        <p>Every project we take on has to move at least one of three needles. The best ones move all three at once — which is usually the whole point.</p>
+      </div>
+
+      <div class="levers">
+        <div class="lever">
+          <div class="lever-num tnum">01</div>
+          <h3>Make more money</h3>
+          <p>Answer first, quote faster, follow up until it’s a yes. The customers are already reaching out — we just stop letting them slip away.</p>
+        </div>
+        <div class="lever">
+          <div class="lever-num tnum">02</div>
+          <h3>Win back your time</h3>
+          <p>Hand off the repetitive busywork so your days go to the work only you can do — and to the life outside the business.</p>
+        </div>
+        <div class="lever">
+          <div class="lever-num tnum">03</div>
+          <h3>Raise your game</h3>
+          <p>Every customer gets your best — fast, sharp, on-brand — not just whatever your most hectic day happens to allow.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= FINAL CTA ======================= -->
+  <section id="book" class="wrap final">
+    <div class="final-panel">
+      <div class="final-l">
+        <div class="kicker"><span class="mark"></span> Your move</div>
+        <h2>See the business you could be running.</h2>
+        <p>Thirty minutes, no slides, no commitment — just a clear read on the one change that would pay for itself the fastest.</p>
+      </div>
+      <div class="final-r">
+        <ul class="final-facts tnum">
+          <li><span class="k">Time</span><span><b>30 minutes.</b> On a call, at your desk or the truck.</span></li>
+          <li><span class="k">Cost</span><span><b>$0.</b> No slides, no commitment.</span></li>
+          <li><span class="k">Outcome</span><span><b>One change</b> — the fastest to pay for itself.</span></li>
+        </ul>
+        <a class="btn btn-primary btn-lg" href="#" data-calendly>Book your free 30-minute assessment →</a>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- ========================= FOOTER ========================= -->
+  <footer class="foot">
+    <div class="wrap foot-in">
+      <span class="logo">Hybrid<b>.</b>Theory</span>
+      <small>AI for service businesses — roofing, HVAC, dental, legal, landscaping &amp; more.</small>
+    </div>
+  </footer>
+
+</body>
+</html>

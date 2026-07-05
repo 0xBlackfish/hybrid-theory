@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hybrid Theory — AI for service businesses</title>
+<meta name="description" content="More jobs booked. Nothing slipping through the cracks. AI built around how service businesses already work." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   HYBRID THEORY — Direction A: "Trade Craft / Editorial"
+   A trade journal did a feature on running a calmer business.
+   Warm cream paper, deep forest/near-black ink, a print serif
+   doing the display work, hairline ledger rules, a single warm
+   spot color. Zero autonomous motion. Hover states only.
+   ============================================================ */
+
+:root{
+  /* --- paper & ink --------------------------------------- */
+  --paper:      #F1EBDC;   /* warm cream stock                */
+  --paper-hi:   #F7F2E6;   /* lighter inset / card face       */
+  --panel:      #E8E0CD;   /* pressed panel                   */
+  --ink:        #20241E;   /* near-black warm ink             */
+  --ink-soft:   #575B4D;   /* secondary text                  */
+  --ink-faint:  #8A8878;   /* captions, meta                  */
+  --forest:     #223D33;   /* deep forest — the dark spread   */
+  --forest-hi:  #2C4A3E;
+
+  /* --- the single spot color (used like a printer would) -- */
+  --spot:       #B15A1C;   /* burnt amber                     */
+  --spot-deep:  #8C4614;
+
+  /* --- hairlines ----------------------------------------- */
+  --rule:       rgba(32,36,30,.20);
+  --rule-soft:  rgba(32,36,30,.11);
+  --rule-crm:   rgba(247,242,230,.24);   /* on dark          */
+
+  /* --- type ---------------------------------------------- */
+  --serif:  "Fraunces", Georgia, "Times New Roman", serif;
+  --read:   "Newsreader", Georgia, serif;
+  --mono:   "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --measure: 62ch;
+  --edge: clamp(1.25rem, 5vw, 5.5rem);   /* page margin      */
+  --maxw: 1240px;
+}
+
+*{ box-sizing:border-box; }
+
+html{ -webkit-text-size-adjust:100%; }
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--read);
+  font-size:17px;
+  line-height:1.62;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  position:relative;
+}
+
+/* faint paper grain — warmth, not texture-for-its-own-sake */
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none; z-index:9999;
+  opacity:.05; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img{ max-width:100%; display:block; }
+
+/* --- shared elements ------------------------------------- */
+.wrap{ max-width:var(--maxw); margin:0 auto; padding-inline:var(--edge); }
+
+a{ color:inherit; text-decoration:none; }
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  display:inline-flex;
+  align-items:center;
+  gap:.7em;
+  margin:0;
+}
+.eyebrow::before{
+  content:"";
+  width:.62em; height:.62em;
+  background:var(--spot);
+  display:inline-block;
+  /* a printer's registration tick */
+}
+
+.kicker{
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--spot-deep);
+}
+
+h1,h2,h3{ font-family:var(--serif); font-weight:500; }
+
+h1 em, h2 em{
+  font-style:italic;
+  font-weight:500;
+}
+
+/* --- buttons: letterpress -------------------------------- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:.6em;
+  font-family:var(--mono);
+  font-size:.82rem;
+  letter-spacing:.04em;
+  padding:.95em 1.5em;
+  border:1px solid transparent;
+  border-radius:2px;
+  cursor:pointer;
+  transition:background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
+}
+.btn-primary{
+  background:var(--spot);
+  color:#FBF4E6;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.05);
+}
+.btn-primary:hover{ background:var(--spot-deep); }
+.btn-primary .arw{ transition:transform .18s ease; }
+.btn-primary:hover .arw{ transform:translateX(3px); }
+
+.btn-ghost{
+  background:transparent;
+  color:var(--ink);
+  border-color:var(--rule);
+}
+.btn-ghost:hover{ border-color:var(--ink); background:rgba(32,36,30,.03); }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  border-bottom:1px solid var(--rule);
+  position:sticky; top:0; z-index:100;
+  background:color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter:saturate(1.1) blur(6px);
+}
+.nav-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  height:72px;
+}
+.wordmark{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:1.32rem;
+  letter-spacing:-.01em;
+  display:flex; align-items:baseline; gap:.5em;
+}
+.wordmark .est{
+  font-family:var(--mono);
+  font-size:.58rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+}
+.nav-links{
+  display:flex; align-items:center; gap:2rem;
+}
+.nav-links a{
+  font-family:var(--mono);
+  font-size:.72rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  padding-bottom:2px;
+  border-bottom:1px solid transparent;
+  transition:color .16s ease, border-color .16s ease;
+}
+.nav-links a:hover{ color:var(--ink); border-color:var(--spot); }
+.nav-cta{ margin-left:.5rem; }
+.nav-burger{ display:none; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{ padding-top:clamp(3rem,7vw,6rem); padding-bottom:clamp(3rem,6vw,5.5rem); }
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:clamp(2rem,5vw,5rem);
+  align-items:start;
+}
+.hero-eyebrow{ margin-bottom:1.6rem; }
+
+.hero h1{
+  font-optical-sizing:auto;
+  font-size:clamp(2.7rem, 5.6vw, 4.55rem);
+  line-height:1.015;
+  letter-spacing:-.021em;
+  font-weight:500;
+  margin:0 0 1.4rem;
+  max-width:14ch;
+}
+.hero .lead{
+  font-size:clamp(1.14rem, 1.55vw, 1.35rem);
+  line-height:1.5;
+  color:var(--ink-soft);
+  max-width:44ch;
+  margin:0 0 2.1rem;
+}
+.hero .lead b{ color:var(--ink); font-weight:500; }
+
+.hero-cta-row{ display:flex; align-items:center; gap:1.4rem; flex-wrap:wrap; }
+.hero-cta-note{
+  font-family:var(--mono);
+  font-size:.68rem;
+  letter-spacing:.06em;
+  color:var(--ink-faint);
+  text-transform:uppercase;
+}
+
+/* rule + credential line under hero copy */
+.hero-cred{
+  margin-top:2.6rem;
+  padding-top:1.4rem;
+  border-top:1px solid var(--rule-soft);
+  display:flex; gap:2.4rem; flex-wrap:wrap;
+}
+.cred{ }
+.cred b{
+  font-family:var(--serif);
+  font-size:1.6rem;
+  font-weight:500;
+  display:block;
+  line-height:1;
+  color:var(--ink);
+}
+.cred span{
+  font-family:var(--mono);
+  font-size:.62rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+}
+
+/* --- hero right: photo + dispatch card ------------------- */
+.hero-plate{ position:relative; }
+
+.photo{
+  position:relative;
+  border:1px solid var(--rule);
+  overflow:hidden;
+  /* warm duotone standing in for real photography */
+  background:
+    linear-gradient(150deg, rgba(34,61,51,.94) 0%, rgba(60,74,45,.7) 42%, rgba(177,90,28,.78) 100%);
+  color:#F2ECDD;
+}
+.photo::after{
+  /* soft attic-window light */
+  content:"";
+  position:absolute; inset:0;
+  background:radial-gradient(120% 90% at 78% 12%, rgba(255,236,196,.42), transparent 55%);
+  mix-blend-mode:screen;
+}
+.photo-label{
+  position:absolute; left:14px; bottom:12px;
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:rgba(242,236,221,.86);
+  z-index:3;
+  display:flex; align-items:center; gap:.55em;
+}
+.photo-label::before{
+  content:"";
+  width:.6em; height:.6em; border-radius:50%;
+  border:1px solid currentColor;
+}
+/* crop-mark corners — a printer's framing */
+.photo .crop{ position:absolute; width:12px; height:12px; z-index:3; border-color:rgba(242,236,221,.7); }
+.photo .crop.tl{ top:8px; left:8px; border-top:1px solid; border-left:1px solid; }
+.photo .crop.tr{ top:8px; right:8px; border-top:1px solid; border-right:1px solid; }
+.photo .crop.bl{ bottom:8px; left:8px; border-bottom:1px solid; border-left:1px solid; }
+.photo .crop.br{ bottom:8px; right:8px; border-bottom:1px solid; border-right:1px solid; }
+
+.hero-photo{ aspect-ratio:4/5; }
+
+/* the "morning brief" — lock-screen notifications, reset in
+   print as a printed dispatch / field report */
+.dispatch{
+  position:absolute;
+  right:-18px;
+  bottom:-26px;
+  width:min(340px, 78%);
+  background:var(--paper-hi);
+  border:1px solid var(--ink);
+  box-shadow:14px 16px 0 -2px rgba(32,36,30,.10);
+  padding:1.1rem 1.15rem 1.2rem;
+}
+.dispatch-head{
+  display:flex; align-items:baseline; justify-content:space-between;
+  border-bottom:1px solid var(--ink);
+  padding-bottom:.55rem; margin-bottom:.7rem;
+}
+.dispatch-head .t{
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:.98rem;
+  letter-spacing:.01em;
+}
+.dispatch-head .m{
+  font-family:var(--mono);
+  font-size:.6rem; letter-spacing:.1em;
+  color:var(--ink-faint);
+  text-transform:uppercase;
+}
+.brief{ list-style:none; margin:0; padding:0; }
+.brief li{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:.7rem;
+  padding:.6rem 0;
+  border-bottom:1px dotted var(--rule);
+  font-size:.86rem;
+  line-height:1.4;
+}
+.brief li:last-child{ border-bottom:0; padding-bottom:0; }
+.brief .fig{
+  font-family:var(--mono);
+  font-weight:500;
+  font-size:.8rem;
+  color:var(--spot-deep);
+  white-space:nowrap;
+  padding-top:.05em;
+}
+.brief .txt b{ font-weight:500; }
+.brief .txt{ color:var(--ink-soft); }
+.brief .txt b, .brief .txt strong{ color:var(--ink); }
+
+/* ============================================================
+   TRUST STRIP  — works with your tools
+   ============================================================ */
+.trust{
+  border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+  background:var(--paper-hi);
+}
+.trust-inner{
+  display:flex; align-items:center; gap:clamp(1rem,4vw,3rem);
+  padding-block:1.15rem;
+  flex-wrap:wrap;
+}
+.trust-label{
+  font-family:var(--mono);
+  font-size:.66rem; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ink-faint);
+  white-space:nowrap;
+  padding-right:clamp(1rem,3vw,2rem);
+  border-right:1px solid var(--rule);
+}
+.trust-list{
+  display:flex; align-items:center; gap:clamp(1rem,3vw,2.4rem);
+  flex-wrap:wrap;
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:1.05rem;
+  color:var(--ink-soft);
+}
+.trust-list span{ position:relative; transition:color .16s ease; }
+.trust-list span:hover{ color:var(--ink); }
+
+/* ============================================================
+   SECTION HEAD (shared)
+   ============================================================ */
+.sec-head{ max-width:var(--measure); }
+.sec-head.center{ margin-inline:auto; text-align:center; }
+.sec-head .kicker{ display:inline-block; margin-bottom:1rem; }
+.sec-head h2{
+  font-optical-sizing:auto;
+  font-size:clamp(1.85rem, 3.4vw, 2.85rem);
+  line-height:1.08;
+  letter-spacing:-.014em;
+  margin:0 0 1rem;
+}
+.sec-head p{
+  color:var(--ink-soft);
+  font-size:1.12rem;
+  margin:0;
+}
+.sec-head.center p{ margin-inline:auto; max-width:52ch; }
+
+/* rule with an index count, ledger-style */
+.sec-rule{
+  display:flex; align-items:center; gap:1.2rem;
+  margin:2.8rem 0 2.4rem;
+}
+.sec-rule::after{
+  content:""; flex:1; height:1px; background:var(--rule);
+}
+.sec-rule .idx{
+  font-family:var(--mono); font-size:.66rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-faint);
+}
+
+/* ============================================================
+   OPPORTUNITY  — six field-manual entries
+   ============================================================ */
+.opps{ padding-block:clamp(3.5rem,7vw,6rem); }
+.opps-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--rule);
+  border-left:1px solid var(--rule);
+}
+.opp{
+  border-right:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+  padding:1.9rem 1.7rem 2.1rem;
+  background:transparent;
+  transition:background .2s ease;
+  position:relative;
+}
+.opp:hover{ background:var(--paper-hi); }
+.opp-top{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:1.5rem;
+}
+.opp-no{
+  font-family:var(--mono);
+  font-size:.72rem; letter-spacing:.1em;
+  color:var(--spot-deep);
+}
+.opp-tag{
+  font-family:var(--mono);
+  font-size:.58rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-faint);
+}
+.opp h3{
+  font-size:1.36rem;
+  font-weight:500;
+  line-height:1.14;
+  letter-spacing:-.008em;
+  margin:0 0 .6rem;
+}
+.opp p{
+  margin:0;
+  color:var(--ink-soft);
+  font-size:1rem;
+  line-height:1.55;
+  max-width:34ch;
+}
+.opp .tick{
+  position:absolute; left:0; top:0;
+  width:0; height:2px; background:var(--spot);
+  transition:width .24s ease;
+}
+.opp:hover .tick{ width:38px; }
+
+.opps-foot{
+  margin-top:2.2rem;
+  display:flex; align-items:baseline; gap:1rem;
+  font-family:var(--read);
+  color:var(--ink-soft);
+  font-style:italic;
+  font-size:1.05rem;
+}
+.opps-foot .lead-word{ font-style:normal; }
+
+/* ============================================================
+   REFRAME — the dark editorial spread (three levers)
+   ============================================================ */
+.reframe{
+  background:var(--forest);
+  color:#EDE7D7;
+  padding-block:clamp(4rem,8vw,7rem);
+  position:relative;
+}
+.reframe .kicker{ color:#D98A4E; }
+.reframe .r-head{ max-width:30ch; }
+.reframe .r-head h2{
+  color:#F4EEDE;
+  font-size:clamp(1.95rem, 3.6vw, 3.05rem);
+  line-height:1.1;
+  letter-spacing:-.014em;
+  margin:1rem 0 1.1rem;
+  max-width:20ch;
+}
+.reframe .r-head h2 em{ color:#E8A05B; }
+.reframe .r-intro{
+  color:rgba(237,231,215,.72);
+  font-size:1.14rem;
+  max-width:52ch;
+  margin:0;
+}
+.levers{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+  margin-top:clamp(2.6rem,5vw,4rem);
+  border-top:1px solid var(--rule-crm);
+}
+.lever{
+  padding:2.1rem 1.8rem 0;
+  border-right:1px solid var(--rule-crm);
+}
+.lever:last-child{ border-right:0; }
+.lever:first-child{ padding-left:0; }
+.lever-num{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:clamp(2.4rem,4vw,3.3rem);
+  line-height:1;
+  color:#E8A05B;
+  letter-spacing:-.02em;
+  margin-bottom:1.1rem;
+}
+.lever h3{
+  color:#F4EEDE;
+  font-size:1.42rem;
+  font-weight:500;
+  margin:0 0 .7rem;
+}
+.lever p{
+  color:rgba(237,231,215,.74);
+  font-size:1rem;
+  line-height:1.56;
+  margin:0;
+  max-width:32ch;
+}
+
+/* ============================================================
+   FINAL CTA — the back page of a field manual
+   ============================================================ */
+.final{ padding-block:clamp(4rem,8vw,7rem); }
+.final-card{
+  border:1px solid var(--ink);
+  background:var(--paper-hi);
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  position:relative;
+}
+/* a subtle perforation between panels */
+.final-copy{ padding:clamp(2.2rem,4vw,3.4rem); }
+.final-copy .kicker{ display:inline-block; margin-bottom:1.1rem; }
+.final-copy h2{
+  font-size:clamp(2rem,3.6vw,3rem);
+  line-height:1.08;
+  letter-spacing:-.015em;
+  margin:0 0 1.1rem;
+  max-width:16ch;
+}
+.final-copy p{
+  color:var(--ink-soft);
+  font-size:1.15rem;
+  max-width:40ch;
+  margin:0 0 1.9rem;
+}
+.final-sign{
+  margin-top:1.9rem;
+  padding-top:1.2rem;
+  border-top:1px solid var(--rule-soft);
+  font-family:var(--read);
+  font-style:italic;
+  color:var(--ink-soft);
+  font-size:.98rem;
+}
+.final-sign b{ font-style:normal; font-family:var(--serif); font-weight:500; color:var(--ink); }
+
+.final-photo{
+  position:relative;
+  border-left:1px solid var(--ink);
+  background:
+    linear-gradient(200deg, rgba(34,61,51,.92), rgba(177,90,28,.72));
+  min-height:280px;
+  color:#F2ECDD;
+}
+.final-photo::after{
+  content:"";
+  position:absolute; inset:0;
+  background:radial-gradient(90% 70% at 30% 20%, rgba(255,236,196,.4), transparent 60%);
+  mix-blend-mode:screen;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.foot{
+  border-top:1px solid var(--rule);
+  padding-block:2.4rem;
+}
+.foot-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:1rem;
+}
+.foot .wordmark{ font-size:1.1rem; }
+.foot p{
+  font-family:var(--mono);
+  font-size:.66rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-faint);
+  margin:0;
+}
+
+/* ============================================================
+   RESPONSIVE  — the buyer is phone-first
+   ============================================================ */
+@media (max-width: 940px){
+  .hero-grid{ grid-template-columns:1fr; }
+  .hero-plate{ margin-top:1rem; }
+  .dispatch{
+    position:relative; right:auto; bottom:auto;
+    width:100%; margin-top:1.4rem;
+    box-shadow:8px 9px 0 -2px rgba(32,36,30,.10);
+  }
+  .hero-photo{ aspect-ratio:16/10; }
+  .opps-grid{ grid-template-columns:repeat(2,1fr); }
+  .final-card{ grid-template-columns:1fr; }
+  .final-photo{ border-left:0; border-top:1px solid var(--ink); min-height:220px; order:-1; }
+}
+
+@media (max-width: 720px){
+  .nav-links{
+    position:fixed; inset:72px 0 auto 0;
+    flex-direction:column; align-items:flex-start; gap:0;
+    background:var(--paper); border-bottom:1px solid var(--rule);
+    padding:.5rem var(--edge) 1.4rem;
+    transform:translateY(-140%);
+    transition:transform .28s ease;
+    box-shadow:0 20px 30px -24px rgba(0,0,0,.4);
+  }
+  .nav-links.open{ transform:translateY(0); }
+  .nav-links a{ width:100%; padding:1rem 0; border-bottom:1px solid var(--rule-soft); }
+  .nav-links .nav-cta{ margin:1rem 0 0; }
+  .nav-burger{
+    display:inline-flex; flex-direction:column; gap:5px;
+    background:none; border:0; cursor:pointer; padding:8px 4px;
+  }
+  .nav-burger span{ width:24px; height:1.5px; background:var(--ink); display:block; }
+
+  .levers{ grid-template-columns:1fr; }
+  .lever{ padding:1.8rem 0; border-right:0; border-bottom:1px solid var(--rule-crm); }
+  .lever:last-child{ border-bottom:0; }
+  .lever p{ max-width:46ch; }
+
+  .trust-label{ border-right:0; width:100%; padding-bottom:.3rem; }
+
+  .hero-cred{ gap:1.6rem 2rem; }
+}
+
+@media (max-width: 520px){
+  body{ font-size:16px; }
+  .opps-grid{ grid-template-columns:1fr; }
+  .hero h1{ font-size:clamp(2.35rem,9vw,3rem); }
+  .cred b{ font-size:1.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAV ================= -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="wordmark" href="#top">
+      Hybrid&nbsp;Theory
+      <span class="est">Est. for trades</span>
+    </a>
+    <div class="nav-links" id="navlinks">
+      <a href="#opps">The upside</a>
+      <a href="#reframe">Why it works</a>
+      <a href="#book">Assessment</a>
+      <a class="btn btn-primary nav-cta" href="#book">Book a free assessment</a>
+    </div>
+    <button class="nav-burger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-cleft">
+      <p class="eyebrow hero-eyebrow">AI for service businesses</p>
+      <h1>More jobs booked. Nothing slipping through the <em>cracks</em>.</h1>
+      <p class="lead">
+        More customers. Faster answers. <b>Quietly handled by AI built around how you already work</b> — so you run the business, and it takes care of the busywork.
+      </p>
+
+      <div class="hero-cta-row">
+        <a href="#book" class="btn btn-primary">
+          Book your free 30-minute assessment <span class="arw">&rarr;</span>
+        </a>
+        <span class="hero-cta-note">No slides · No commitment</span>
+      </div>
+
+      <div class="hero-cred">
+        <div class="cred"><b>&lt;24hr</b><span>To first reply, every time</span></div>
+        <div class="cred"><b>11</b><span>Trades we build for</span></div>
+        <div class="cred"><b>1</b><span>Real human on your account</span></div>
+      </div>
+    </div>
+
+    <!-- right plate: photo + printed morning brief -->
+    <div class="hero-plate">
+      <div class="photo hero-photo">
+        <span class="crop tl"></span><span class="crop tr"></span>
+        <span class="crop bl"></span><span class="crop br"></span>
+        <span class="photo-label">Photo — owner on a job site, morning light</span>
+      </div>
+
+      <aside class="dispatch" aria-label="A morning's results">
+        <div class="dispatch-head">
+          <span class="t">The Morning Brief</span>
+          <span class="m">6:42 AM</span>
+        </div>
+        <ul class="brief">
+          <li>
+            <span class="fig">$3,200</span>
+            <span class="txt"><b>New work booked while you slept.</b> Zero leads left waiting.</span>
+          </li>
+          <li>
+            <span class="fig">★★★★★</span>
+            <span class="txt">A fresh 5-star review — <b>asked &amp; collected</b> for you.</span>
+          </li>
+          <li>
+            <span class="fig">$420</span>
+            <span class="txt">Flat-roof repair, Thu 9:00 AM — <b>already on your calendar</b>.</span>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<!-- ================= TRUST STRIP ================= -->
+<section class="trust">
+  <div class="wrap trust-inner">
+    <span class="trust-label">Works with the tools you already run on</span>
+    <div class="trust-list">
+      <span>Jobber</span>
+      <span>ServiceTitan</span>
+      <span>Housecall&nbsp;Pro</span>
+      <span>QuickBooks</span>
+      <span>Google</span>
+      <span>Calendly</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OPPORTUNITY ================= -->
+<section class="opps" id="opps">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Where the upside lives</span>
+      <h2>The growth is hiding in the everyday moments.</h2>
+      <p>You don&rsquo;t need a new system or ten new tools. Just a handful of everyday moments, handled well — and each one quietly adds up.</p>
+    </div>
+
+    <div class="sec-rule"><span class="idx">Field notes — six of the usual suspects</span></div>
+
+    <div class="opps-grid">
+      <article class="opp">
+        <span class="tick"></span>
+        <div class="opp-top"><span class="opp-no">№ 01</span><span class="opp-tag">Lead capture</span></div>
+        <h3>Speed-to-lead</h3>
+        <p>First to reply usually wins the job. Be first, every time.</p>
+      </article>
+
+      <article class="opp">
+        <span class="tick"></span>
+        <div class="opp-top"><span class="opp-no">№ 02</span><span class="opp-tag">The phone</span></div>
+        <h3>Missed-call text-back</h3>
+        <p>Every missed call gets a friendly text right back.</p>
+      </article>
+
+      <article class="opp">
+        <span class="tick"></span>
+        <div class="opp-top"><span class="opp-no">№ 03</span><span class="opp-tag">Front desk</span></div>
+        <h3>24/7 AI receptionist</h3>
+        <p>Answers, qualifies, and books calls around the clock — even after hours.</p>
+      </article>
+
+      <article class="opp">
+        <span class="tick"></span>
+        <div class="opp-top"><span class="opp-no">№ 04</span><span class="opp-tag">The quote</span></div>
+        <h3>Instant quotes</h3>
+        <p>A quote that lands the same hour hits different than one that takes three days.</p>
+      </article>
+
+      <article class="opp">
+        <span class="tick"></span>
+        <div class="opp-top"><span class="opp-no">№ 05</span><span class="opp-tag">Reputation</span></div>
+        <h3>Reviews on autopilot</h3>
+        <p>Turn happy customers into 5-star reviews — asked at exactly the right moment.</p>
+      </article>
+
+      <article class="opp">
+        <span class="tick"></span>
+        <div class="opp-top"><span class="opp-no">№ 06</span><span class="opp-tag">Getting paid</span></div>
+        <h3>Invoice &amp; payment chasing</h3>
+        <p>Chases unpaid invoices so you don&rsquo;t have to.</p>
+      </article>
+    </div>
+
+    <p class="opps-foot">
+      <span class="lead-word">…and the ones that are yours alone.</span>
+      Every business has its own quiet wins waiting — we find yours together.
+    </p>
+  </div>
+</section>
+
+<!-- ================= REFRAME (dark spread) ================= -->
+<section class="reframe" id="reframe">
+  <div class="wrap">
+    <div class="r-head">
+      <span class="kicker">Why it works</span>
+      <h2>We&rsquo;re not here to sell you &ldquo;AI.&rdquo; We&rsquo;re here to <em>grow your business</em> — and hand you your time back.</h2>
+      <p class="r-intro">Every project we take on has to move at least one of three needles for you. The best ones move all three at once — which is usually the whole point.</p>
+    </div>
+
+    <div class="levers">
+      <div class="lever">
+        <div class="lever-num">01</div>
+        <h3>Make more money</h3>
+        <p>Answer first, quote faster, follow up until it&rsquo;s a yes. The customers are already reaching out — we just stop letting them slip away.</p>
+      </div>
+      <div class="lever">
+        <div class="lever-num">02</div>
+        <h3>Win back your time</h3>
+        <p>Hand off the repetitive busywork so your days go to the work only you can do — and to the life outside the business.</p>
+      </div>
+      <div class="lever">
+        <div class="lever-num">03</div>
+        <h3>Raise your game</h3>
+        <p>Every customer gets your best — fast, sharp, on-brand — not just whatever your most hectic day happens to allow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="final" id="book">
+  <div class="wrap">
+    <div class="final-card">
+      <div class="final-copy">
+        <span class="kicker">Your move</span>
+        <h2>See the business you could be running.</h2>
+        <p>Thirty minutes, no slides, no commitment — just a clear read on the one change that would pay for itself the fastest.</p>
+        <a href="#" class="btn btn-primary">
+          Book your free 30-minute assessment <span class="arw">&rarr;</span>
+        </a>
+        <p class="final-sign">
+          You&rsquo;ll talk to a real person who has done this before — not a chatbot, not a sales rep reading a script. <b>— The Hybrid Theory team</b>
+        </p>
+      </div>
+      <div class="final-photo">
+        <span class="crop tl" style="border-color:rgba(242,236,221,.7)"></span>
+        <span class="crop br" style="border-color:rgba(242,236,221,.7)"></span>
+        <span class="photo-label">Photo — the person you&rsquo;ll actually meet</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <a class="wordmark" href="#top">Hybrid&nbsp;Theory</a>
+    <p>AI for service businesses · Built around how you already work</p>
+  </div>
+</footer>
+
+<script>
+/* Minimal vanilla JS — mobile nav toggle only. No autonomous motion. */
+(function(){
+  var b = document.getElementById('burger');
+  var l = document.getElementById('navlinks');
+  if(!b || !l) return;
+  b.addEventListener('click', function(){ l.classList.toggle('open'); });
+  l.addEventListener('click', function(e){
+    if(e.target.tagName === 'A') l.classList.remove('open');
+  });
+})();
+</script>
+
+</body>
+</html>

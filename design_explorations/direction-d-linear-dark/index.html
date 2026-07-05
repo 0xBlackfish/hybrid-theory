@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hybrid Theory — AI for service businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ============================================================
+     DIRECTION D — "LINEAR SCHOOL, DARK"
+     Product-forward visual storytelling for service-business owners.
+     One accent (lime = money/success). Blue reserved for AI messages.
+     ============================================================ */
+
+  :root {
+    /* canvas — warm near-black, avoids the coldest grays */
+    --bg:        #0A0B0D;
+    --bg-2:      #0D0E11;
+    --bg-raise:  #101216;
+
+    /* glass panels */
+    --panel:     rgba(255,255,255,0.022);
+    --panel-2:   rgba(255,255,255,0.040);
+    --border:    rgba(255,255,255,0.085);
+    --border-soft: rgba(255,255,255,0.055);
+    --border-hi: rgba(255,255,255,0.14);
+
+    /* type — warm neutrals */
+    --text:   #F3F4F6;
+    --text-2: #AEB1B8;
+    --text-3: #74777E;
+    --text-4: #565961;
+
+    /* the accent — used with discipline */
+    --accent:     #C8F55E;
+    --accent-2:   #B4EA46;
+    --accent-dim: rgba(200,245,94,0.12);
+    --accent-glow: rgba(190,240,90,0.30);
+
+    /* functional message colors (the AI's outgoing texts) */
+    --sent:   #2F6BF0;
+    --sent-2: #2455d4;
+    --recv:   #1B1D22;
+
+    /* status */
+    --red:   #FF5A5A;
+
+    --r-sm: 8px;
+    --r:    12px;
+    --r-lg: 18px;
+    --r-xl: 24px;
+
+    --shadow-card: 0 1px 0 rgba(255,255,255,0.04) inset, 0 20px 50px -24px rgba(0,0,0,0.8);
+    --shadow-float: 0 30px 80px -30px rgba(0,0,0,0.9), 0 2px 8px -2px rgba(0,0,0,0.6);
+
+    --maxw: 1180px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Inter", -apple-system, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* metadata / labels — engineered feel */
+  .mono {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-feature-settings: "tnum";
+  }
+  .eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  /* buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inherit;
+    font-weight: 550;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    border-radius: 10px;
+    padding: 11px 18px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform .16s ease, background .2s ease, box-shadow .2s ease;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: linear-gradient(180deg, #d9ff77, var(--accent) 55%, var(--accent-2));
+    color: #10160a;
+    box-shadow: 0 0 0 1px rgba(200,245,94,0.4), 0 8px 24px -8px var(--accent-glow);
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(200,245,94,0.55), 0 12px 30px -8px var(--accent-glow); }
+  .btn-ghost {
+    background: var(--panel-2);
+    color: var(--text);
+    border-color: var(--border);
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.07); border-color: var(--border-hi); }
+
+  /* ============================ NAV ============================ */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(10,11,13,0.72);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .nav-inner {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.02em;
+  }
+  .logo .dot {
+    width: 9px; height: 9px;
+    border-radius: 3px;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent-glow);
+  }
+  .nav-links {
+    display: flex;
+    gap: 30px;
+    font-size: 13.5px;
+    color: var(--text-2);
+  }
+  .nav-links a { transition: color .15s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-right { display: flex; align-items: center; gap: 14px; }
+
+  /* ============================ HERO ============================ */
+  .hero {
+    position: relative;
+    padding: 84px 0 96px;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute;
+    top: -180px; right: -80px;
+    width: 780px; height: 620px;
+    background: radial-gradient(closest-side, rgba(190,240,90,0.10), rgba(190,240,90,0) 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-grid-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 60% at 60% 20%, #000 0%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 60% 20%, #000 0%, transparent 75%);
+    opacity: 0.5;
+    z-index: 0;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr);
+    gap: 40px;
+    align-items: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 11px 5px 8px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    background: var(--panel);
+    margin-bottom: 24px;
+  }
+  .hero-eyebrow .pulse {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+  }
+  h1.hero-title {
+    font-size: 52px;
+    line-height: 1.04;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: #fff;
+    margin-bottom: 22px;
+  }
+  h1.hero-title em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .lead {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-2);
+    max-width: 500px;
+    margin-bottom: 28px;
+  }
+  .lead b { color: var(--text); font-weight: 550; }
+  .hero-cta-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .hero-trust {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--text-3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-trust .sep { color: var(--text-4); }
+
+  /* ---- INDUSTRY SWITCHER (attached to the artifact composition) ---- */
+  .hero-right { display: flex; flex-direction: column; }
+  .switcher {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    padding-left: 2px;
+  }
+  .switcher-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+  .switch-chips { display: flex; gap: 7px; flex-wrap: wrap; }
+  .chip {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-2);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 7px 15px;
+    cursor: pointer;
+    transition: color .15s, background .18s, border-color .18s, box-shadow .18s;
+  }
+  .chip:hover { color: var(--text); border-color: var(--border-hi); }
+  .chip.active {
+    color: #10160a;
+    background: var(--accent);
+    border-color: var(--accent);
+    font-weight: 600;
+    box-shadow: 0 4px 16px -6px var(--accent-glow);
+  }
+
+  /* ---- HERO ARTIFACT STAGE ---- */
+  .stage {
+    position: relative;
+    height: 500px;
+  }
+
+  /* base artifact card style */
+  .card {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.012)),
+      var(--bg-raise);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* SMS thread — the front, sharp artifact */
+  .sms {
+    position: absolute;
+    left: 4px; top: 40px;
+    width: 340px;
+    z-index: 3;
+    box-shadow: var(--shadow-float);
+    overflow: hidden;
+  }
+  .sms-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 15px;
+    border-bottom: 1px solid var(--border-soft);
+    background: rgba(255,255,255,0.015);
+  }
+  .sms-avatar {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3a3d45, #23262c);
+    display: grid; place-items: center;
+    font-size: 12px; font-weight: 600; color: var(--text-2);
+    flex-shrink: 0;
+  }
+  .sms-who { flex: 1; min-width: 0; }
+  .sms-name { font-size: 13.5px; font-weight: 600; color: var(--text); }
+  .sms-sub {
+    font-size: 11px; color: var(--text-3);
+    display: flex; align-items: center; gap: 5px;
+  }
+  .tag-ai {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9.5px; font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid rgba(200,245,94,0.2);
+    padding: 3px 6px;
+    border-radius: 5px;
+    white-space: nowrap;
+  }
+  .sms-body {
+    padding: 14px 14px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .day-div {
+    text-align: center;
+    font-size: 10.5px;
+    color: var(--text-4);
+    font-family: "JetBrains Mono", monospace;
+    letter-spacing: 0.04em;
+    margin: 2px 0 4px;
+  }
+  .bubble-row { display: flex; flex-direction: column; }
+  .bubble-row.out { align-items: flex-end; }
+  .bubble-row.in  { align-items: flex-start; }
+  .bubble {
+    max-width: 82%;
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 8px 12px;
+    border-radius: 16px;
+  }
+  .bubble.out {
+    background: linear-gradient(180deg, var(--sent), var(--sent-2));
+    color: #fff;
+    border-bottom-right-radius: 5px;
+  }
+  .bubble.in {
+    background: var(--recv);
+    color: var(--text);
+    border: 1px solid var(--border-soft);
+    border-bottom-left-radius: 5px;
+  }
+  .stamp {
+    font-size: 9.5px;
+    color: var(--text-4);
+    font-family: "JetBrains Mono", monospace;
+    margin: 3px 3px 0;
+  }
+  .sms-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 14px;
+    border-top: 1px solid var(--border-soft);
+    background: rgba(200,245,94,0.035);
+  }
+  .check {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--accent);
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+  .sms-status .txt { font-size: 12px; color: var(--text); font-weight: 500; }
+  .sms-status .amt { color: var(--accent); font-weight: 600; }
+
+  /* Calendar card — behind, top-right */
+  .cal {
+    position: absolute;
+    right: 0; top: 8px;
+    width: 236px;
+    z-index: 2;
+    padding: 15px;
+    transform: rotate(1.4deg);
+    box-shadow: var(--shadow-float);
+  }
+  .cal-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .cal-day { font-size: 13px; font-weight: 600; }
+  .cal-date { font-size: 11px; color: var(--text-3); font-family: "JetBrains Mono", monospace; }
+  .cal-row {
+    display: grid;
+    grid-template-columns: 38px 1fr;
+    gap: 8px;
+    align-items: center;
+    height: 30px;
+  }
+  .cal-time { font-size: 10.5px; color: var(--text-4); font-family: "JetBrains Mono", monospace; text-align: right; }
+  .cal-slot {
+    height: 22px;
+    border-radius: 6px;
+    border: 1px dashed var(--border);
+  }
+  .cal-slot.filled {
+    border: 1px solid rgba(200,245,94,0.4);
+    background: linear-gradient(90deg, rgba(200,245,94,0.18), rgba(200,245,94,0.06));
+    display: flex; align-items: center;
+    padding: 0 8px;
+    font-size: 10px; font-weight: 600;
+    color: var(--accent);
+    border-style: solid;
+  }
+  .cal-slot.filled::before {
+    content: ""; width: 3px; height: 12px; border-radius: 2px;
+    background: var(--accent); margin-right: 7px;
+  }
+
+  /* Quote card — same back slot as the calendar, for trades whose receipt is a quote */
+  .quote-card {
+    position: absolute;
+    right: 0; top: 8px;
+    width: 250px;
+    z-index: 2;
+    padding: 15px;
+    transform: rotate(1.4deg);
+    box-shadow: var(--shadow-float);
+  }
+  .quote-card .qc-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; }
+  .quote-card .qc-title { font-size: 12.5px; font-weight: 600; }
+  .quote-card .qc-badge { font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--text-4); }
+  .quote-card .qc-line { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--text-2); padding: 4px 0; }
+  .quote-card .qc-line .dots { flex: 1; border-bottom: 1px dotted var(--border); margin: 0 7px; transform: translateY(-3px); }
+  .quote-card .qc-price { color: var(--text); font-family: "JetBrains Mono", monospace; font-weight: 500; }
+  .quote-card .qc-total { display: flex; justify-content: space-between; align-items: center; margin-top: 7px; padding-top: 9px; border-top: 1px solid var(--border-soft); }
+  .quote-card .qc-total .lbl { font-size: 11.5px; font-weight: 600; }
+  .quote-card .qc-total .val { font-family: "JetBrains Mono", monospace; font-size: 16px; font-weight: 600; color: var(--accent); }
+  .quote-card .qc-foot { font-family: "JetBrains Mono", monospace; font-size: 9.5px; color: var(--text-4); margin-top: 6px; }
+  .quote-card .qc-foot .ok { color: var(--accent); }
+
+  /* photo attachment thumbnails inside a customer bubble */
+  .photo-thumbs { display: flex; gap: 5px; margin-bottom: 6px; }
+  .photo-thumb {
+    width: 46px; height: 40px; border-radius: 7px;
+    background:
+      linear-gradient(135deg, #3b4a3a, #23301f) ,
+      #2a2d24;
+    border: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+  .photo-thumb::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 30% 70%, rgba(200,245,94,0.18), transparent 55%),
+      linear-gradient(120deg, rgba(255,255,255,0.06) 0 40%, transparent 40%);
+  }
+
+  /* Morning digest notification — floating top-left */
+  .digest {
+    position: absolute;
+    left: 96px; top: -18px;
+    width: 296px;
+    z-index: 4;
+    padding: 13px 14px;
+    box-shadow: var(--shadow-float);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)),
+      var(--bg-raise);
+  }
+  .digest-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .app-icon {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: linear-gradient(150deg, var(--accent), var(--accent-2));
+    display: grid; place-items: center;
+    font-size: 12px; font-weight: 700; color: #10160a;
+    flex-shrink: 0;
+  }
+  .digest-app { font-size: 12px; font-weight: 600; }
+  .digest-time { margin-left: auto; font-size: 10.5px; color: var(--text-4); font-family: "JetBrains Mono", monospace; }
+  .digest-title { font-size: 13.5px; font-weight: 600; margin-bottom: 3px; }
+  .digest-body { font-size: 12.5px; color: var(--text-2); line-height: 1.45; }
+  .digest-body b { color: var(--accent); font-weight: 700; }
+
+  /* cascade-in animation (single, on load) */
+  /* hidden pre-animation state only applies once JS is driving the stage */
+  .stage.js .anim { opacity: 0; transform: translateY(10px); }
+  .stage.js.played .anim { animation: cascade .46s cubic-bezier(0.16,0.84,0.44,1) forwards; }
+  .played .d1 { animation-delay: .05s; }
+  .played .d2 { animation-delay: .28s; }
+  .played .d3 { animation-delay: .5s; }
+  .played .d4 { animation-delay: .72s; }
+  .played .d5 { animation-delay: .94s; }
+  .played .d6 { animation-delay: 1.18s; }
+  .played .d7 { animation-delay: 1.42s; }
+  @keyframes cascade {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .anim { opacity: 1 !important; transform: none !important; animation: none !important; }
+  }
+
+  /* ============================ TOOLS STRIP ============================ */
+  .tools {
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+    padding: 26px 0;
+    background: var(--bg-2);
+  }
+  .tools-inner {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .tools-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-4);
+  }
+  .tools-row { display: flex; align-items: center; gap: 30px; flex-wrap: wrap; justify-content: center; }
+  .tool-name {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text-3);
+    opacity: 0.85;
+    transition: color .2s, opacity .2s;
+  }
+  .tool-name:hover { color: var(--text-2); opacity: 1; }
+
+  /* ============================ SECTION SHELL ============================ */
+  .section { padding: 100px 0; position: relative; }
+  .sec-head { max-width: 640px; margin-bottom: 54px; }
+  .sec-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+  .kicker {
+    display: inline-block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  h2.sec-title {
+    font-size: 36px;
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  h2.sec-title em { font-style: normal; color: var(--accent); }
+  .sec-head p {
+    font-size: 17px;
+    color: var(--text-2);
+    line-height: 1.55;
+  }
+
+  /* ============================ OPPORTUNITY ============================ */
+  .opp-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  .opp-group-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 18px;
+  }
+  .opp-group-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+  .opp-group-label .idx { color: var(--accent); }
+  .opp-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .tile {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.028), rgba(255,255,255,0.008)),
+      var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .tile:hover {
+    border-color: var(--border-hi);
+    transform: translateY(-2px);
+    box-shadow: 0 24px 48px -28px rgba(0,0,0,0.9);
+  }
+  .tile-art {
+    background: var(--bg);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--r);
+    padding: 13px;
+    min-height: 148px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    justify-content: center;
+  }
+  .tile-copy h3 {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 5px;
+  }
+  .tile-copy p {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--text-2);
+  }
+
+  /* mini bubbles inside tiles */
+  .mini-bubble {
+    max-width: 88%;
+    font-size: 11.5px;
+    line-height: 1.35;
+    padding: 6px 10px;
+    border-radius: 12px;
+  }
+  .mini-bubble.out { align-self: flex-end; background: linear-gradient(180deg,var(--sent),var(--sent-2)); color:#fff; border-bottom-right-radius: 4px; }
+  .mini-bubble.in  { align-self: flex-start; background: var(--recv); border: 1px solid var(--border-soft); border-bottom-left-radius: 4px; }
+  .mini-stamp { font-size: 9px; color: var(--text-4); font-family: "JetBrains Mono", monospace; }
+  .mini-chip {
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9.5px; font-weight: 500; letter-spacing: 0.03em;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid rgba(200,245,94,0.22);
+    padding: 4px 8px; border-radius: 6px;
+    margin-top: 2px;
+  }
+  .mini-chip .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+
+  /* missed call row */
+  .missed-row {
+    display: flex; align-items: center; gap: 9px;
+    padding: 7px 9px;
+    border-radius: 9px;
+    background: rgba(255,90,90,0.06);
+    border: 1px solid rgba(255,90,90,0.18);
+  }
+  .missed-ic {
+    width: 24px; height: 24px; border-radius: 7px;
+    background: rgba(255,90,90,0.14);
+    display: grid; place-items: center; flex-shrink: 0;
+  }
+  .missed-row .m-txt { font-size: 11.5px; font-weight: 500; }
+  .missed-row .m-sub { font-size: 9.5px; color: var(--text-3); font-family: "JetBrains Mono", monospace; }
+
+  /* quote artifact */
+  .q-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
+  .q-title { font-size: 11.5px; font-weight: 600; }
+  .q-badge { font-family: "JetBrains Mono", monospace; font-size: 9px; color: var(--text-4); }
+  .q-line { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-2); padding: 3.5px 0; }
+  .q-line .dots { flex: 1; border-bottom: 1px dotted var(--border); margin: 0 7px; transform: translateY(-3px); }
+  .q-price { color: var(--text); font-family: "JetBrains Mono", monospace; font-weight: 500; }
+  .q-total { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; padding-top: 8px; border-top: 1px solid var(--border-soft); }
+  .q-total .lbl { font-size: 11px; font-weight: 600; }
+  .q-total .val { font-family: "JetBrains Mono", monospace; font-size: 15px; font-weight: 600; color: var(--accent); }
+  .q-foot { font-family: "JetBrains Mono", monospace; font-size: 9px; color: var(--text-4); margin-top: 4px; }
+  .q-foot .ok { color: var(--accent); }
+
+  /* booking artifact */
+  .bk-title { font-size: 11.5px; font-weight: 600; margin-bottom: 8px; }
+  .bk-days { display: flex; gap: 5px; margin-bottom: 9px; }
+  .bk-day {
+    flex: 1; text-align: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px; color: var(--text-3);
+    padding: 5px 0; border-radius: 6px;
+    border: 1px solid var(--border-soft);
+    background: var(--bg-2);
+  }
+  .bk-day.on { color: #10160a; background: var(--accent); border-color: var(--accent); font-weight: 600; }
+  .bk-day .num { display: block; font-size: 12px; font-weight: 600; margin-top: 2px; color: inherit; }
+  .bk-slots { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; }
+  .bk-slot {
+    text-align: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9.5px; color: var(--text-2);
+    padding: 6px 0; border-radius: 6px;
+    border: 1px solid var(--border-soft);
+    background: var(--bg-2);
+  }
+  .bk-slot.sel { color: var(--accent); border-color: rgba(200,245,94,0.4); background: var(--accent-dim); font-weight: 600; }
+  .bk-slot.dim { color: var(--text-4); opacity: 0.5; }
+
+  /* review artifact */
+  .rv-head { display: flex; align-items: center; gap: 9px; }
+  .rv-av {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: linear-gradient(135deg,#4a4d55,#2a2d33);
+    display: grid; place-items: center;
+    font-size: 11px; font-weight: 600; color: var(--text-2); flex-shrink: 0;
+  }
+  .rv-name { font-size: 12px; font-weight: 600; }
+  .rv-src { font-size: 9.5px; color: var(--text-4); font-family: "JetBrains Mono", monospace; }
+  .rv-stars { color: var(--accent); font-size: 12px; letter-spacing: 2px; margin: 8px 0 6px; }
+  .rv-quote { font-size: 12px; line-height: 1.5; color: var(--text); }
+  .rv-foot { font-family: "JetBrains Mono", monospace; font-size: 9px; color: var(--text-4); margin-top: 8px; display: flex; align-items: center; gap: 6px; }
+
+  /* ============================ THREE LEVERS ============================ */
+  .reframe { background: var(--bg-2); border-top: 1px solid var(--border-soft); }
+  .levers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 8px;
+  }
+  .lever {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.006)),
+      var(--bg-raise);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 26px 24px 24px;
+    display: flex;
+    flex-direction: column;
+  }
+  .lever-num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+  /* stat readout */
+  .readout {
+    background: var(--bg);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--r);
+    padding: 15px 16px;
+    margin-bottom: 20px;
+  }
+  .readout-top { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; }
+  .stat-num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #fff;
+    line-height: 1;
+  }
+  .stat-num .u { font-size: 15px; color: var(--text-3); font-weight: 500; }
+  .delta {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px; font-weight: 500;
+    display: inline-flex; align-items: center; gap: 3px;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 3px 6px; border-radius: 5px;
+  }
+  .delta.down { color: #7fd4ff; background: rgba(90,200,255,0.1); }
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-3);
+    font-family: "JetBrains Mono", monospace;
+    letter-spacing: 0.03em;
+    margin-bottom: 12px;
+  }
+  /* sparkline bars */
+  .spark { display: flex; align-items: flex-end; gap: 4px; height: 30px; }
+  .spark span {
+    flex: 1;
+    border-radius: 2px 2px 0 0;
+    background: linear-gradient(180deg, rgba(200,245,94,0.55), rgba(200,245,94,0.12));
+  }
+  .spark span:last-child { background: linear-gradient(180deg, var(--accent), rgba(200,245,94,0.4)); }
+  .lever h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .lever p { font-size: 13.5px; line-height: 1.55; color: var(--text-2); }
+
+  /* ============================ FINAL CTA ============================ */
+  .final {
+    position: relative;
+    padding: 120px 0;
+    text-align: center;
+    overflow: hidden;
+    border-top: 1px solid var(--border-soft);
+  }
+  .final-spot {
+    position: absolute;
+    top: -140px; left: 50%;
+    transform: translateX(-50%);
+    width: 720px; height: 560px;
+    background: radial-gradient(closest-side, rgba(190,240,90,0.12), rgba(190,240,90,0) 68%);
+    pointer-events: none;
+  }
+  .final-inner { position: relative; z-index: 2; max-width: 620px; margin: 0 auto; }
+  .final h2 {
+    font-size: 40px;
+    line-height: 1.08;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: #fff;
+    margin: 18px 0 18px;
+  }
+  .final p { font-size: 17px; color: var(--text-2); line-height: 1.55; margin-bottom: 32px; }
+  .final .btn-primary { font-size: 15.5px; padding: 14px 26px; }
+  .final-micro { margin-top: 18px; font-size: 13px; color: var(--text-3); }
+
+  /* footer */
+  .foot {
+    border-top: 1px solid var(--border-soft);
+    padding: 28px 0;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 12.5px; color: var(--text-4);
+  }
+  .foot .mono { font-size: 11px; }
+
+  /* ============================ RESPONSIVE ============================ */
+  @media (max-width: 940px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 20px; }
+    .stage { height: 470px; margin-top: 20px; transform: scale(0.98); transform-origin: top left; }
+    .nav-links { display: none; }
+    h1.hero-title { font-size: 40px; }
+  }
+
+  @media (max-width: 680px) {
+    .wrap { padding: 0 20px; }
+    .hero { padding: 52px 0 60px; }
+    h1.hero-title { font-size: 33px; letter-spacing: -0.025em; }
+    .lead { font-size: 16px; }
+    .hero-cta-row { width: 100%; }
+    .hero-cta-row .btn { flex: 1; justify-content: center; }
+    .section { padding: 68px 0; }
+    .final { padding: 84px 0; }
+    h2.sec-title { font-size: 28px; }
+    .final h2 { font-size: 30px; }
+    .sec-head { margin-bottom: 40px; }
+
+    /* stage: let the artifacts stack readably instead of overlapping off-screen */
+    .stage {
+      height: auto;
+      transform: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: stretch;
+    }
+    .sms, .cal, .digest, .quote-card {
+      position: static;
+      width: 100%;
+      transform: none;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .digest { order: 1; }
+    .sms { order: 2; }
+    .cal, .quote-card { order: 3; }
+
+    .opp-pair { grid-template-columns: 1fr; }
+    .levers { grid-template-columns: 1fr; }
+    .tools-inner { gap: 18px; }
+    .tools-row { gap: 20px; }
+    .tool-name { font-size: 13.5px; }
+    .foot { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============================ NAV ============================ -->
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a class="logo" href="#top"><span class="dot"></span> Hybrid Theory</a>
+      <div class="nav-links">
+        <a href="#opps">What it does</a>
+        <a href="#tools">Your tools</a>
+        <a href="#reframe">Why it works</a>
+      </div>
+      <div class="nav-right">
+        <a class="btn btn-primary" href="#book">Book free assessment</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================ HERO ============================ -->
+  <header class="hero" id="top">
+    <div class="hero-grid-lines"></div>
+    <div class="hero-glow"></div>
+    <div class="wrap hero-inner">
+
+      <div class="hero-left">
+        <span class="hero-eyebrow">
+          <span class="pulse"></span>
+          <span class="eyebrow" style="color:var(--text-2)">AI for service businesses</span>
+        </span>
+        <h1 class="hero-title">More jobs <em>booked</em>.<br>Nothing slipping<br>through the cracks.</h1>
+        <p class="lead">
+          Hybrid Theory builds AI that answers, quotes, follows up, and books for local
+          service businesses — <b>built around the tools you already use.</b> You keep every
+          judgment call; it takes the busywork.
+        </p>
+        <div class="hero-cta-row">
+          <a class="btn btn-primary" href="#book">Book your free 30-minute assessment</a>
+          <a class="btn btn-ghost" href="#opps">See it in action</a>
+        </div>
+        <p class="hero-trust">
+          <span>Free</span><span class="sep">·</span><span>30 minutes</span><span class="sep">·</span><span>leave with one specific fix</span>
+        </p>
+      </div>
+
+      <!-- ARTIFACT STAGE + INDUSTRY SWITCHER -->
+      <div class="hero-right">
+        <div class="switcher">
+          <span class="switcher-label">I run a…</span>
+          <div class="switch-chips" id="switchChips" role="tablist" aria-label="Choose your business">
+            <button class="chip active" data-ind="hvac"     role="tab" aria-selected="true">HVAC company</button>
+            <button class="chip"        data-ind="dentist"  role="tab" aria-selected="false">Dental practice</button>
+            <button class="chip"        data-ind="roofer"   role="tab" aria-selected="false">Roofing company</button>
+            <button class="chip"        data-ind="tutoring" role="tab" aria-selected="false">Tutoring service</button>
+          </div>
+        </div>
+        <!-- artifacts rendered here per selected trade (see script at end of body) -->
+        <div class="stage" id="stage" aria-live="polite"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================ TOOLS STRIP ============================ -->
+  <section class="tools" id="tools">
+    <div class="wrap tools-inner">
+      <span class="tools-label">Runs on the tools you already use</span>
+      <div class="tools-row">
+        <span class="tool-name">Jobber</span>
+        <span class="tool-name">ServiceTitan</span>
+        <span class="tool-name">Housecall Pro</span>
+        <span class="tool-name">QuickBooks</span>
+        <span class="tool-name">Google Calendar</span>
+        <span class="tool-name">Twilio</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ OPPORTUNITY ============================ -->
+  <section class="section" id="opps">
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="kicker">Where the upside lives</span>
+        <h2 class="sec-title">The growth is hiding in the everyday moments.</h2>
+        <p>You don't need a new system or ten new tools. Just a handful of everyday moments, handled well — and each one quietly adds up.</p>
+      </div>
+
+      <div class="opp-groups">
+
+        <!-- GROUP 1 -->
+        <div class="opp-group">
+          <div class="opp-group-label"><span class="idx">01</span> Win the lead</div>
+          <div class="opp-pair">
+
+            <!-- speed -->
+            <div class="tile">
+              <div class="tile-art">
+                <div class="mini-bubble in">Do you do gutter cleaning?</div>
+                <div class="mini-stamp" style="align-self:flex-start">2:14:07 PM</div>
+                <div class="mini-bubble out">We sure do! Want a quick quote? Takes about 2 minutes.</div>
+                <div class="mini-stamp" style="align-self:flex-end">2:14:15 PM</div>
+                <span class="mini-chip"><span class="dot"></span> Replied in 8 seconds</span>
+              </div>
+              <div class="tile-copy">
+                <h3>Speed-to-lead</h3>
+                <p>First to reply usually wins the job. Be first, every time.</p>
+              </div>
+            </div>
+
+            <!-- missed -->
+            <div class="tile">
+              <div class="tile-art">
+                <div class="missed-row">
+                  <span class="missed-ic">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FF5A5A" stroke-width="2.2" stroke-linecap="round"><path d="M2 8l4-4 3 3M22 4l-6 6"/><path d="M5 12a15 15 0 0 0 14 0l-2-3a3 3 0 0 0-1-1l-2 1a12 12 0 0 1-4 0l-2-1a3 3 0 0 0-1 1z"/></svg>
+                  </span>
+                  <div>
+                    <div class="m-txt">Missed call</div>
+                    <div class="m-sub">(512) 555-0182 · 7:52 AM</div>
+                  </div>
+                </div>
+                <div class="mini-bubble out" style="margin-top:2px">Sorry we missed you! This is Apex Roofing — what can we help you with?</div>
+                <span class="mini-chip"><span class="dot"></span> Auto-sent · 4 seconds later</span>
+              </div>
+              <div class="tile-copy">
+                <h3>Missed-call text-back</h3>
+                <p>Every missed call gets a friendly text right back.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- GROUP 2 -->
+        <div class="opp-group">
+          <div class="opp-group-label"><span class="idx">02</span> Win the job</div>
+          <div class="opp-pair">
+
+            <!-- quote -->
+            <div class="tile">
+              <div class="tile-art" style="justify-content:flex-start">
+                <div class="q-head">
+                  <span class="q-title">Quote #1043</span>
+                  <span class="q-badge">Rivera Plumbing</span>
+                </div>
+                <div class="q-line"><span>Water heater — supply &amp; install</span><span class="dots"></span><span class="q-price">$1,180</span></div>
+                <div class="q-line"><span>Haul away old unit</span><span class="dots"></span><span class="q-price">$95</span></div>
+                <div class="q-line"><span>Labor · 2 hrs</span><span class="dots"></span><span class="q-price">$240</span></div>
+                <div class="q-total"><span class="lbl">Total</span><span class="val">$1,515</span></div>
+                <div class="q-foot">Sent 11:02 AM · <span class="ok">Approved 11:19 AM</span></div>
+              </div>
+              <div class="tile-copy">
+                <h3>Instant quotes</h3>
+                <p>A quote that lands the same hour hits different than one that takes three days.</p>
+              </div>
+            </div>
+
+            <!-- booking -->
+            <div class="tile">
+              <div class="tile-art" style="justify-content:flex-start">
+                <div class="bk-title">Book your visit</div>
+                <div class="bk-days">
+                  <span class="bk-day">WED<span class="num">9</span></span>
+                  <span class="bk-day on">THU<span class="num">10</span></span>
+                  <span class="bk-day">FRI<span class="num">11</span></span>
+                  <span class="bk-day">SAT<span class="num">12</span></span>
+                </div>
+                <div class="bk-slots">
+                  <span class="bk-slot dim">8:00</span>
+                  <span class="bk-slot sel">9:00</span>
+                  <span class="bk-slot">10:30</span>
+                  <span class="bk-slot">1:00</span>
+                  <span class="bk-slot">2:30</span>
+                  <span class="bk-slot dim">4:00</span>
+                </div>
+              </div>
+              <div class="tile-copy">
+                <h3>Self-booking</h3>
+                <p>Let customers grab the right slot themselves — no more endless phone tag.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- GROUP 3 -->
+        <div class="opp-group">
+          <div class="opp-group-label"><span class="idx">03</span> Win them back</div>
+          <div class="opp-pair">
+
+            <!-- reviews -->
+            <div class="tile">
+              <div class="tile-art" style="justify-content:flex-start">
+                <div class="rv-head">
+                  <span class="rv-av">JM</span>
+                  <div>
+                    <div class="rv-name">Jenna M.</div>
+                    <div class="rv-src">via Google</div>
+                  </div>
+                </div>
+                <div class="rv-stars">★★★★★</div>
+                <div class="rv-quote">"Answered me in minutes and did great work. Couldn't recommend them more."</div>
+                <div class="rv-foot"><span class="dot" style="width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block"></span> Requested at the perfect moment · 2h ago</div>
+              </div>
+              <div class="tile-copy">
+                <h3>Reviews on autopilot</h3>
+                <p>Turn happy customers into 5-star reviews — asked at exactly the right moment.</p>
+              </div>
+            </div>
+
+            <!-- winback -->
+            <div class="tile">
+              <div class="tile-art">
+                <div class="mini-bubble out">Hi Dave — it's been about a year since we tuned up your AC. Want us back out before the summer heat?</div>
+                <div class="mini-stamp" style="align-self:flex-end">9:03 AM</div>
+                <div class="mini-bubble in">Oh perfect timing — yes please, book me in 👍</div>
+                <div class="mini-stamp" style="align-self:flex-start">9:31 AM</div>
+                <span class="mini-chip"><span class="dot"></span> Reactivated · $189 booked</span>
+              </div>
+              <div class="tile-copy">
+                <h3>Win-back &amp; repeat</h3>
+                <p>Your past customers are your easiest next sale. Bring them back to help them again.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <p style="text-align:center; margin-top:44px; font-size:14.5px; color:var(--text-3)">
+        Plus 15+ more — reviews, referrals, invoicing, intake… we'll find yours on the call.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================ THREE LEVERS ============================ -->
+  <section class="section reframe" id="reframe">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">What we're actually here to do</span>
+        <h2 class="sec-title">We're not here to sell you "AI." We're here to <em>grow your business</em> — and hand you your time back.</h2>
+        <p>Every project we take on has to move at least one of three needles for you. The best ones move all three at once — which is usually the whole point.</p>
+      </div>
+
+      <div class="levers">
+
+        <!-- 01 -->
+        <div class="lever">
+          <div class="lever-num">01</div>
+          <div class="readout">
+            <div class="readout-top">
+              <span class="stat-num">$11,400</span>
+              <span class="delta">▲ 18%</span>
+            </div>
+            <div class="stat-label">recovered / month</div>
+            <div class="spark">
+              <span style="height:34%"></span><span style="height:48%"></span><span style="height:41%"></span>
+              <span style="height:62%"></span><span style="height:58%"></span><span style="height:78%"></span><span style="height:100%"></span>
+            </div>
+          </div>
+          <h3>Make more money</h3>
+          <p>Answer first, quote faster, follow up until it's a yes. The customers are already reaching out — we just stop letting them slip away.</p>
+        </div>
+
+        <!-- 02 -->
+        <div class="lever">
+          <div class="lever-num">02</div>
+          <div class="readout">
+            <div class="readout-top">
+              <span class="stat-num">9.5<span class="u"> hrs</span></span>
+              <span class="delta">▲ weekly</span>
+            </div>
+            <div class="stat-label">given back to you / week</div>
+            <div class="spark">
+              <span style="height:30%"></span><span style="height:45%"></span><span style="height:52%"></span>
+              <span style="height:60%"></span><span style="height:72%"></span><span style="height:84%"></span><span style="height:100%"></span>
+            </div>
+          </div>
+          <h3>Win back your time</h3>
+          <p>Hand off the repetitive busywork so your days go to the work only you can do — and to the life outside the business.</p>
+        </div>
+
+        <!-- 03 -->
+        <div class="lever">
+          <div class="lever-num">03</div>
+          <div class="readout">
+            <div class="readout-top">
+              <span class="stat-num">47<span class="u"> sec</span></span>
+              <span class="delta down">▼ from 4 hrs</span>
+            </div>
+            <div class="stat-label">average reply time · 4.9★ rating</div>
+            <div class="spark">
+              <span style="height:100%"></span><span style="height:74%"></span><span style="height:66%"></span>
+              <span style="height:44%"></span><span style="height:33%"></span><span style="height:22%"></span><span style="height:14%"></span>
+            </div>
+          </div>
+          <h3>Raise your game</h3>
+          <p>Every customer gets your best — fast, sharp, on-brand — not just whatever your most hectic day happens to allow.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ FINAL CTA ============================ -->
+  <section class="final" id="book">
+    <div class="final-spot"></div>
+    <div class="wrap final-inner">
+      <span class="kicker">Your move</span>
+      <h2>See the business you could be running.</h2>
+      <p>Thirty minutes, no slides, no commitment — just a clear read on the one change that would pay for itself the fastest.</p>
+      <a class="btn btn-primary" href="#">Book your free 30-minute assessment</a>
+      <p class="final-micro">Free · 30 minutes · leave with one specific fix</p>
+    </div>
+  </section>
+
+  <footer class="wrap foot">
+    <span class="logo" style="font-size:13px"><span class="dot" style="width:7px;height:7px"></span> Hybrid Theory</span>
+    <span class="mono">AI for service businesses · built around your tools</span>
+  </footer>
+
+  <script>
+  /* ============================================================
+     INDUSTRY SWITCHER
+     Same artifact components (SMS thread · calendar/quote · digest),
+     different per-trade data. Each scenario ends in a visible RECEIPT
+     of value — a booked slot, a refilled chair, a sent quote — never a
+     claim in prose. This is the reusable hero of every /for/ page.
+     ============================================================ */
+  (function () {
+    var CHECK = '<svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2 5 8.5 9.5 3.5" stroke="#10160a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+    var TRADES = {
+      hvac: {
+        avatar: 'D',
+        name: 'Missed call · Dana K.',
+        phone: '(512) 555-0114',
+        tag: 'Answered by Hybrid',
+        divider: 'Today 7:04 PM',
+        thread: [
+          { s: 'out', t: "Hi — this is Comfort Pro Heating. Sorry we missed your call! What's going on?", time: '7:04 PM' },
+          { s: 'in',  t: "No heat and it's 34° out 🥶 the house is freezing", time: '7:05 PM' },
+          { s: 'out', t: "That's no good — we can get a tech out first thing. Want the 8–10 AM window tomorrow?", time: '7:05 PM' },
+          { s: 'in',  t: "Yes please!", time: '7:06 PM' },
+          { s: 'out', t: "Booked ✅ Sam will text before he heads over. Stay warm tonight.", time: '7:06 PM' }
+        ],
+        receipt: 'Job booked — <span class="amt">$189</span> · added to calendar',
+        side: { type: 'cal', day: 'Tomorrow', date: 'Wed', rows: [
+          { time: '8 AM', fill: 'No-heat call — Dana K.' },
+          { time: '9 AM' }, { time: '10 AM' }, { time: '11 AM' }
+        ]},
+        digest: { title: 'Good morning ☀️', body: '<b>$3,200</b> in new work booked while you slept. Zero leads left waiting.' }
+      },
+
+      dentist: {
+        avatar: 'P',
+        name: 'Waitlist · Priya S.',
+        phone: '(512) 555-0173',
+        tag: 'Filled by Hybrid',
+        divider: 'Today 1:12 PM',
+        thread: [
+          { s: 'out', t: "Hi Priya — a 2:00 PM cleaning just opened up today with Dr. Lee. You're next on the waitlist. Want it?", time: '1:12 PM' },
+          { s: 'in',  t: "Oh yes! I've been trying to get in for weeks 😀", time: '1:13 PM' },
+          { s: 'out', t: "Perfect — you're booked for 2:00 today. See you soon!", time: '1:13 PM' }
+        ],
+        receipt: 'Chair refilled — <span class="amt">$220</span> · 2:00 PM today',
+        side: { type: 'cal', day: 'Today', date: 'Wed', rows: [
+          { time: '1 PM' },
+          { time: '2 PM', fill: 'Cleaning — Priya S.' },
+          { time: '3 PM' }, { time: '4 PM' }
+        ]},
+        digest: { title: 'Good afternoon 👋', body: '<b>3 open chairs</b> refilled from the waitlist today. No empty slots left.' }
+      },
+
+      roofer: {
+        avatar: 'M',
+        name: 'New lead · Marcus T.',
+        phone: '(512) 555-0198',
+        tag: 'Handled by Hybrid',
+        divider: 'Today 10:41 AM',
+        thread: [
+          { s: 'in',  photos: true, t: "Big leak after the storm — shingles missing on the back slope", time: '10:41 AM' },
+          { s: 'out', t: "Thanks Marcus — got the photos. Looks like storm damage on the rear slope. Putting a quote together now.", time: '10:42 AM' },
+          { s: 'out', t: "Quote's ready 👇 Want us out Thursday to start?", time: '11:03 AM' }
+        ],
+        receipt: 'Quote sent — <span class="amt">$4,850</span> · same hour',
+        side: { type: 'quote', title: 'Quote #2087', badge: 'Summit Roofing', lines: [
+          { l: 'Tear-off · rear slope', p: '$1,450' },
+          { l: 'Underlayment & shingles', p: '$1,960' },
+          { l: 'Flashing & ridge vent', p: '$640' },
+          { l: 'Labor · 1 day', p: '$800' }
+        ], total: '$4,850', foot: 'Sent 11:03 AM · ', footOk: 'Viewed 11:20 AM' },
+        digest: { title: 'Good morning ☀️', body: '<b>$4,850</b> quote sent before you finished your coffee. The lead never went cold.' }
+      },
+
+      tutoring: {
+        avatar: 'N',
+        name: 'New inquiry · Nguyen family',
+        phone: '(512) 555-0166',
+        tag: 'Answered by Hybrid',
+        divider: 'Today 8:47 PM',
+        thread: [
+          { s: 'in',  t: "Do you have openings for 9th-grade algebra? My daughter is really struggling.", time: '8:47 PM' },
+          { s: 'out', t: "We do! We can start with a free trial lesson. Does Saturday 10 AM work?", time: '8:47 PM' },
+          { s: 'in',  t: "That's perfect, thank you!", time: '8:49 PM' },
+          { s: 'out', t: "Booked ✅ You'll get a reminder Friday. She's in great hands.", time: '8:49 PM' }
+        ],
+        receipt: 'New student — <span class="amt">trial booked</span> · Sat 10:00 AM',
+        side: { type: 'cal', day: 'Saturday', date: 'This wk', rows: [
+          { time: '9 AM' },
+          { time: '10 AM', fill: 'Trial — Algebra' },
+          { time: '11 AM' }, { time: '12 PM' }
+        ]},
+        digest: { title: 'Good morning ☀️', body: '<b>4 new students</b> booked trial lessons overnight — every after-hours inquiry answered.' }
+      }
+    };
+
+    function calHTML(side, fillDelay) {
+      var rows = side.rows.map(function (r) {
+        var slot = r.fill
+          ? '<span class="cal-slot filled anim ' + fillDelay + '">' + r.fill + '</span>'
+          : '<span class="cal-slot"></span>';
+        return '<div class="cal-row"><span class="cal-time">' + r.time + '</span>' + slot + '</div>';
+      }).join('');
+      return '<div class="card cal">'
+        + '<div class="cal-head"><span class="cal-day">' + side.day + '</span><span class="cal-date mono">' + side.date + '</span></div>'
+        + rows + '</div>';
+    }
+
+    function quoteHTML(side) {
+      var lines = side.lines.map(function (ln) {
+        return '<div class="qc-line"><span>' + ln.l + '</span><span class="dots"></span><span class="qc-price">' + ln.p + '</span></div>';
+      }).join('');
+      return '<div class="card quote-card">'
+        + '<div class="qc-head"><span class="qc-title">' + side.title + '</span><span class="qc-badge">' + side.badge + '</span></div>'
+        + lines
+        + '<div class="qc-total"><span class="lbl">Total</span><span class="val">' + side.total + '</span></div>'
+        + '<div class="qc-foot">' + side.foot + '<span class="ok">' + side.footOk + '</span></div>'
+        + '</div>';
+    }
+
+    function render(key) {
+      var d = TRADES[key];
+      var n = d.thread.length;
+      var sideDelay = 'd' + (n + 1);   // side fill lands with the receipt
+      var lateDelay = 'd' + (n + 2);   // digest lands last
+
+      // SMS bubbles
+      var bubbles = d.thread.map(function (m, i) {
+        var photos = m.photos
+          ? '<div class="photo-thumbs"><span class="photo-thumb"></span><span class="photo-thumb"></span></div>'
+          : '';
+        return '<div class="bubble-row ' + m.s + ' anim d' + (i + 1) + '">'
+          + '<div class="bubble ' + m.s + '">' + photos + m.t + '</div>'
+          + '<div class="stamp">' + m.time + '</div></div>';
+      }).join('');
+
+      var sms = '<div class="card sms">'
+        + '<div class="sms-head">'
+        +   '<div class="sms-avatar">' + d.avatar + '</div>'
+        +   '<div class="sms-who"><div class="sms-name">' + d.name + '</div><div class="sms-sub mono">' + d.phone + '</div></div>'
+        +   '<span class="tag-ai">' + d.tag + '</span>'
+        + '</div>'
+        + '<div class="sms-body"><div class="day-div">' + d.divider + '</div>' + bubbles + '</div>'
+        + '<div class="sms-status anim ' + sideDelay + '"><span class="check">' + CHECK + '</span>'
+        +   '<span class="txt">' + d.receipt + '</span></div>'
+        + '</div>';
+
+      var side = d.side.type === 'quote' ? quoteHTML(d.side) : calHTML(d.side, sideDelay);
+
+      var digest = '<div class="card digest anim ' + lateDelay + '">'
+        + '<div class="digest-head"><span class="app-icon">H</span><span class="digest-app">Hybrid</span><span class="digest-time">now</span></div>'
+        + '<div class="digest-title">' + d.digest.title + '</div>'
+        + '<div class="digest-body">' + d.digest.body + '</div>'
+        + '</div>';
+
+      return side + sms + digest;
+    }
+
+    var stage = document.getElementById('stage');
+    var chipsWrap = document.getElementById('switchChips');
+    if (!stage || !chipsWrap) return;
+    stage.classList.add('js');
+
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function show(key, animate) {
+      stage.classList.remove('played');
+      stage.innerHTML = render(key);
+      if (reduce || !animate) { stage.classList.add('played'); return; }
+      // paint the hidden state first, then cascade in — once, no loop
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { stage.classList.add('played'); });
+      });
+    }
+
+    chipsWrap.addEventListener('click', function (e) {
+      var btn = e.target.closest('.chip');
+      if (!btn) return;
+      var key = btn.getAttribute('data-ind');
+      if (!TRADES[key] || btn.classList.contains('active')) return;
+      chipsWrap.querySelectorAll('.chip').forEach(function (c) {
+        var on = c === btn;
+        c.classList.toggle('active', on);
+        c.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      show(key, true); // replay the cascade so the switch demonstrates itself
+    });
+
+    // initial render — HVAC, cascading in on load
+    show('hvac', true);
+  })();
+  </script>
+
+</body>
+</html>
