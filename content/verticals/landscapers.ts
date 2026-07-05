@@ -79,10 +79,6 @@ export const landscapers: VerticalContent = {
     },
   ],
 
-  demoFlow: "speed",
-  demoIntro:
-    "Here's a spring inquiry landing while your crew's out on a route — and what the homeowner sees instead of your voicemail.",
-
   spotlight: {
     headline: "Renew the whole book before the mailers land.",
     intro:

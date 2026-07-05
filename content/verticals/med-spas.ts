@@ -72,10 +72,6 @@ export const medSpas: VerticalContent = {
     },
   ],
 
-  demoFlow: "reviews",
-  demoIntro:
-    "Watch a happy client walk out the door and turn into a fresh five-star review — without your front desk chasing her for it.",
-
   spotlight: {
     headline: "Every tox client, back at 90 days.",
     intro:

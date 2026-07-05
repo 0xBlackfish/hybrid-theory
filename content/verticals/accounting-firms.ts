@@ -71,10 +71,6 @@ export const accountingFirms: VerticalContent = {
     },
   ],
 
-  demoFlow: "docs",
-  demoIntro:
-    "Watch a return that's stuck on one missing form get chased down and closed out — without a partner writing the reminder.",
-
   spotlight: {
     headline: "March 1. Forty-three returns, each stuck on one form.",
     intro:

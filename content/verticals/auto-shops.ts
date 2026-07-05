@@ -73,10 +73,6 @@ export const autoShops: VerticalContent = {
     },
   ],
 
-  demoFlow: "missed",
-  demoIntro:
-    "Here's the call that rings out while your writers are at the counter — answered, texted back, and booked in the time it takes the caller to look up the shop down the street.",
-
   spotlight: {
     headline: "The declined job that comes back on its own.",
     intro:

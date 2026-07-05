@@ -77,10 +77,6 @@ export const realtors: VerticalContent = {
     },
   ],
 
-  demoFlow: "speed",
-  demoIntro:
-    "Watch a portal lead that came in during a showing get an instant reply, a qualifying question, and a booked appointment — before you're back in the car.",
-
   spotlight: {
     headline: "Sunday's open house, handled by Monday morning.",
     intro:

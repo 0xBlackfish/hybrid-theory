@@ -71,10 +71,6 @@ export const tutoring: VerticalContent = {
     },
   ],
 
-  demoFlow: "noshow",
-  demoIntro:
-    "Watch a 4:00 cancellation turn back into a booked session — before your front desk even looks up from check-in.",
-
   spotlight: {
     headline: "The families who drift away between terms — caught, and kept.",
     intro:

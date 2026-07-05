@@ -70,10 +70,6 @@ export const dentists: VerticalContent = {
     },
   ],
 
-  demoFlow: "noshow",
-  demoIntro:
-    "Watch a same-day cancellation turn back into a booked chair — before your front desk even hangs up the phone.",
-
   spotlight: {
     headline: "The treatment they already said yes to.",
     intro:

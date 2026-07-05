@@ -78,10 +78,6 @@ export const lawPractices: VerticalContent = {
     },
   ],
 
-  demoFlow: "missed",
-  demoIntro:
-    "Here's the intake call your voicemail usually loses — answered, screened, and booked for a consult in the time it takes the caller to reach the next firm on the list.",
-
   spotlight: {
     headline: "The consult went great. Now close it before they cool.",
     intro:

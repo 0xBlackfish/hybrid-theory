@@ -93,7 +93,7 @@
    ============================================================ */
 .vfy-opps { display: grid; gap: 16px; grid-template-columns: repeat(2, 1fr); }
 @media (min-width: 900px) { .vfy-opps { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 520px) { .vfy-opps { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .vfy-opps { grid-template-columns: 1fr; } }
 /* keep opportunity tiles at natural height here (no flip machinery) */
 .vfy-opps .htv-opp { min-height: 0; }
 
@@ -102,10 +102,6 @@
    ============================================================ */
 .vfy-demo { padding: 96px 0; }
 @media (max-width: 640px) { .vfy-demo { padding: 66px 0; } }
-.vfy-demo-intro {
-  max-width: 60ch; margin: 0 auto 40px; text-align: center;
-  color: var(--ink-soft); font-size: 18px; line-height: 1.5;
-}
 
 /* ============================================================
    FAQ — native <details>/<summary> accordion

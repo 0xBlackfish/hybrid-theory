@@ -170,11 +170,6 @@ export type VerticalContent = {
   /** Top opportunities for this vertical, best first. 4–5 items. */
   opportunities: VerticalOpportunity[];
 
-  /** Optional: key of a LeakCycler demo scene that fits this vertical:
-   * missed | speed | noshow | quote | docs | reviews */
-  demoFlow?: string;
-  demoIntro?: string; // one sentence tying the demo to their day
-
   faq: VerticalFaqItem[]; // 4–5 vertical-specific objections
 
   finalCta: {

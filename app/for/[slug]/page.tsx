@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
-import { LeakCycler } from "@/components/home-v2/LeakCycler";
 import { SpotlightScene } from "@/components/vertical/SpotlightScene";
 import { OPP_ICONS } from "@/components/home-v2/icons";
 import { ScenarioComposition } from "@/components/artifacts";
@@ -151,8 +150,8 @@ export default async function VerticalPage({
           </div>
         </section>
 
-        {/* SEE IT WORK — bespoke spotlight scene when present, else the cycler */}
-        {v.spotlight ? (
+        {/* SEE IT WORK — bespoke end-to-end spotlight scene */}
+        {v.spotlight && (
           <section className="vfy-demo htv-band">
             <div className="htv-wrap">
               <div className="htv-sec-head htv-center">
@@ -162,18 +161,6 @@ export default async function VerticalPage({
               <SpotlightScene spotlight={v.spotlight} />
             </div>
           </section>
-        ) : (
-          v.demoFlow && (
-            <section className="vfy-demo htv-band">
-              <div className="htv-wrap">
-                <div className="htv-sec-head htv-center">
-                  <h2>A leak, sealed — in real time.</h2>
-                </div>
-                {v.demoIntro && <p className="vfy-demo-intro">{v.demoIntro}</p>}
-                <LeakCycler />
-              </div>
-            </section>
-          )
         )}
 
         {/* FAQ */}

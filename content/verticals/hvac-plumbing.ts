@@ -73,10 +73,6 @@ export const hvacPlumbing: VerticalContent = {
     },
   ],
 
-  demoFlow: "missed",
-  demoIntro:
-    "Here's the after-hours call your voicemail usually loses — answered, texted back, and booked in the time it takes to reach the next company on the list.",
-
   spotlight: {
     headline: "Fill the slow weeks before the phone even rings.",
     intro:

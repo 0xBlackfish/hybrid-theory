@@ -113,10 +113,6 @@ export const contractors: VerticalContent = {
       "Book your free 30-minute assessment. We'll look at where jobs slip — the slow estimate, the change order you ate, the draw aging while you float materials — and you'll leave with your single biggest bottleneck named and one specific fix. No pitch, no obligation.",
   },
 
-  demoFlow: "quote",
-  demoIntro:
-    "Here's the estimate you'd normally send at 10pm — drafted from your scope and allowances, out the door the same afternoon, before the homeowner takes the next bid.",
-
   scenario: {
     chipLabel: "Remodeling company",
     sms: {

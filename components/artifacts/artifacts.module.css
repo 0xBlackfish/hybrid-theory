@@ -154,9 +154,25 @@
   }
 }
 
-/* two-phase business bubble: typing dots → message text (same grid cell) */
+/* two-phase business bubble: typing dots → message text (same grid cell).
+   During the dots phase the bubble is clamped to a small pill so it doesn't
+   pre-reserve the finished message's full box; at --swap it grows to fit as the
+   text lands. Runs the shared `rise` entrance AND the grow in one shorthand
+   (with per-animation delays via vars) so it doesn't clobber `.rise`. */
 .bubPhase {
   display: grid;
+  overflow: hidden;
+  max-width: 36%;
+  max-height: 38px;
+  animation:
+    rise 0.5s cubic-bezier(0.22, 0.9, 0.3, 1) var(--rise-delay, 0s) forwards,
+    bubGrow 0.25s ease-out var(--swap) forwards;
+}
+@keyframes bubGrow {
+  to {
+    max-width: 82%;
+    max-height: 400px;
+  }
 }
 .phDots {
   grid-area: 1 / 1;
@@ -695,7 +711,13 @@
     opacity: 1 !important;
     transform: none !important;
   }
-  /* typing phases resolve instantly: no dots, text visible */
+  /* typing phases resolve instantly: no dots, full text, no clamp/grow */
+  .bubPhase {
+    max-width: 82%;
+    max-height: none;
+    overflow: visible;
+    animation: none !important;
+  }
   .phDots {
     display: none !important;
   }

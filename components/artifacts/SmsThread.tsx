@@ -53,23 +53,28 @@ export function SmsThread({ sms, animate = true, className }: Props) {
           let bubble;
 
           if (isBiz && animate) {
-            // bubble rises with typing dots, text swaps in when "typed"
+            // bubble rises with typing dots, text swaps in when "typed".
+            // --rise-delay drives the entrance; --swap drives the dots→text swap
+            // and the bubble's grow (both read the var, so they stay in sync).
             t += READ;
             const typingStart = t;
             t += TYPE;
-            const swap = { "--swap": `${t.toFixed(2)}s` } as React.CSSProperties;
+            const phaseStyle = {
+              "--rise-delay": `${typingStart.toFixed(2)}s`,
+              "--swap": `${t.toFixed(2)}s`,
+            } as React.CSSProperties;
             bubble = (
               <div
                 key={`m${i}`}
                 className={`${styles.bub} ${styles.bubOut} ${styles.bubPhase} ${styles.rise}`}
-                style={{ animationDelay: `${typingStart.toFixed(2)}s` }}
+                style={phaseStyle}
               >
-                <span className={styles.phDots} style={swap} aria-hidden="true">
+                <span className={styles.phDots} aria-hidden="true">
                   <i />
                   <i />
                   <i />
                 </span>
-                <span className={styles.phText} style={swap}>
+                <span className={styles.phText}>
                   {renderRich(m.text)}
                   <span className={styles.bubTime}>{m.time}</span>
                 </span>

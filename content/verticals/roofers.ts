@@ -71,10 +71,6 @@ export const roofers: VerticalContent = {
     },
   ],
 
-  demoFlow: "quote",
-  demoIntro:
-    "Here's the photo-to-quote loop — a homeowner's damage photo becomes an itemized draft you approve, not a note you'll get to after the weekend.",
-
   faq: [
     {
       q: "My estimates need eyes on the deck. A computer can't price a real roof.",

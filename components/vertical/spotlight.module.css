@@ -98,6 +98,7 @@
 }
 .playpause {
   appearance: none;
+  position: relative;
   flex: none;
   border: 1px solid var(--rule);
   background: rgba(23, 29, 24, 0.03);
@@ -262,7 +263,12 @@
     "a b"
     "c d"
     "r r";
-  align-items: stretch;
+  /* Cards hug their content with aligned tops. Scene data comes from 11
+     different industries with wildly different card heights — stretching a
+     4-row checklist to match a 5-message SMS thread parks a huge void inside
+     the shorter card. Ragged bottoms + numbered step badges read intentional;
+     stretched voids read broken. */
+  align-items: start;
   column-gap: 20px;
   row-gap: 20px;
 }
@@ -280,32 +286,27 @@
 }
 .posA {
   grid-area: a;
-  height: 100%;
 }
 .posB {
   grid-area: b;
-  height: 100%;
 }
 .posC {
   grid-area: c;
-  height: 100%;
 }
 .posD {
   grid-area: d;
-  height: 100%;
 }
 .rise {
   position: relative;
   width: 100%;
   animation: spotRise 0.55s cubic-bezier(0.22, 0.9, 0.3, 1) both paused;
 }
-/* card slots fill their cell height so a stretched card can distribute space;
-   the receipt row (.outcome) keeps a plain rise so its chip stays centred */
+/* cards hug their content (see .grid align-items note); rise stays a column
+   so headers/footers keep their flex layout */
 .posA > .rise,
 .posB > .rise,
 .posC > .rise,
 .posD > .rise {
-  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -690,6 +691,12 @@
 
 /* ------------------------------------------------------------------- mobile */
 @media (max-width: 640px) {
+  /* keep the visual button at 30px but expand the tap target to ~44px */
+  .playpause::after {
+    content: "";
+    position: absolute;
+    inset: -7px;
+  }
   .rail {
     padding: 16px 18px 14px;
   }
@@ -735,11 +742,19 @@
   .posB,
   .posC,
   .posD,
-  .rise {
+  .rise,
+  .posA > .rise,
+  .posB > .rise,
+  .posC > .rise,
+  .posD > .rise {
     height: auto;
   }
   .acard {
     height: auto;
+  }
+  /* single column — nothing stretches, so let the body sit naturally */
+  .abody {
+    justify-content: flex-start;
   }
   .barCtx {
     display: none;

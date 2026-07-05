@@ -159,6 +159,7 @@
 }
 .playpause {
   appearance: none;
+  position: relative;
   flex: none;
   border: 1px solid var(--rule);
   background: rgba(23, 29, 24, 0.03);
@@ -1502,6 +1503,12 @@
 
 /* ------------------------------------------------------------------- mobile */
 @media (max-width: 640px) {
+  /* keep the visual button at 30px but expand the tap target to ~44px */
+  .playpause::after {
+    content: "";
+    position: absolute;
+    inset: -7px;
+  }
   .rail {
     padding: 16px 18px 14px;
   }

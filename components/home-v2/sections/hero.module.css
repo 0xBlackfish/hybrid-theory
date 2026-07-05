@@ -24,6 +24,11 @@
   gap: 48px;
   align-items: center;
 }
+/* let each column shrink below its content's intrinsic width — without this the
+   nowrap chip row (below) forces its min-content width onto the whole column. */
+.grid > * {
+  min-width: 0;
+}
 
 /* ---- left copy column ---- */
 .copy {
@@ -109,6 +114,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-width: 0;
 }
 .swLab {
   font-size: 12px;
@@ -177,13 +183,22 @@
     grid-template-columns: 1fr;
     gap: 40px;
   }
+  /* trim the hero's tall bottom padding once stacked so the composition
+     doesn't leave a large dead gap above the next section */
+  .hero {
+    padding-bottom: 52px;
+  }
 }
 @media (max-width: 560px) {
   .chips {
     flex-wrap: nowrap;
     overflow-x: auto;
+    min-width: 0;
     padding-bottom: 4px;
     scrollbar-width: none;
+    /* fade the right edge so the row reads as horizontally scrollable */
+    -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 26px), transparent);
+    mask-image: linear-gradient(90deg, #000 calc(100% - 26px), transparent);
   }
   .chips::-webkit-scrollbar {
     display: none;
