@@ -1,0 +1,1607 @@
+/* ============================================================================
+   WORKFLOW THEATER
+   A beat-synced, auto-playing walkthrough of five end-to-end workflows.
+   Visual language = Direction E (see components/artifacts/artifacts.module.css):
+   white --card surfaces, --hair-card hairlines, --sh-* elevation, lime (#B9FF35)
+   receipts with dark text. Structural artifact classes are reused from that
+   module; this file adds the theater chrome (tabs, rail, stage) and the novel
+   artifacts (call card, transcript, checklist, mini-CRM, rubric, ledger…).
+
+   Animation contract: transform + opacity ONLY. Every artifact enters via the
+   `.rise` animation, which is *paused* until React adds `.go` on its beat. Base
+   (un-`.go`) state renders the 0% keyframe (opacity 0) via `both` fill; under
+   prefers-reduced-motion the animation is removed and everything sits at rest.
+   The single JS "conductor" only flips beat state — CSS does all easing.
+   --c is the per-scene accent, set inline on .shell.
+   ========================================================================== */
+
+.theater {
+  --c: var(--amber);
+  margin-top: 40px;
+}
+.theater * {
+  box-sizing: border-box;
+}
+
+/* -------------------------------------------------------------- workflow tabs */
+.tabsWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.tabsLab {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #3b443c;
+  background: var(--card, #fff);
+  border: 1px solid var(--hair, #e5e1d6);
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+  box-shadow: var(--sh-1);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease,
+    border-color 0.16s ease, color 0.16s ease;
+}
+.tab svg {
+  width: 15px;
+  height: 15px;
+  color: var(--accent-text);
+}
+.tab:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--sh-2);
+}
+.tab:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+}
+.tabActive {
+  background: var(--ink, #171d18);
+  color: #f4f7f2;
+  border-color: var(--ink, #171d18);
+  box-shadow: var(--sh-2);
+}
+.tabActive svg {
+  color: var(--c);
+}
+
+/* ------------------------------------------------------------------ the shell */
+.shell {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--hair-card);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--sh-3);
+  transition: border-color 0.55s ease;
+}
+.shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    82% 120% at 88% -12%,
+    color-mix(in srgb, var(--c) 15%, transparent),
+    transparent 60%
+  );
+  pointer-events: none;
+  transition: background 0.55s ease;
+  z-index: 0;
+}
+
+/* top bar — scene name + context + play/pause (mirrors the old cycler's bar) */
+.bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--hair-card);
+}
+.barLeft {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.barDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--c);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 22%, transparent);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+.barName {
+  color: var(--ink);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.barCtx {
+  color: var(--ink-mute);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.barCtx::before {
+  content: "·";
+  margin: 0 8px 0 4px;
+  color: var(--ink-mute);
+}
+.playpause {
+  appearance: none;
+  flex: none;
+  border: 1px solid var(--rule);
+  background: rgba(23, 29, 24, 0.03);
+  color: var(--ink-soft);
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.playpause:hover {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--c) 45%, var(--rule));
+  background: color-mix(in srgb, var(--c) 9%, transparent);
+}
+.playpause:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+}
+.playpause svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+}
+/* paused affordance — tints the control so hover-pause reads as intentional */
+.playpausePaused {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--c) 55%, var(--rule));
+  background: color-mix(in srgb, var(--c) 14%, transparent);
+}
+
+/* --------------------------------------------------------------- progress rail */
+.railWrap {
+  position: relative;
+  z-index: 1;
+  border-bottom: 1px solid var(--hair-card);
+}
+.rail {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  padding: 20px 26px 18px;
+}
+.railStep {
+  position: relative;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  min-width: 0;
+}
+/* the connector line lives on the step, drawn to the *previous* step */
+.railStep::before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  right: 50%;
+  left: -50%;
+  height: 2px;
+  background: var(--hair);
+  z-index: 0;
+}
+.railStep:first-child::before {
+  display: none;
+}
+.railStep::after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  right: 50%;
+  left: -50%;
+  height: 2px;
+  width: 0;
+  background: var(--c);
+  transform-origin: right center;
+  transform: scaleX(0);
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+  z-index: 0;
+}
+.railStep:first-child::after {
+  display: none;
+}
+.railStepDone::after,
+.railStepActive::after {
+  width: 100%;
+  transform: scaleX(1);
+}
+.railIco {
+  position: relative;
+  z-index: 1;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--card);
+  border: 2px solid var(--hair);
+  color: var(--ink-mute);
+  transition: border-color 0.4s ease, color 0.4s ease, background 0.4s ease,
+    box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.22, 0.9, 0.3, 1);
+}
+.railIco svg {
+  width: 15px;
+  height: 15px;
+}
+.railStepDone .railIco {
+  border-color: var(--c);
+  color: var(--ink);
+  background: color-mix(in srgb, var(--c) 16%, var(--card));
+}
+.railStepActive .railIco {
+  border-color: var(--c);
+  color: var(--ink);
+  background: color-mix(in srgb, var(--c) 24%, var(--card));
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--c) 18%, transparent);
+  transform: scale(1.06);
+}
+.railLab {
+  position: relative;
+  z-index: 1;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  color: var(--ink-mute);
+  max-width: 12ch;
+  transition: color 0.4s ease;
+}
+.railStepDone .railLab {
+  color: var(--ink-soft);
+}
+.railStepActive .railLab {
+  color: var(--ink);
+}
+/* compact current-stage label — only shown on mobile (see media query) */
+.railCurrent {
+  display: none;
+  padding: 0 18px 12px;
+}
+
+/* ------------------------------------------------------------------- the stage */
+.stageWrap {
+  position: relative;
+  z-index: 1;
+  padding: 26px;
+}
+/* warm inset frame — full width; vertically centers the capped grid so a short
+   scene never leaves an outside void (the grid itself owns the alignment) */
+.stage {
+  position: relative;
+  min-height: 480px;
+  background: var(--paper-3);
+  border: 1px solid var(--hair);
+  border-radius: 18px;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* STRICT dashboard grid: two equal columns, one max-width on the grid (not per
+   card), fixed gaps, align-items:stretch — cards FILL their cells so every row
+   shares top/bottom edges and all left edges line up. */
+.grid {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas:
+    "a b"
+    "c d"
+    "r r";
+  align-items: stretch;
+  column-gap: 20px;
+  row-gap: 20px;
+}
+
+/* beat primitives ---------------------------------------------------------- */
+.slot {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.slotDim {
+  opacity: 0.55;
+  transform: scale(0.985);
+}
+/* grid placement — direct grid children stretch to fill their cell */
+.posA {
+  grid-area: a;
+}
+.posB {
+  grid-area: b;
+}
+.posC {
+  grid-area: c;
+}
+.posD {
+  grid-area: d;
+}
+/* card slots (a/b/c/d) fill their cell height; the receipt row (.outcome) does not */
+.posA,
+.posB,
+.posC,
+.posD {
+  height: 100%;
+}
+/* the rise wrapper carries the card's full height so interiors can distribute */
+.posA > .rise,
+.posB > .rise,
+.posC > .rise,
+.posD > .rise {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.rise {
+  width: 100%;
+  animation: theaterRise 0.55s cubic-bezier(0.22, 0.9, 0.3, 1) both paused;
+}
+.riseGo {
+  animation-play-state: running;
+}
+@keyframes theaterRise {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* the held outcome — ONE receipt treatment, centered in the full-width row */
+.outcome {
+  grid-area: r;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 4px;
+}
+.outcomeChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #171d18;
+  background: var(--lime);
+  padding: 10px 18px;
+  border-radius: 11px;
+  box-shadow: 0 4px 14px rgba(120, 170, 20, 0.34);
+  font-variant-numeric: tabular-nums;
+}
+.outcomeChip svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+/* generic compact artifact card. Fills its grid cell (width + height 100%) and
+   is a flex column so the header pins top, body grows, footer chips pin bottom. */
+.acard {
+  width: 100%;
+  height: 100%;
+  background: var(--card);
+  border: 1px solid var(--hair-card);
+  border-radius: 14px;
+  box-shadow: var(--sh-2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.ahead {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 13px;
+  border-bottom: 1px solid var(--hair-card);
+  background: #fbfaf7;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+/* numbered step badge in the card header — mirrors the rail's step styling and
+   lights in sync with beats (idle = hairline outline, done/active = accent). */
+.step {
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  flex: none;
+  display: grid;
+  place-items: center;
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 1;
+  border: 1.5px solid var(--hair);
+  background: var(--card);
+  color: var(--ink-mute);
+  transition: border-color 0.4s ease, background 0.4s ease, color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+.stepOn {
+  border-color: var(--c);
+  background: color-mix(in srgb, var(--c) 24%, var(--card));
+  color: var(--ink);
+}
+.stepActive {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 16%, transparent);
+}
+/* dark-card variant (digest headers) */
+.stepDark {
+  background: #1f261a;
+  border-color: #39432f;
+  color: #8d9a80;
+}
+.stepDark.stepOn {
+  border-color: var(--c);
+  background: color-mix(in srgb, var(--c) 60%, #14180f);
+  color: #14180f;
+}
+.aheadTitle {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.aheadTag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--accent-text);
+  background: #eaffc2;
+  border: 1px solid #dcf3ae;
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.abody {
+  flex: 1;
+  padding: 13px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.arow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 12.5px;
+}
+.arow b {
+  font-weight: 600;
+  color: #3b443c;
+}
+/* pins a trailing element to the bottom of a stretched card body */
+.footer {
+  margin-top: auto;
+}
+/* small muted secondary line (used to keep sparse cards honest, not padded) */
+.subnote {
+  font-size: 11px;
+  color: var(--ink-mute);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.subnote svg {
+  width: 12px;
+  height: 12px;
+  flex: none;
+}
+
+.muted {
+  color: var(--ink-mute);
+}
+.bigNum {
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- booked calendar slot (scene 1) ---- */
+.bookedSlot {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: #eaffc2;
+  border: 1px solid #cfee93;
+  border-radius: 9px;
+  padding: 8px 11px;
+  font-size: 12.5px;
+}
+.bookedSlot b {
+  color: #2c5a1c;
+  font-weight: 700;
+}
+.bookedSlot span {
+  color: var(--accent-text);
+  font-size: 11.5px;
+}
+
+/* ---- signed estimate (scene 2 · d) ---- */
+.signRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.signLine {
+  font-size: 17px;
+  color: var(--ink);
+  border-bottom: 1.5px solid var(--hair);
+  padding: 0 18px 2px;
+  font-family: "Segoe Script", "Bradley Hand", cursive;
+  font-style: italic;
+}
+.moneyPos {
+  color: var(--accent-text);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- incoming call card (scene 1) ---- */
+.callCard {
+  width: 100%;
+  height: 100%;
+  background: #14180f;
+  border: 1px solid #2a3222;
+  border-radius: 14px;
+  box-shadow: var(--sh-4);
+  color: #eaf0e6;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+/* dark card header row — carries the numbered step badge */
+.aheadDark {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 13px;
+  border-bottom: 1px solid #262e1f;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8d9a80;
+  font-weight: 600;
+}
+.callBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 18px;
+}
+.callState {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #7e8a76;
+  margin-bottom: 14px;
+}
+.callStateRing {
+  color: var(--amber-soft);
+}
+.callStateMiss {
+  color: #ff9b8a;
+}
+.callAva {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  margin: 0 auto 12px;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #3e7b27, #6bb13f);
+  position: relative;
+}
+.callAvaRinging::before,
+.callAvaRinging::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--amber-soft) 70%, transparent);
+  animation: callRing 1.8s ease-out infinite;
+}
+.callAvaRinging::after {
+  animation-delay: 0.9s;
+}
+@keyframes callRing {
+  0% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+.callName {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.callNum {
+  font-size: 12px;
+  color: #9aa694;
+  margin-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.callMeta {
+  margin-top: 14px;
+  padding-top: 13px;
+  border-top: 1px solid #262e1f;
+  font-size: 11.5px;
+  color: #9aa694;
+}
+.callMeta b {
+  color: #eaf0e6;
+  font-weight: 600;
+}
+
+/* ---- SMS compact thread (reuses artifacts .bub look via inline classes) --- */
+.thread {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.sys {
+  text-align: center;
+  font-size: 10.5px;
+  color: var(--ink-mute);
+  margin: 0 0 2px;
+}
+
+/* two-phase business bubble: typing dots → text, self-timed off --swap */
+.phaseBub {
+  display: grid;
+}
+.phDots {
+  grid-area: 1 / 1;
+  align-self: center;
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  padding: 3px 2px;
+}
+/* dots + swap only animate once the beat lands (parent .riseGo) */
+.riseGo .phDots {
+  animation: phaseHide 0.18s ease forwards;
+  animation-delay: var(--swap);
+}
+.phDots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.4;
+}
+.riseGo .phDots i {
+  animation: dotPulse 1.05s ease-in-out infinite;
+}
+.riseGo .phDots i:nth-child(2) {
+  animation-delay: 0.14s;
+}
+.riseGo .phDots i:nth-child(3) {
+  animation-delay: 0.28s;
+}
+.phText {
+  grid-area: 1 / 1;
+  opacity: 0;
+}
+.riseGo .phText {
+  animation: phaseShow 0.24s ease forwards;
+  animation-delay: var(--swap);
+}
+@keyframes phaseHide {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+@keyframes phaseShow {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes dotPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: none;
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+/* ---- qualification chip row (scene 1) ---- */
+.quals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.qual {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #2c5a1c;
+  background: #eaffc2;
+  border: 1px solid #cfee93;
+  padding: 5px 10px;
+  border-radius: 999px;
+}
+.qual svg {
+  width: 12px;
+  height: 12px;
+  color: var(--accent-text);
+}
+.qualNeutral {
+  color: #3b443c;
+  background: #f3f0e7;
+  border-color: var(--hair-card);
+}
+
+/* ---- MMS photo strip + scan (scene 2) ---- */
+.mms {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.mmsPhoto {
+  position: relative;
+  width: 74px;
+  height: 56px;
+  border-radius: 9px;
+  overflow: hidden;
+  border: 1px solid var(--hair-card);
+  background: linear-gradient(135deg, #b7c3a9, #dfe6d4);
+  display: grid;
+  place-items: center;
+  color: rgba(23, 29, 24, 0.35);
+}
+.mmsPhoto svg {
+  width: 20px;
+  height: 20px;
+}
+/* diagonal shingle texture hint */
+.mmsPhoto::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    115deg,
+    rgba(23, 29, 24, 0.06) 0 6px,
+    transparent 6px 12px
+  );
+}
+.mmsScan::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 40%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in srgb, var(--c) 55%, transparent),
+    transparent
+  );
+  animation: scanSweep 1.6s ease-in-out infinite;
+}
+@keyframes scanSweep {
+  0% {
+    transform: translateY(-60%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+.mmsCap {
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+.extract {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.extract .qual {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- quote line items (reuse artifacts qcLine feel) ---- */
+.qLine {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+  padding: 5px 0;
+  border-bottom: 1px dashed var(--hair-card);
+}
+.qLine span:first-child {
+  color: #3b443c;
+}
+.qLine span:last-child {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.qTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid var(--hair-card);
+}
+.qTotalLab {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-mute);
+}
+.qTotalAmt {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- elapsed-time ticker (scenes 2 / 5) ---- */
+.ticker {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  align-self: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  background: #fbfaf7;
+  border: 1px solid var(--hair-card);
+  padding: 5px 11px;
+  border-radius: 999px;
+}
+.tickerDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c);
+}
+
+/* ---- transcript strip (scenes 3 / 4) ---- */
+.transcript {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.tLine {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  padding: 4px 8px;
+  border-radius: 7px;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+.tHi {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--c) 16%, transparent);
+  box-shadow: inset 2px 0 0 var(--c);
+}
+.tHi b {
+  font-weight: 700;
+}
+.tSpeaker {
+  font-weight: 600;
+  color: var(--ink-mute);
+  margin-right: 5px;
+}
+
+/* ---- self-writing checklist (scene 3) ---- */
+.check {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.checkItem {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12.5px;
+  color: #3b443c;
+  padding: 4px 0;
+}
+.checkBox {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  background: #eaffc2;
+  border: 1px solid #cfee93;
+  color: var(--accent-text);
+}
+.checkBox svg {
+  width: 12px;
+  height: 12px;
+}
+.drawPath {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+}
+.riseGo .drawPath {
+  animation: drawCheck 0.5s 0.15s ease forwards;
+}
+@keyframes drawCheck {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---- mini CRM board (scene 3) ---- */
+.crm {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.crmCol {
+  background: #fbfaf7;
+  border: 1px solid var(--hair-card);
+  border-radius: 10px;
+  padding: 8px;
+  min-height: 78px;
+}
+.crmColLab {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 7px;
+}
+.crmColActive .crmColLab {
+  color: var(--accent-text);
+}
+.crmCard {
+  background: var(--card);
+  border: 1px solid var(--hair-card);
+  border-radius: 8px;
+  padding: 7px 9px;
+  box-shadow: var(--sh-1);
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.crmCardName {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.crmCardVal {
+  font-size: 11px;
+  color: var(--accent-text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  margin-top: 1px;
+}
+/* faint placeholder deal in the Prospect column so the board reads real */
+.crmGhost {
+  font-size: 11px;
+  color: var(--ink-mute);
+  background: var(--card);
+  border: 1px dashed var(--hair);
+  border-radius: 8px;
+  padding: 6px 9px;
+}
+
+/* ---- rubric scorecard (scene 4) ---- */
+.rubric {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.rbRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 10px;
+  align-items: center;
+}
+.rbLab {
+  font-size: 12px;
+  color: #3b443c;
+}
+.rbScore {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.rbTrack {
+  grid-column: 1 / -1;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--hair);
+  overflow: hidden;
+}
+.rbFill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--c);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+.riseGo .rbFill {
+  animation: barGrow 0.85s cubic-bezier(0.34, 1.56, 0.5, 1) forwards;
+}
+@keyframes barGrow {
+  0% {
+    transform: scaleX(0);
+  }
+  70% {
+    transform: scaleX(var(--to-over));
+  }
+  100% {
+    transform: scaleX(var(--to));
+  }
+}
+
+/* ---- flagged moment / lens chip (scene 4) ---- */
+.flag {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #3b443c;
+  background: #fff8ec;
+  border: 1px solid #f6e3bd;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.flagIco {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--amber-text);
+}
+.lens {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--amber-text);
+  background: #fdecc8;
+  border: 1px solid #f6d99a;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-top: 6px;
+}
+.lens svg {
+  width: 11px;
+  height: 11px;
+}
+
+/* ---- email draft card (scene 3) ---- */
+.draft {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.draftSub {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.draftBody {
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+.draftTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  align-self: flex-start;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--amber-text);
+  background: #fdecc8;
+  border: 1px dashed #e9c579;
+  padding: 3px 9px;
+  border-radius: 999px;
+  margin-top: auto;
+}
+
+/* ---- invoice + ledger + nudges (scene 5) ---- */
+.invAmt {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.invMeta {
+  font-size: 11.5px;
+  color: var(--ink-mute);
+}
+.nudges {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.nudge {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 10px;
+  padding: 7px 0;
+  position: relative;
+}
+.nudge::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 16px;
+  bottom: -7px;
+  width: 2px;
+  background: var(--hair);
+}
+.nudge:last-child::before {
+  display: none;
+}
+.nudgeDay {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  position: relative;
+  padding-left: 16px;
+}
+.nudgeDay::before {
+  content: "";
+  position: absolute;
+  left: 1px;
+  top: 3px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 2px solid var(--c);
+}
+.nudgeText {
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+.nudgeText b {
+  color: #3b443c;
+  font-weight: 600;
+}
+.ledgerList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ledger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+  padding: 8px 10px;
+  border-radius: 9px;
+  background: #fbfaf7;
+  border: 1px solid var(--hair-card);
+}
+/* faint prior row so it reads as a real running ledger */
+.ledgerPrev {
+  opacity: 0.55;
+  background: transparent;
+}
+.ledgerDate {
+  font-size: 10.5px;
+  color: var(--ink-mute);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.ledgerLeft {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-variant-numeric: tabular-nums;
+}
+.ledgerLeft b {
+  font-weight: 600;
+  color: #3b443c;
+}
+.ledgerLeft span {
+  color: var(--ink-mute);
+  font-size: 11px;
+}
+.reconciled {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--accent-text);
+  background: #eaffc2;
+  border: 1px solid #cfee93;
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* ---- digest notification (dark) — compact reuse of the artifact look ------ */
+.digest {
+  width: 100%;
+  height: 100%;
+  background: #14180f;
+  border: 1px solid #2a3222;
+  border-radius: 14px;
+  box-shadow: var(--sh-4);
+  padding: 15px 16px 16px;
+  color: #eaf0e6;
+  display: flex;
+  flex-direction: column;
+}
+.digestHead {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.digestIco {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: var(--lime);
+  display: grid;
+  place-items: center;
+  color: #14180f;
+  font-weight: 800;
+  font-size: 12px;
+}
+.digestApp {
+  font-size: 12px;
+  font-weight: 600;
+}
+.digestTime {
+  margin-left: auto;
+  font-size: 11px;
+  color: #7e8a76;
+}
+.digestTitle {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.digestBody {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #b7c2ae;
+}
+.digestNum {
+  color: var(--lime);
+  font-weight: 700;
+}
+.digestRow {
+  margin-top: auto;
+  padding-top: 11px;
+  border-top: 1px solid #262e1f;
+  display: flex;
+  gap: 16px;
+}
+.digestStatK {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.digestStatL {
+  font-size: 10.5px;
+  color: #7e8a76;
+}
+
+/* ---- real-UI anchor treatments (replace the old giant glyphs) ------------ */
+/* small status chip, reused across anchors */
+.miniChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  align-self: flex-start;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--accent-text);
+  background: #eaffc2;
+  border: 1px solid #dcf3ae;
+  padding: 3px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.miniChip svg {
+  width: 12px;
+  height: 12px;
+  flex: none;
+}
+.miniChipLead {
+  margin-top: auto;
+  padding-top: 2px;
+}
+
+/* call UI row: avatar · name/meta · chip (scene 3 anchor) */
+.callRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.callRowAva {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  flex: none;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #3e7b27, #6bb13f);
+}
+.callRowMeta {
+  flex: 1;
+  min-width: 0;
+}
+.callRowName {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.callRowSub {
+  font-size: 11.5px;
+  color: var(--ink-mute);
+  font-variant-numeric: tabular-nums;
+}
+
+/* static waveform bars (decorative) */
+.wave {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 24px;
+  padding: 2px 0;
+}
+.wave i {
+  width: 3px;
+  border-radius: 2px;
+  flex: none;
+  background: color-mix(in srgb, var(--c) 55%, var(--hair));
+}
+
+/* participant chips (scene 4 anchor) */
+.people {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.person {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #3b443c;
+  background: #fbfaf7;
+  border: 1px solid var(--hair-card);
+  padding: 3px 10px 3px 3px;
+  border-radius: 999px;
+}
+.personAva {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+/* job ticket title (scene 5 anchor) */
+.jobTitle {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+/* a qual chip used inline as a beat result (its slot pins via .footer) */
+.qualLead {
+  align-self: flex-start;
+}
+
+/* coaching-note block nested in a card (scene 4) */
+.noteBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-top: 2px;
+}
+
+/* ------------------------------------------------------------------- mobile */
+@media (max-width: 640px) {
+  .rail {
+    padding: 16px 18px 14px;
+  }
+  /* compact rail: dots only, with a single current-stage label below */
+  .railLab {
+    display: none;
+  }
+  .railIco {
+    width: 24px;
+    height: 24px;
+  }
+  .railIco svg {
+    width: 12px;
+    height: 12px;
+  }
+  .railStep::before,
+  .railStep::after {
+    top: 11px;
+  }
+  .railCurrent {
+    display: block;
+    margin-top: 4px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+  .stageWrap {
+    padding: 16px;
+  }
+  .stage {
+    padding: 18px 14px;
+    min-height: 0;
+    display: block;
+  }
+  /* single-column stack — same slot order, one per row */
+  .grid {
+    max-width: 360px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "a"
+      "b"
+      "c"
+      "d"
+      "r";
+    row-gap: 14px;
+  }
+  /* cards hug content when stacked — no forced equal-height stretch */
+  .posA,
+  .posB,
+  .posC,
+  .posD,
+  .posA > .rise,
+  .posB > .rise,
+  .posC > .rise,
+  .posD > .rise {
+    height: auto;
+  }
+  .acard,
+  .digest,
+  .callCard {
+    height: auto;
+  }
+  .barCtx {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------- reduced motion: at rest */
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+    opacity: 1;
+  }
+  .callAvaRinging::before,
+  .callAvaRinging::after,
+  .mmsScan::after,
+  .phDots i {
+    animation: none;
+  }
+  .phDots {
+    display: none;
+  }
+  .phText {
+    animation: none;
+    opacity: 1;
+  }
+  .riseGo .drawPath {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .riseGo .rbFill {
+    animation: none;
+    transform: scaleX(var(--to));
+  }
+  .railStep::after {
+    transition: none;
+  }
+  .crmCard {
+    transition: none;
+  }
+}

@@ -1,0 +1,200 @@
+/* ============================================================================
+   SWITCHER HERO — translated from direction-e-product-light.
+   Left: copy + CTA. Right: "I run a…" chip switcher + layered artifacts.
+   Uses global .btn/.btn-primary (owned elsewhere); everything else is local.
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  padding: 74px 0 90px;
+  overflow: hidden;
+}
+.heroBg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 78% 8%, rgba(185, 255, 53, 0.16), transparent 70%),
+    radial-gradient(50% 40% at 8% 4%, rgba(62, 123, 39, 0.06), transparent 70%);
+}
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.02fr 1.15fr;
+  gap: 48px;
+  align-items: center;
+}
+
+/* ---- left copy column ---- */
+.copy {
+  max-width: 34em;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #3e7b27;
+}
+.eyebrow::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: #b9ff35;
+  box-shadow: 0 0 0 3px #eaffc2;
+}
+.title {
+  font-size: clamp(38px, 5vw, 60px);
+  line-height: 1.02;
+  letter-spacing: -0.033em;
+  font-weight: 800;
+  margin: 20px 0 0;
+  color: var(--ink, #171d18);
+}
+.title em {
+  font-style: normal;
+  position: relative;
+  white-space: nowrap;
+  background: linear-gradient(180deg, transparent 62%, #b9ff35 62%);
+  padding: 0 2px;
+}
+.lead {
+  font-size: 19px;
+  color: #3b443c;
+  margin: 22px 0 0;
+  max-width: 32em;
+  line-height: 1.6;
+}
+.lead b {
+  color: var(--ink, #171d18);
+  font-weight: 600;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+.actions .btnIcon {
+  width: 17px;
+  height: 17px;
+}
+.trust {
+  margin-top: 18px;
+  font-size: 14px;
+  color: #6b746c;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.trustDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #3e7b27;
+}
+
+/* ---- right visual column ---- */
+.visual {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.switcher {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.swLab {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #6b746c;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #3b443c;
+  background: var(--card, #fff);
+  border: 1px solid var(--hair, #e5e1d6);
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+  box-shadow: var(--sh-1, 0 1px 2px rgba(23, 29, 24, 0.05), 0 1px 1px rgba(23, 29, 24, 0.04));
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease,
+    border-color 0.15s ease, color 0.15s ease;
+}
+.chip svg {
+  width: 15px;
+  height: 15px;
+  color: #3e7b27;
+}
+.chip:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--sh-2, 0 2px 4px rgba(23, 29, 24, 0.05), 0 6px 12px rgba(23, 29, 24, 0.06));
+}
+.chipActive {
+  background: var(--ink, #171d18);
+  color: #f4f7f2;
+  border-color: var(--ink, #171d18);
+  box-shadow: var(--sh-2, 0 2px 4px rgba(23, 29, 24, 0.05), 0 6px 12px rgba(23, 29, 24, 0.06));
+}
+.chipActive svg {
+  color: #b9ff35;
+}
+.moreLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #6b746c;
+  padding: 8px 6px;
+  align-self: center;
+  transition: color 0.15s ease;
+}
+.moreLink:hover {
+  color: var(--ink, #171d18);
+}
+
+@media (max-width: 980px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+@media (max-width: 560px) {
+  .chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .chips::-webkit-scrollbar {
+    display: none;
+  }
+  .chip {
+    flex: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chip {
+    transition: none;
+  }
+}

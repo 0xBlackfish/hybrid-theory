@@ -1,114 +1,124 @@
-import { LockDate, LockTime } from "../LockDate";
+"use client";
+
+import { useState, type ReactNode } from "react";
+import Link from "next/link";
+import { getVertical } from "@/content/verticals";
+import type { VerticalScenario } from "@/content/verticals/types";
+import { ScenarioComposition } from "@/components/artifacts";
+import styles from "./hero.module.css";
+
+/* Trade chip icons (translated from direction-e). */
+const ICONS: Record<string, ReactNode> = {
+  roofers: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 11 12 4l9 7" />
+      <path d="M5 10v9h14v-9" />
+    </svg>
+  ),
+  "hvac-plumbing": (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 3c1.6 3.2 4 4 4 7.4A4 4 0 0 1 8 11c0-1.8.9-2.9 2-4" />
+    </svg>
+  ),
+  dentists: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7 3c-2 0-3 1.8-3 4 0 3 1 4 1.6 8 .3 2 .5 4 1.4 4s1.1-2.4 1.4-4.2c.2-1 .5-1.6 1.6-1.6s1.4.6 1.6 1.6c.3 1.8.5 4.2 1.4 4.2s1.1-2 1.4-4c.6-4 1.6-5 1.6-8 0-2.2-1-4-3-4-1.3 0-2 .7-3 .7S8.3 3 7 3z" />
+    </svg>
+  ),
+  tutoring: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M2 8 12 4l10 4-10 4L2 8z" />
+      <path d="M6 10.5V15c0 1 2.7 2 6 2s6-1 6-2v-4.5" />
+    </svg>
+  ),
+  contractors: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="m14.5 5.5 4 4" />
+      <path d="M16.5 3.5 20.5 7.5 17 11l-4-4z" />
+      <path d="m11 8-7.5 7.5a2.1 2.1 0 0 0 3 3L14 11" />
+    </svg>
+  ),
+  "med-spas": (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 3c3 4 6 6.5 6 10a6 6 0 0 1-12 0c0-3.5 3-6 6-10z" />
+    </svg>
+  ),
+};
+
+/* Six chips read most distinctly across the money moments (quote + calendar). */
+const HERO_SLUGS = ["roofers", "hvac-plumbing", "dentists", "tutoring", "contractors", "med-spas"];
+
+type Trade = { slug: string; label: string; icon: ReactNode; scenario: VerticalScenario };
+
+const TRADES: Trade[] = HERO_SLUGS.flatMap((slug) => {
+  const v = getVertical(slug);
+  return v ? [{ slug, label: v.scenario.chipLabel, icon: ICONS[slug], scenario: v.scenario }] : [];
+});
 
 export function Hero() {
-  return (
-    <header className="htv-hero">
-      <div className="htv-hero-bg">
-        <div className="htv-hero-glow" />
-      </div>
+  const [active, setActive] = useState(TRADES[0].slug);
+  const scenario = (TRADES.find((t) => t.slug === active) ?? TRADES[0]).scenario;
 
-      <div className="htv-wrap htv-hero-grid">
-        <div className="htv-cleft">
-          <span className="htv-eyebrow">AI consulting for real businesses</span>
-          <h1 className="htv-hero-title">
+  return (
+    <header className={styles.hero}>
+      <div className={styles.heroBg} aria-hidden="true" />
+
+      <div className={`htv-wrap ${styles.grid}`}>
+        {/* LEFT — copy */}
+        <div className={styles.copy}>
+          <h1 className={styles.title}>
             Run the business you always <em>pictured</em>.
           </h1>
-          <p className="htv-lead">
+          <p className={styles.lead}>
             More customers. Faster answers. Nothing slipping through the cracks —{" "}
-            <b>quietly handled by AI built around how you already work.</b> You run the business. It takes care of the busywork.
+            <b>handled quietly in the background, sounding like you at your best.</b> You run the
+            business. It takes care of the busywork.
           </p>
-          <a href="#" data-calendly className="btn btn-primary">
-            Book your free business assessment
-          </a>
+          <div className={styles.actions}>
+            <a href="https://calendly.com/hybridtheory/30min" target="_blank" rel="noopener" data-calendly className="btn btn-primary">
+              <svg
+                className={styles.btnIcon}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="3" y="4" width="18" height="18" rx="2" />
+                <path d="M16 2v4M8 2v4M3 10h18" />
+              </svg>
+              Book your free 30-minute assessment
+            </a>
+          </div>
         </div>
 
-        <div className="htv-device-wrap">
-          <div className="htv-device">
-            <span className="htv-btn-side htv-vol1" />
-            <span className="htv-btn-side htv-vol2" />
-            <span className="htv-btn-side htv-vol3" />
-            <span className="htv-btn-side htv-pwr" />
-            <div className="htv-screen">
-              <div className="htv-wall" />
-              <div className="htv-island" />
-
-              <div className="htv-statusbar">
-                <div className="htv-sb-time"><LockTime /></div>
-                <div className="htv-sb-right">
-                  <svg width="18" height="12" viewBox="0 0 18 12" fill="#fff">
-                    <rect x="0" y="8" width="3" height="4" rx="1" />
-                    <rect x="5" y="5.5" width="3" height="6.5" rx="1" />
-                    <rect x="10" y="3" width="3" height="9" rx="1" />
-                    <rect x="15" y="0.5" width="3" height="11.5" rx="1" />
-                  </svg>
-                  <svg width="17" height="12" viewBox="0 0 17 12" fill="none">
-                    <path d="M2 4.8C3.7 3.1 6 2.1 8.5 2.1c2.5 0 4.8 1 6.5 2.7" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" />
-                    <path d="M4.4 7.1C5.5 6 7 5.4 8.5 5.4s3 .6 4.1 1.7" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" />
-                    <circle cx="8.5" cy="9.7" r="1.3" fill="#fff" />
-                  </svg>
-                  <svg width="26" height="13" viewBox="0 0 26 13" fill="none">
-                    <rect x="0.5" y="0.5" width="22" height="12" rx="3.5" stroke="#fff" strokeOpacity="0.5" />
-                    <rect x="2" y="2" width="16" height="9" rx="2" fill="#fff" />
-                    <rect x="24" y="4" width="2" height="5" rx="1" fill="#fff" fillOpacity="0.6" />
-                  </svg>
-                </div>
-              </div>
-
-              <div className="htv-lock">
-                <LockDate />
-                <div className="htv-lock-time"><LockTime /></div>
-              </div>
-
-              <div className="htv-notifs">
-                <div className="htv-notif">
-                  <div className="htv-n-head">
-                    <span className="htv-n-icon"><span>H</span></span>
-                    <span className="htv-n-app">Hybrid</span>
-                    <span className="htv-n-time">now</span>
-                  </div>
-                  <div className="htv-n-title">Good morning, Matt ☀️</div>
-                  <div className="htv-n-body"><b>$3,200</b> in new work booked while you slept. Zero leads left waiting.</div>
-                </div>
-                <div className="htv-notif">
-                  <div className="htv-n-head">
-                    <span className="htv-n-icon"><span>H</span></span>
-                    <span className="htv-n-app">Hybrid</span>
-                    <span className="htv-n-time">21m ago</span>
-                  </div>
-                  <div className="htv-n-title">New 5-star review <span className="htv-n-body htv-star">★★★★★</span></div>
-                  <div className="htv-n-body">“Answered me in minutes and did great work.” — asked &amp; collected for you.</div>
-                </div>
-                <div className="htv-notif">
-                  <div className="htv-n-head">
-                    <span className="htv-n-icon"><span>H</span></span>
-                    <span className="htv-n-app">Hybrid</span>
-                    <span className="htv-n-time">1h ago</span>
-                  </div>
-                  <div className="htv-n-title">Job booked · $420</div>
-                  <div className="htv-n-body">Flat-roof repair, Thu 9:00 AM — already on your calendar.</div>
-                </div>
-              </div>
-
-              <div className="htv-botbar">
-                <div className="htv-circ">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="#fff">
-                    <path d="M9 7h6l1 2h3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3l1-2z" />
-                    <circle cx="12" cy="14" r="3" fill="#0c0f0d" />
-                  </svg>
-                </div>
-                <div className="htv-circ">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M9 18V5l12-2v13" />
-                    <circle cx="6" cy="18" r="3" />
-                    <circle cx="18" cy="16" r="3" />
-                  </svg>
-                </div>
-              </div>
-
-              <div className="htv-handle" />
-              <div className="htv-reflect" />
+        {/* RIGHT — switcher + layered artifacts */}
+        <div className={styles.visual}>
+          <div className={styles.switcher} role="tablist" aria-label="Pick your business">
+            <span className={styles.swLab}>I run a&hellip;</span>
+            <div className={styles.chips}>
+              {TRADES.map((t) => (
+                <button
+                  key={t.slug}
+                  type="button"
+                  role="tab"
+                  aria-selected={t.slug === active}
+                  className={t.slug === active ? `${styles.chip} ${styles.chipActive}` : styles.chip}
+                  onClick={() => setActive(t.slug)}
+                >
+                  {t.icon}
+                  {t.label}
+                </button>
+              ))}
+              <Link href="/#who" className={styles.moreLink}>
+                More trades →
+              </Link>
             </div>
           </div>
+
+          {/* key={active} remounts the composition so the SMS cascade replays */}
+          <ScenarioComposition key={active} scenario={scenario} />
         </div>
       </div>
     </header>

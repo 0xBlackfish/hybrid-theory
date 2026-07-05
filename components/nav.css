@@ -1,0 +1,82 @@
+/* ============================================================
+   SiteNav — "Who we help" dropdown
+   NET-NEW classes only (prefix: nav-dd-). Existing .nav / .nav-*
+   classes in globals.css stay untouched; this file is imported
+   directly by components/SiteNav.tsx.
+   ============================================================ */
+
+/* Desktop dropdown trigger — matches .nav-links-studio a rhythm */
+.nav-dd { position: relative; }
+.nav-dd-trigger {
+  font: inherit; color: inherit; background: none; border: 0; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 0; position: relative;
+}
+.nav-dd-trigger .nav-dd-caret {
+  width: 9px; height: 9px; transition: transform .2s ease; opacity: 0.6;
+}
+.nav-dd[data-open="true"] .nav-dd-caret { transform: rotate(180deg); }
+.nav-dd-trigger::after {
+  content: ""; position: absolute; left: 0; right: 14px; bottom: -2px;
+  height: 1px; background: currentColor;
+  transform: scaleX(0); transform-origin: left; transition: transform 220ms ease;
+}
+.nav-dd:hover .nav-dd-trigger::after,
+.nav-dd[data-open="true"] .nav-dd-trigger::after { transform: scaleX(1); }
+
+/* The panel */
+.nav-dd-menu {
+  position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%) translateY(-6px);
+  min-width: 460px;
+  background: rgba(255, 255, 255, 0.98);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  border: 1px solid var(--rule); border-radius: 14px;
+  box-shadow: 0 24px 48px -24px rgba(23, 29, 24, 0.28), 0 8px 20px -16px rgba(23, 29, 24, 0.2);
+  padding: 12px;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease, visibility .18s;
+  z-index: 70;
+}
+/* Bridge the 14px gap so hover doesn't drop between trigger and menu */
+.nav-dd-menu::before {
+  content: ""; position: absolute; top: -14px; left: 0; right: 0; height: 14px;
+}
+.nav-dd:hover .nav-dd-menu,
+.nav-dd:focus-within .nav-dd-menu,
+.nav-dd[data-open="true"] .nav-dd-menu {
+  opacity: 1; visibility: visible; pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.nav-dd-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+}
+.nav-dd-link {
+  display: block; text-decoration: none;
+  color: var(--ink-2); font-size: 13.5px; font-weight: 500; line-height: 1.2;
+  padding: 10px 12px; border-radius: 9px;
+  transition: background .15s ease, color .15s ease;
+}
+.nav-dd-link:hover, .nav-dd-link:focus-visible {
+  background: var(--paper-3); color: var(--ink); outline: none;
+}
+.nav-dd-link.is-active { color: var(--accent-t); }
+
+@media (max-width: 820px) {
+  .nav-dd { display: none; }
+}
+
+/* ---- Mobile: grouped "Who we help" list inside the existing panel ---- */
+.nav-dd-mobile { display: none; }
+@media (max-width: 820px) {
+  .nav-dd-mobile { display: block; }
+  .nav-dd-mobile-head {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-mute);
+    padding: 16px 0 8px; border-bottom: none !important;
+  }
+  .nav-mobile-panel .nav-dd-sublink {
+    font-size: 16px; font-weight: 500; color: var(--ink-2);
+    padding: 11px 0 11px 14px;
+  }
+  .nav-mobile-panel .nav-dd-sublink.is-active { color: var(--accent-t); }
+}

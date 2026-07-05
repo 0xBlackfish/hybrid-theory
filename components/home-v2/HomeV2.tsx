@@ -1,14 +1,13 @@
 import { Background } from "./Background";
 import { Hero } from "./sections/Hero";
 import { ToolMarquee } from "./sections/ToolMarquee";
-import { Reframe } from "./sections/Reframe";
-import { Opportunity } from "./sections/Opportunity";
 import { LiveDemo } from "./sections/LiveDemo";
+import { Opportunity } from "./sections/Opportunity";
+import { Reframe } from "./sections/Reframe";
 import { HowItWorks } from "./sections/HowItWorks";
-import { Approach } from "./sections/Approach";
 import { WhoFor } from "./sections/WhoFor";
 import { FinalCta } from "./sections/FinalCta";
-import { Footer } from "./Footer";
+import { SiteFooter } from "../SiteFooter";
 
 export function HomeV2() {
   return (
@@ -16,14 +15,13 @@ export function HomeV2() {
       <Background />
       <Hero />
       <ToolMarquee />
-      <Reframe />
-      <Opportunity />
       <LiveDemo />
+      <Opportunity />
+      <Reframe />
       <HowItWorks />
-      <Approach />
       <WhoFor />
       <FinalCta />
-      <Footer />
+      <SiteFooter />
     </>
   );
 }

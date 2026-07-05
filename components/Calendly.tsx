@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 
 export const CALENDLY_URL = "https://calendly.com/hybridtheory/30min";
+// Light-theme brand colors for Calendly's embedded UI (hex, no #).
+export const CALENDLY_THEME = "primary_color=3e7b27&text_color=171d18&background_color=ffffff";
 
 declare global {
   interface Window {
@@ -15,7 +17,7 @@ declare global {
 
 function openCalendly() {
   if (window.Calendly && typeof window.Calendly.initPopupWidget === "function") {
-    window.Calendly.initPopupWidget({ url: CALENDLY_URL });
+    window.Calendly.initPopupWidget({ url: `${CALENDLY_URL}?${CALENDLY_THEME}` });
   } else {
     window.open(CALENDLY_URL, "_blank", "noopener");
   }
@@ -24,8 +26,10 @@ function openCalendly() {
 
 /**
  * Loads Calendly assets once and wires a single delegated click handler:
- * any <a>/<button> with [data-calendly] or text containing "Book a call"
- * opens the scheduler popup. Mounted once in the root layout.
+ * any <a>/<button> with [data-calendly] opens the scheduler popup.
+ * Triggers should still carry a real href to the Calendly page so the
+ * link degrades gracefully before hydration / without JS.
+ * Mounted once in the root layout.
  */
 export function CalendlyProvider() {
   useEffect(() => {
@@ -47,13 +51,9 @@ export function CalendlyProvider() {
     const onClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
       const el = target?.closest("a, button") as HTMLElement | null;
-      if (!el) return;
-      const isCalendly =
-        el.hasAttribute("data-calendly") || /book a call/i.test(el.textContent || "");
-      if (isCalendly) {
-        e.preventDefault();
-        openCalendly();
-      }
+      if (!el || !el.hasAttribute("data-calendly")) return;
+      e.preventDefault();
+      openCalendly();
     };
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);

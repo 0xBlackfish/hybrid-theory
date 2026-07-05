@@ -1,4 +1,4 @@
-import { LeakCycler } from "../LeakCycler";
+import { WorkflowTheater } from "../WorkflowTheater/WorkflowTheater";
 
 export function LiveDemo() {
   return (
@@ -6,14 +6,14 @@ export function LiveDemo() {
       <div className="htv-wrap">
         <div className="htv-sec-head htv-center">
           <span className="htv-kicker">See it in action</span>
-          <h2>Here&rsquo;s what &ldquo;handled&rdquo; actually looks like.</h2>
+          <h2>Watch a whole job handle itself.</h2>
           <p>
-            Pick a moment from a normal day and watch it play out &mdash; start to finish, without
-            you lifting a finger.
+            Pick a workflow. First signal to follow-through, end to end &mdash; while you&rsquo;re on
+            the job.
           </p>
         </div>
 
-        <LeakCycler />
+        <WorkflowTheater />
       </div>
     </section>
   );

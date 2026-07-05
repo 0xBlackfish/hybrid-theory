@@ -1,22 +1,21 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-
-const CALENDLY_URL_INLINE = "https://calendly.com/hybridtheory/30min";
+import { CALENDLY_URL, CALENDLY_THEME } from "./Calendly";
 
 export function CalendlyInline() {
   const inlineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let cancelled = false;
     let tries = 0;
     const mount = () => {
+      if (cancelled) return;
       tries++;
       const el = inlineRef.current;
       if (window.Calendly && el && !el.dataset.mounted) {
         window.Calendly.initInlineWidget({
-          url:
-            CALENDLY_URL_INLINE +
-            "?hide_event_type_details=0&background_color=16181d&text_color=f4f2ea&primary_color=b9ff35",
+          url: `${CALENDLY_URL}?hide_event_type_details=0&${CALENDLY_THEME}`,
           parentElement: el,
         });
         el.dataset.mounted = "1";
@@ -25,13 +24,22 @@ export function CalendlyInline() {
       }
     };
     mount();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
     <div className="contact-cal-embed" ref={inlineRef} aria-label="Calendly scheduler">
       <div className="contact-cal-fallback">
         <div className="mono">Loading scheduler…</div>
-        <a href="#" data-calendly className="btn btn-primary" style={{ marginTop: 14 }}>
+        <a
+          href={CALENDLY_URL}
+          target="_blank"
+          rel="noopener"
+          className="btn btn-primary"
+          style={{ marginTop: 14 }}
+        >
           Open scheduler <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
         </a>
       </div>
