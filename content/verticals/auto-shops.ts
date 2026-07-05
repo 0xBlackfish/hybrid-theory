@@ -7,64 +7,69 @@ export const autoShops: VerticalContent = {
   accent: "#FF3DA5",
   metaTitle: "AI for independent auto repair shops | Hybrid Theory",
   metaDescription:
-    "The phone rings while your writers are with customers and both techs are under cars. AI answers, books the appointment, and follows up on the work they put off.",
+    "The phone rings while your writers are at the counter and both techs are under cars. AI answers, books the drop-off, and follows up on the work they deferred.",
 
   hero: {
     eyebrow: "AI for auto repair shops",
     headline: "The phone rings and everyone's already busy.",
-    lead: "Your service writer is walking a customer through an estimate, both techs are under cars, and the phone keeps ringing. AI answers on the first ring, books the appointment, and texts back the ones you couldn't get to — while you and your crew keep your hands on the work.",
+    lead: "Your service writer is mid-estimate at the counter, both techs are under cars, and the phone won't stop. AI picks up on the first ring, books the drop-off, and texts back the ones you couldn't get to — the call that rang out at lunch, the brakes somebody deferred last month — while your crew keeps their hands on the work.",
   },
 
   stakes: {
-    headline: "The caller you can't reach books down the street.",
-    body: "Nobody calls two shops. They call yours, get a ring-ring-ring or a voicemail, and dial the next place on the map. Meanwhile the biggest money in the shop isn't the phone at all — it's the brake job the customer nodded at, said \"next paycheck,\" and drove off without booking.",
+    headline: "The biggest job in the shop is the one they deferred.",
+    body: "The real money isn't the phone ringing out — it's the work you already found. A tech pulls a wheel, the front brakes are down to the backing plate, the customer nods and says \"next paycheck,\" and drives off. It goes on a sticky note, the note gets buried, and two months later they're getting it done down the road.",
     stats: [
       {
+        value: "35%",
+        label: "of drivers skip or delay service a mechanic recommended",
+        source: "AAA",
+      },
+      {
+        value: "60 days",
+        label: "is about all it takes for the brakes they declined to end up on someone else's lift",
+      },
+      {
         value: "First",
-        label: "shop to pick up or call back usually gets the car in the bay",
-      },
-      {
-        value: "$800",
-        label: "a deferred brake or suspension job — illustrative, and it walks out the door every week",
-      },
-      {
-        value: "88%",
-        label: "of people trust online reviews as much as a personal recommendation",
-        source: "BrightLocal Local Consumer Review Survey",
+        label: "shop to call back usually gets the car in the bay",
       },
     ],
+  },
+
+  opportunitiesHead: {
+    headline: "Full bays, cars that come back, and an ARO that reflects the work.",
+    sub: "Not a new shop-management system or ten more logins — just the handful of counter moments that decide your week, each one handled.",
   },
 
   opportunities: [
     {
       icon: "missed",
-      title: "Every missed call texts back before they dial the next shop",
-      body: "Both writers are at the counter and the phone rings out. Before that caller pulls up the next shop on their phone, they get a text: \"Sorry we missed you — what's the car doing, and when do you need it in? We can help.\" The car stays yours.",
+      title: "Every missed call gets a text back before they try the next shop",
+      body: "Both writers are at the counter and the phone rings out. Before that caller pulls up the next place on the map, they get a text: \"Sorry we missed you — what's the car doing, and when do you need it in?\" The car stays yours.",
     },
     {
       icon: "reception",
-      title: "\"Is my car ready?\" gets answered without pulling you off the floor",
-      body: "The status calls stack up all afternoon — every one interrupts a writer mid-estimate. AI handles the \"is it done yet\" checks, pushes real updates the second a job closes, and only routes to you when there's an actual decision to make.",
+      title: "\"Is my car ready?\" gets answered without pulling a writer off an estimate",
+      body: "Status calls stack up all afternoon, and every one lands while a writer's mid-ticket. AI handles the \"is it done yet,\" texts a real update the second a job closes, and only routes to a person when there's an actual decision to make.",
     },
     {
       icon: "booking",
-      title: "Appointments book themselves — no phone tag",
-      body: "Instead of three voicemails back and forth to land a drop-off time, the customer picks a slot that fits your bay schedule and gets a confirmation text. Fewer holes in tomorrow's board, fewer no-shows you find out about at 8am.",
+      title: "Drop-offs book themselves — no three-voicemail phone tag",
+      body: "Instead of trading messages to land a time, the customer picks a slot that fits your bay schedule and gets a confirmation text. Fewer holes in tomorrow's board, fewer no-shows you find out about at 8am.",
     },
     {
       icon: "winback",
-      title: "The work they put off actually comes back",
-      body: "They declined the brakes, the struts, the timing belt — \"not today.\" A week later, AI follows up the way you never have time to: a friendly text with the estimate still attached, a link to book. The safe money you already found comes back in the door.",
+      title: "The work they deferred actually comes back",
+      body: "The brakes, the struts, the timing belt they put off — \"not today.\" Weeks later, AI follows up the way you never have time to: a calm text with the inspection still attached and a link to book. The safe money you already found comes back in the door.",
     },
     {
       icon: "reorder",
-      title: "The reminder that brings the car back for service",
-      body: "That oil change is due, those tires are near the wear bars, the inspection's up next month. AI sends the nudge at the right time so the customer books with you instead of drifting to a quick-lube — and the bay stays full in the slow weeks.",
+      title: "The reminder that brings the car back before it drifts to a quick-lube",
+      body: "That oil change is due, the tires are near the wear bars, the inspection's up next month. AI sends the nudge at the right time so the customer books with you — and the bay stays full through the slow weeks.",
     },
     {
       icon: "reviews",
-      title: "The review ask lands while the car's running right",
-      body: "The moment a customer picks up a car that finally drives straight is when they'd gladly leave five stars — and the exact moment your writer's already onto the next ticket. AI asks for you, right then, every time. That's who the new family in town trusts.",
+      title: "The review ask goes out while the car's driving right",
+      body: "The moment a customer picks up a car that finally tracks straight is when they'd gladly leave five stars — and the exact moment your writer's already onto the next ticket. AI asks for you, right then, every time.",
     },
   ],
 
@@ -72,32 +77,150 @@ export const autoShops: VerticalContent = {
   demoIntro:
     "Here's the call that rings out while your writers are at the counter — answered, texted back, and booked in the time it takes the caller to look up the shop down the street.",
 
+  spotlight: {
+    headline: "The declined job that comes back on its own.",
+    intro:
+      "Every inspection turns up good work the customer defers — here's the one that got logged in March, followed up the week it came due, and booked itself back into an open bay.",
+    name: "Declined work, revived",
+    context: "Prime Auto · ~80 ROs a week",
+    rail: [
+      "Tech flags it on the inspection",
+      "Customer defers — logged, not lost",
+      "Weeks later, the check-in text",
+      "Books back into an open bay",
+      "Recovered revenue, counted",
+    ],
+    beats: [3200, 3000, 3400, 3200, 3600],
+    cards: [
+      {
+        pos: "a",
+        at: 0,
+        title: "DVI · 2019 CR-V · 78,412 mi",
+        kind: {
+          type: "checklist",
+          header: "Inspection results",
+          items: [
+            { label: "Front brakes — 2mm, backing plate soon", tag: "RED · declined" },
+            { label: "Rear struts — leaking, fails bounce test", tag: "YELLOW · declined" },
+            { label: "Cabin filter — packed with leaves", tag: "APPROVED", done: true },
+            { label: "Oil & filter — done today", tag: "APPROVED", done: true },
+          ],
+          footer: "2 items declined · saved to the customer's profile",
+        },
+      },
+      {
+        pos: "b",
+        at: 1,
+        title: "FOLLOW-UP · 8 WEEKS LATER",
+        kind: {
+          type: "sms",
+          sms: {
+            initials: "DT",
+            name: "Dana Tran",
+            phone: "(714) 555-0132",
+            badge: "Declined work · revived",
+            system: "**Follow-up** · struts deferred Mar 4",
+            messages: [
+              {
+                from: "business",
+                text: "Hi Dana, it's Prime Auto. Back in March we flagged the rear struts on the CR-V — leaking, failed the bounce test — and you wanted to wait. How's it riding? Any clunk over bumps?",
+                time: "9:14 AM",
+                note: "Sent by **Hybrid** · 8 weeks after the inspection",
+              },
+              {
+                from: "customer",
+                text: "Now that you mention it, it's been bouncy and clunks over the train tracks by my house.",
+                time: "9:31 AM",
+              },
+              {
+                from: "business",
+                text: "That'll be the struts. The **rear strut job's still $760**, photos from the inspection on file. I've got **Thursday 7:30 AM** open — want it back on the board?",
+                time: "9:32 AM",
+              },
+              { from: "customer", text: "Yeah, let's do it", time: "9:34 AM" },
+              {
+                from: "business",
+                text: "Booked ✓ Thursday 7:30. We'll text a reminder the night before.",
+                time: "9:34 AM",
+              },
+            ],
+          },
+        },
+      },
+      {
+        pos: "c",
+        at: 2,
+        title: "SCHEDULE · THURSDAY",
+        kind: {
+          type: "calendar",
+          value: {
+            kind: "calendar",
+            dayOfWeek: "Thursday",
+            date: "May 1",
+            addedLabel: "REVIVED",
+            slots: [
+              { time: "7:00" },
+              {
+                time: "7:30",
+                booking: {
+                  title: "Rear struts · '19 CR-V",
+                  sub: "Dana Tran · revived from Mar 4 inspection",
+                  receipt: "Booked · $760 · Thu 7:30 AM",
+                },
+              },
+              { time: "9:00" },
+            ],
+          },
+        },
+      },
+      {
+        pos: "d",
+        at: 3,
+        title: "This week's declined work",
+        dark: true,
+        kind: {
+          type: "digest",
+          digest: {
+            title: "Declined work, revived",
+            body: "**$2,480** in deferred jobs back on the schedule — struts, brakes, and a timing belt, all found weeks ago and followed up the day they came due.",
+            stats: [
+              { value: "6", label: "JOBS REVIVED" },
+              { value: "11", label: "FOLLOWED UP" },
+              { value: "$2,480", label: "BACK IN" },
+            ],
+          },
+        },
+      },
+    ],
+    receipt: "Recovered · $2,480 · 6 declined jobs back",
+  },
+
   faq: [
     {
-      q: "Will my customers hate talking to AI?",
-      a: "Most never clock that it is one. Someone whose check-engine light just came on doesn't want a phone tree — they want to know they can get in and when. A real text back in ten seconds beats a voicemail nobody's sure you'll hear. What they notice is that, unlike the last shop they called, yours actually picked up.",
+      q: "Will my customers know they're texting a computer?",
+      a: "Most never clock it. Someone whose check-engine light just came on doesn't want a phone tree — they want to know they can get in and when. A real text back in ten seconds beats a voicemail nobody's sure you'll hear. What they notice is that, unlike the last shop they called, yours actually picked up.",
     },
     {
-      q: "Can it handle real questions, or does it just take messages?",
-      a: "It does the front-counter basics: books a drop-off, answers \"is my car ready,\" gives your hours and where to find you, and texts an update when a job closes. What it won't do is diagnose a car or quote a price it shouldn't — anything that needs a real look gets handed straight to your writer. You decide where that line sits.",
+      q: "My writers already text customers from Tekmetric. How is this different?",
+      a: "Your writers text when they've got a free hand — this covers the gaps they can't. The call that rings out at lunch, the declined brake job nobody circles back to, the \"is it ready\" at 4:45 while they're closing three tickets. It works alongside the SMS you already send from Tekmetric or Shop-Ware, not instead of it.",
     },
     {
-      q: "Won't the follow-up on declined work feel pushy?",
-      a: "It's the opposite of the high-pressure upsell. The customer already agreed the brakes needed doing — they just didn't have it that day. A calm text a week later with the estimate attached and a link to book is a reminder, not a sales pitch. You set the tone and the timing, and anyone can reply \"stop\" and be left alone.",
+      q: "Does it plug into my shop-management system?",
+      a: "It's built to work with what you run the shop on — Tekmetric, Shop-Ware, Mitchell 1 — so a follow-up references the actual declined line from the DVI, not a generic blast. Anything that needs a real diagnosis or a price it shouldn't quote gets handed straight to your writer. You decide where that line sits.",
     },
     {
-      q: "I already have an answering service. Why is this different?",
-      a: "An answering service takes a message and hands it back — you still have to call everyone. This texts, answers the routine stuff, and books the appointment, so the car's on the schedule before you'd have finished returning the first voicemail. And it never leaves a customer on hold while your writers are slammed.",
+      q: "Won't chasing declined work feel pushy, like a quick-lube upsell?",
+      a: "It's the opposite. The customer already agreed the struts needed doing — they just didn't have it that day. A calm text weeks later with the inspection photos attached and a link to book is a reminder, not a sales pitch. You set the tone and the timing, and anyone can reply STOP and be left alone.",
     },
     {
-      q: "Do I lose control over my schedule and my customers?",
-      a: "No. It books into the bay windows and drop-off times you set, follows your rules for what's urgent, and hands anything unusual to a person. Think of it as a front-counter helper who never takes a lunch and never books two cars into one lift — you still make every call that needs judgment.",
+      q: "How do I know it'll pay for itself?",
+      a: "One recovered brake job a week, or a couple of missed calls that would've booked down the street, and it's covered. We start by showing you where work is actually slipping — missed calls, declined jobs nobody followed up on — so you can run the math on your own numbers before you commit to anything.",
     },
   ],
 
   finalCta: {
-    headline: "Find the cars you're losing to a ringing phone.",
-    body: "Book your free 30-minute assessment. We'll look at where work is slipping — missed calls, declined jobs nobody followed up on, customers who never got a reminder — and you'll leave with your single biggest bottleneck named and one specific fix. No pitch, no obligation.",
+    headline: "Find the work you're losing to a ringing phone and a buried sticky note.",
+    body: "Book your free 30-minute assessment. We'll look at where the money's slipping — missed calls, declined jobs nobody followed up on, customers who never got a reminder — and you'll leave with your single biggest bottleneck named and one specific fix. No pitch, no obligation.",
   },
 
   scenario: {

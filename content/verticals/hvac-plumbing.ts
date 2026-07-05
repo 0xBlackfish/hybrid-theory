@@ -7,7 +7,7 @@ export const hvacPlumbing: VerticalContent = {
   accent: "#5BE3FF",
   metaTitle: "AI for HVAC & plumbing companies | Hybrid Theory",
   metaDescription:
-    "Stop losing after-hours no-heat calls and emergency jobs to whoever answered first. AI answers, texts back, and books while your techs are in the field.",
+    "Stop losing after-hours no-heat calls to whoever picks up first. AI answers, texts back every missed call, and books the job while your techs stay on the tools.",
 
   hero: {
     eyebrow: "AI for HVAC & plumbing",
@@ -16,55 +16,60 @@ export const hvacPlumbing: VerticalContent = {
   },
 
   stakes: {
-    headline: "The job goes to whoever answered.",
-    body: "An emergency call isn't a lead you nurture — it's a job that's booked in the next ten minutes, with you or without you. Your best tech can't take a call from an attic, and by the time you listen to the voicemail the water's already off and the other guy's van is in the driveway.",
+    headline: "The job goes to whoever picks up first.",
+    body: "An emergency call isn't a lead you nurture — it's a job that gets booked in the next ten minutes, with you or without you. Your best tech can't take a call from an attic, and by the time you hear the voicemail the water's already shut off and somebody else's van is in the driveway.",
     stats: [
       {
-        value: "62%",
-        label: "of calls to small businesses go unanswered",
-        source: "411 Locals study",
+        value: "1st",
+        label: "The company that calls back first usually books the emergency job.",
       },
       {
-        value: "First",
-        label: "company to call back usually wins the emergency job",
+        value: "After hours",
+        label: "when the no-heat calls come — exactly when the office phone is dark",
       },
       {
-        value: "$450+",
-        label: "an after-hours emergency call is worth — illustrative, before the repair",
+        value: "$400+",
+        label:
+          "what one after-hours no-heat call can be worth — illustrative, before a repair or replacement",
       },
     ],
+  },
+
+  opportunitiesHead: {
+    headline: "More of the work already ringing your phone.",
+    sub: "Not a new dispatch system or ten more tools — just the moments between the ring and the booked job, each one handled.",
   },
 
   opportunities: [
     {
       icon: "missed",
-      title: "Every missed call texts back — instantly",
-      body: "Your tech is under a house and the phone rings out. Before the caller dials the next company, they get a text: \"Sorry we missed you — what's going on and where are you? We can help.\" The job stays yours.",
+      title: "Every missed call gets a text back — before they dial the next guy",
+      body: "Your tech's in a crawlspace and the phone rings out. Before the caller scrolls to the next company, a text goes out: \"Sorry we missed you — is your heat out? Where are you? We can help.\" The job stays yours.",
     },
     {
       icon: "reception",
-      title: "The after-hours no-heat call gets a real answer",
-      body: "It's 9pm in January and the furnace is dead. Instead of voicemail, AI picks up, figures out whether it's a true emergency, and either books the morning slot or flags the on-call tech — so nobody's freezing and nobody's dialing your competitor.",
+      title: "The 9pm no-heat call gets a real answer, not voicemail",
+      body: "First cold snap, the furnace won't fire, and it's 8 at night. Instead of a message you'll hear tomorrow, the call gets answered, triaged, and either booked for the morning or flagged to your on-call tech — so nobody's freezing and nobody's dialing your competitor.",
     },
     {
       icon: "speed",
-      title: "First to respond, even in the busy season",
-      body: "Ten calls stacked up during a heat wave and one dispatcher. AI handles the pile-up in parallel — answering, sorting the emergencies from the tune-ups, and getting the fastest reply out the door on every one.",
+      title: "First to answer when the first freeze hits",
+      body: "The temperature drops and forty calls stack up behind one dispatcher. Every call gets answered in parallel — emergencies sorted from tune-ups, the fastest reply out the door on all of them — instead of a busy signal and a full voicemail box.",
     },
     {
       icon: "booking",
-      title: "No more dispatch phone tag",
-      body: "Instead of three calls to pin down a two-hour window, the homeowner picks a slot that matches your crew's route and gets a confirmation text. Fewer callbacks, fewer holes in the schedule.",
+      title: "No more three-call phone tag for one arrival window",
+      body: "Instead of trading voicemails to pin down a two-hour window, the homeowner picks a slot that fits your crew's route and gets a confirmation text. Fewer callbacks, fewer holes in the day.",
     },
     {
       icon: "invoice",
-      title: "The invoice from three weeks ago gets paid",
-      body: "The job's done, the customer's happy, and the bill is still sitting there. AI sends the polite nudge — and the one after that — so the money doesn't age out while you're busy running the next job.",
+      title: "The invoice from three weeks ago finally gets paid",
+      body: "The job's done, the customer's happy, and the bill's still sitting open. A polite nudge goes out — and the one after that — so the money doesn't age out while you're running the next call.",
     },
     {
       icon: "reviews",
-      title: "The review ask lands while they're grateful",
-      body: "Right after the heat's back on is the moment a homeowner would happily leave five stars — and the exact moment you forget to ask. AI asks for you, at that moment, every time.",
+      title: "The review ask lands while the heat's back on",
+      body: "The minute the furnace kicks back on is when a homeowner would gladly leave five stars — and the exact minute you're already driving to the next job. The ask goes out for you, right then, every time.",
     },
   ],
 
@@ -72,32 +77,150 @@ export const hvacPlumbing: VerticalContent = {
   demoIntro:
     "Here's the after-hours call your voicemail usually loses — answered, texted back, and booked in the time it takes to reach the next company on the list.",
 
+  spotlight: {
+    headline: "Fill the slow weeks before the phone even rings.",
+    intro:
+      "Every fall, hundreds of past customers are due for a furnace tune-up and a stack of maintenance plans are about to lapse — here's that whole list worked overnight, without pulling anyone off the board.",
+    name: "Fall tune-up push",
+    context: "Cardinal Heating & Air · 1,900 past customers",
+    rail: [
+      "Pull the due list",
+      "Text the member",
+      "Rebook the tune-up",
+      "Renew the plan",
+      "Slow weeks fill",
+    ],
+    beats: [3200, 3600, 3400, 3600, 3000],
+    cards: [
+      {
+        pos: "a",
+        at: 0,
+        title: "DUE THIS MONTH",
+        kind: {
+          type: "checklist",
+          header: "Fall tune-ups · Cardinal",
+          items: [
+            { label: "Dana Reyes — furnace tune-up due", tag: "Plan expires Oct 31" },
+            { label: "Whitfield — plan lapsed in August", tag: "Win back" },
+            { label: "Okafor — first fall reminder", tag: "Member" },
+            { label: "+ 43 more on the list", tag: "Queued" },
+          ],
+          footer: "Worked overnight by Hybrid",
+        },
+      },
+      {
+        pos: "b",
+        at: 1,
+        title: "REMINDER · PLAN MEMBER",
+        kind: {
+          type: "sms",
+          sms: {
+            initials: "DR",
+            name: "Dana Reyes",
+            phone: "(614) 555-0139",
+            badge: "Plan member",
+            system: "**Tune-up reminder** · Oct 14",
+            messages: [
+              {
+                from: "business",
+                text: "Hi Dana — it's Cardinal Heating & Air. Your comfort plan covers a furnace tune-up before the cold sets in. Want me to grab you a spot this month?",
+                time: "9:02 AM",
+                note: "Sent by **Hybrid** · fall reminder",
+              },
+              {
+                from: "customer",
+                text: "Oh good — yes, I always forget. Mornings are best for me",
+                time: "12:20 PM",
+              },
+              {
+                from: "business",
+                text: "Easy. I've got **Thurs Oct 23, 8–10 AM** open. Want your usual tech if he's free?",
+                time: "12:21 PM",
+              },
+              { from: "customer", text: "That'd be great, thanks", time: "12:24 PM" },
+              {
+                from: "business",
+                text: "Booked ✓ And your plan's renewed for another year — I'll text a reminder the day before.",
+                time: "12:24 PM",
+              },
+            ],
+          },
+        },
+      },
+      {
+        pos: "c",
+        at: 2,
+        title: "SCHEDULE · REFILLED",
+        kind: {
+          type: "calendar",
+          value: {
+            kind: "calendar",
+            dayOfWeek: "Thursday",
+            date: "Oct 23",
+            addedLabel: "REFILLED",
+            slots: [
+              {
+                time: "8:00",
+                booking: {
+                  title: "Furnace tune-up · plan member",
+                  sub: "Dana Reyes · rebooked by Hybrid",
+                  receipt: "Booked · plan renewed · Thu 8:00 AM",
+                },
+              },
+              { time: "10:30" },
+              { time: "1:00" },
+            ],
+          },
+        },
+      },
+      {
+        pos: "d",
+        at: 3,
+        title: "OVERNIGHT",
+        dark: true,
+        kind: {
+          type: "digest",
+          digest: {
+            title: "Overnight · Fall push",
+            body: "**$4,700** in tune-ups booked and **9 plans renewed** — the slow weeks before winter are filling on their own.",
+            stats: [
+              { value: "22", label: "TUNE-UPS BOOKED" },
+              { value: "9", label: "PLANS RENEWED" },
+              { value: "6", label: "WON BACK" },
+            ],
+          },
+        },
+      },
+    ],
+    receipt: "Booked · 22 tune-ups · 9 plans renewed",
+  },
+
   faq: [
     {
-      q: "Will my customers hate talking to AI?",
-      a: "A homeowner with no heat doesn't want to talk to anyone — they want to know someone's coming. Getting a real text back in ten seconds beats a voicemail they're not even sure you'll hear. Most people never notice it's AI; they notice that, unlike the last three companies, yours actually answered.",
+      q: "Will my customers know they're texting a computer — and hate it?",
+      a: "A homeowner with no heat doesn't want a chat; they want to know someone's coming. A real text back in ten seconds beats a voicemail they're not sure you'll hear. Most never clock that it's automated — they clock that, unlike the last two companies they called, yours actually answered.",
     },
     {
-      q: "Can it tell a real emergency from a routine tune-up?",
-      a: "Yes — that's the whole point. It asks the same first questions your dispatcher would: no heat, active leak, gas smell, or a maintenance call that can wait until Tuesday. Emergencies get flagged to your on-call tech; the rest get booked into an open slot. You set the rules for what counts as urgent.",
+      q: "We already run ServiceTitan. Do I have to rip it out?",
+      a: "No. It sits on top of what you've already got — ServiceTitan, Housecall Pro, ServiceFusion, whatever you dispatch from. It reads your open slots and service areas, books into them, and writes the appointment back to your system. Your CRM stays your CRM; this just answers the phone and fills the board.",
     },
     {
-      q: "My techs can't answer the phone from an attic. Does this help with that?",
-      a: "That's exactly the gap it fills. Your guys stay on the tools instead of stopping every job to grab a ringing phone, and no call falls through the cracks while they're in a crawlspace. The calls get answered, sorted, and booked without pulling anyone off the work.",
+      q: "Can it actually tell a no-heat emergency from a tune-up that can wait?",
+      a: "Yes — that's the whole job. It asks the same first questions your dispatcher would: no heat, active leak, gas smell, or routine maintenance. Emergencies get flagged to your on-call tech; the rest get booked into an open window. You set what counts as urgent.",
     },
     {
-      q: "Do I lose control over who gets booked and when?",
-      a: "No. It books into the windows and service areas you define, respects your on-call schedule, and hands off anything unusual to a human. Think of it as a dispatcher who never sleeps and never books a job in the wrong zip code — you still make every call that actually needs judgment.",
+      q: "After hours, is it going to page my on-call guy for every dripping faucet?",
+      a: "Only for what you tell it to. You set the bar — no heat, gas smell, active water — and everything under it gets booked for the morning instead of waking anyone. The tech's phone rings for real emergencies, not for a running toilet that can wait till 8.",
     },
     {
-      q: "I already have an answering service. Why is this different?",
-      a: "An answering service takes a message and hands it back to you — you still have to call everyone back. This actually texts, qualifies, and books, so the job is on the calendar before you'd have finished listening to the voicemail. And it doesn't put your customer on hold at 9pm.",
+      q: "How do I know it won't book a job I can't cover — or quote a price I never set?",
+      a: "It only books inside the windows, zip codes, and on-call schedule you give it, and it never quotes a flat-rate repair sight-unseen — just the diagnostic or trip fee you've set, same as your dispatcher. Anything odd, it hands to a human. Think of it as a dispatcher who never books outside your area and never freelances a price.",
     },
   ],
 
   finalCta: {
     headline: "Find the calls you're losing after hours.",
-    body: "Book your free 30-minute assessment. We'll look at where jobs are slipping — missed calls, slow callbacks, unpaid invoices — and you'll leave with your single biggest bottleneck named and one specific fix. No pitch, no obligation.",
+    body: "Book your free 30-minute assessment. We'll walk your week — missed calls, slow callbacks, tune-ups that never got rebooked, invoices sitting open — and you'll leave with your single biggest leak named and one specific fix. No pitch, no obligation.",
   },
 
   scenario: {
@@ -105,7 +228,7 @@ export const hvacPlumbing: VerticalContent = {
     sms: {
       initials: "JT",
       name: "Janet Torres",
-      phone: "(480) 555-0172",
+      phone: "(614) 555-0172",
       badge: "After-hours",
       system: "**Missed call** · Today 7:04 PM",
       messages: [

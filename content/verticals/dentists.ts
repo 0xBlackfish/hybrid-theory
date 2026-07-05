@@ -7,61 +7,66 @@ export const dentists: VerticalContent = {
   accent: "#5BE3FF",
   metaTitle: "AI for dental practices — fill the chair, work the recall list",
   metaDescription:
-    "Backfill the 2pm cancellation, call back the overdue recall list, and answer the phone at lunch. Quiet AI help for busy front desks — you keep every call.",
+    "Backfill the same-day cancellation, work the overdue recall list, and answer the phone at lunch and after close. Quiet AI help for busy dental front desks — you keep every call.",
 
   hero: {
     eyebrow: "AI for dental practices",
-    headline: "A cancelled 2pm shouldn't mean an empty chair",
-    lead: "Someone calls to cancel their cleaning, and the slot just sits there. Meanwhile your recall list has hundreds of patients overdue for a visit. We quietly fill the gap — offer the open time to the right patient, work the reactivation list, and pick up the calls your front desk can't get to.",
+    headline: "A cancelled cleaning shouldn't mean an empty chair",
+    lead: "The 9:40 cancels, the hygienist's chair sits open, and the front desk is too buried in check-ins to fill it. We quietly close the gap — offer the open time to a patient who wanted in sooner, work the recall list nobody has time to call, and pick up the phone at lunch and after five.",
   },
 
   stakes: {
-    headline: "The chair is booked. Then it isn't.",
-    body: "A same-day cancellation is a slot you already paid for — the hygienist, the room, the lights. On a full schedule those add up fast, and the front desk is too busy checking people in to backfill them. Every empty chair is production that walked out the door.",
+    headline: "The schedule looked full at 8 a.m.",
+    body: "Then the 9:40 cancels, the 11:20 no-shows, and two more \"something came up\" by lunch. The hygienist's chair sits empty while the front desk is buried in check-ins and insurance calls, and the recall list nobody's had time to touch just keeps growing. It's no one's fault — there's just no one left to make the calls.",
     stats: [
       {
-        value: "1 in 5",
+        value: "Perishable",
         label:
-          "Roughly the share of scheduled appointments that no-show or cancel late at a typical practice",
+          "Chair time is inventory that spoils. A slot empty at 2:00 can't be sold back at 5:00.",
       },
       {
-        value: "$200+",
+        value: "Hundreds",
         label:
-          "Illustrative production lost on a single unfilled hygiene slot — before you count the exam it would have led to",
+          "Patients overdue for hygiene sitting in your system — more than any front desk has time to call.",
       },
       {
-        value: "First call",
+        value: "First to answer",
         label:
-          "New families usually book with the first practice that actually answers the phone",
+          "The new patient calling around with a toothache books whoever picks up the phone.",
       },
     ],
+  },
+
+  opportunitiesHead: {
+    headline: "Picture the column full — and staying that way.",
+    sub: "Not a new system or ten more logins. Just the everyday moments where production slips away, each one quietly handled in your voice, so the schedule you built at 8 a.m. is the one you actually run.",
   },
 
   opportunities: [
     {
       icon: "noshow",
       title: "Backfill the cancellation before the chair goes cold",
-      body: "The 2pm cancels at 9am. Instead of an empty room, the open slot is quietly offered to patients who wanted an earlier date — and the ones ready to come in get booked. You see a full column instead of a hole.",
+      body: "The 9:40 cancels at 8:15. Before the hygienist's chair sits empty, the slot goes out to patients on the ASAP list who wanted in sooner — and the schedule closes back up before you've finished morning huddle.",
     },
     {
       icon: "reactivation",
-      title: "Work the recall list that never gets called",
-      body: "Hundreds of patients are overdue for a cleaning, sitting untouched in your PMS because nobody has time to dial them. Overdue patients get a gentle, personal nudge to rebook — and the ones who respond land on your schedule.",
+      title: "Work the recall list nobody has time to call",
+      body: "Hundreds of patients are overdue for their six-month cleaning, sitting untouched in Dentrix because the phone never stops. Each one gets a warm, personal nudge to get back on the books — and the ones who reply land in the hygiene column.",
     },
     {
       icon: "reception",
-      title: "Answer the phone at lunch and after five",
-      body: "The front desk goes to voicemail at noon and again after close — exactly when a new patient with a toothache is calling around. Those calls get answered, questions handled, and appointments booked while the office is dark.",
+      title: "Pick up at lunch and after the lights are off",
+      body: "The front desk rolls to voicemail at noon and again after five — right when a new patient with a toothache is calling down the list. Those calls get answered, questions handled, and appointments booked while the office is closed.",
     },
     {
       icon: "intake",
-      title: "New-patient paperwork done before they sit down",
-      body: "New patients arrive, then spend fifteen minutes on a clipboard while the schedule slips. Intake forms and health history go out ahead of the visit and come back filled in, so the front desk isn't chasing signatures at check-in.",
+      title: "Paperwork done before they're in the chair",
+      body: "New patients used to fill a clipboard in the waiting room while the schedule backed up. Health history and forms go out ahead of the visit and come back complete, so the front desk isn't chasing a signature at check-in.",
     },
     {
       icon: "reviews",
-      title: "Ask happy patients to say so",
-      body: "A family choosing a new dentist reads the reviews first. Patients who just had a good visit get a simple, well-timed ask — so the practice down the street isn't the only one with a full page of five stars.",
+      title: "Ask your happy patients to say so",
+      body: "The family shopping for a new dentist reads the reviews first. The patient who just left thrilled with Dr. Shah gets a simple, well-timed ask — so your five-star page keeps pace with the office down the street.",
     },
   ],
 
@@ -69,32 +74,143 @@ export const dentists: VerticalContent = {
   demoIntro:
     "Watch a same-day cancellation turn back into a booked chair — before your front desk even hangs up the phone.",
 
+  spotlight: {
+    headline: "The treatment they already said yes to.",
+    intro:
+      "Every practice has a report full of crowns and cleanings patients accepted and never scheduled. This is that list, worked — in your office's voice, while you're seeing patients.",
+    name: "The unscheduled list, worked",
+    context: "Bright Smile Dental · accepted treatment, never booked",
+    rail: [
+      "Pull the unscheduled report",
+      "Reach each patient in your voice",
+      "Karen says yes",
+      "Tally the production",
+      "Tomorrow's morning digest",
+    ],
+    beats: [3200, 3600, 3200, 3000, 3400],
+    cards: [
+      {
+        pos: "a",
+        at: 0,
+        title: "UNSCHEDULED TREATMENT",
+        kind: {
+          type: "checklist",
+          header: "Diagnosed, accepted, never booked",
+          items: [
+            { label: "Karen D. · crown, #19 · accepted May", tag: "$1,240" },
+            { label: "James O. · implant crown · accepted Apr", tag: "$2,050" },
+            { label: "Priya N. · deep cleaning, SRP", tag: "$920" },
+            { label: "Marcus L. · crown, #14", tag: "$1,240" },
+          ],
+          footer: "27 patients · accepted treatment, never scheduled",
+        },
+      },
+      {
+        pos: "b",
+        at: 1,
+        title: "KAREN D. · CROWN #19",
+        kind: {
+          type: "sms",
+          sms: {
+            initials: "KD",
+            name: "Karen D.",
+            phone: "(602) 555-0119",
+            badge: "Accepted May · unscheduled",
+            system: "**Crown #19** · approved in May, never booked",
+            messages: [
+              {
+                from: "business",
+                text: "Hi Karen, it's Bright Smile Dental. Dr. Shah had recommended a crown on that lower molar (**#19**) back in May — want me to grab you a time before it starts giving you trouble?",
+                time: "9:02 AM",
+                note: "Sent by **Hybrid** · from your unscheduled list",
+              },
+              {
+                from: "customer",
+                text: "Oh gosh, I completely forgot about that. Yes, please.",
+                time: "9:14 AM",
+              },
+              {
+                from: "business",
+                text: "Happens to everyone — life gets busy. I've got **Thursday 9:40 AM** or next **Tuesday at 2:00**. Which is easier?",
+                time: "9:15 AM",
+              },
+              {
+                from: "customer",
+                text: "Thursday works.",
+                time: "9:20 AM",
+              },
+              {
+                from: "business",
+                text: "Done — **Thursday 9:40 AM** with Dr. Shah for the crown. I'll text a reminder the day before. Glad we caught it, Karen.",
+                time: "9:20 AM",
+              },
+            ],
+          },
+        },
+      },
+      {
+        pos: "c",
+        at: 3,
+        title: "THE RUN",
+        kind: {
+          type: "scorecard",
+          rows: [
+            { label: "Texted", value: "27" },
+            { label: "Replied", value: "9" },
+            { label: "Booked", value: "6" },
+            { label: "Production rebooked", value: "$8,900" },
+          ],
+          footer: "Still your patients — nothing pushy, all in your voice.",
+        },
+      },
+      {
+        pos: "d",
+        at: 4,
+        dark: true,
+        title: "TOMORROW MORNING",
+        kind: {
+          type: "digest",
+          digest: {
+            title: "Good morning ☀️",
+            body: "**$8,900** in treatment you'd already diagnosed is back on the schedule — 6 patients booked from the unscheduled list overnight.",
+            stats: [
+              { value: "6", label: "REBOOKED" },
+              { value: "$8,900", label: "PRODUCTION" },
+              { value: "0", label: "CALLS FOR YOU" },
+            ],
+          },
+        },
+      },
+    ],
+    receipt: "Rebooked · $8,900 · 6 patients this week",
+  },
+
   faq: [
     {
-      q: "Is this safe for patient information? We're a HIPAA practice.",
-      a: "We take that seriously and we don't overclaim. We work inside the systems you already trust and we don't stand up anything new until we've walked through how patient data is handled together, including a business associate agreement where one is required. If a workflow can't be done carefully, we don't ship it.",
+      q: "Is our patient information safe? We're a HIPAA office.",
+      a: "Yes — and we won't pretend it's simple. We work inside the systems you already use rather than copying patient data somewhere new, and where a business associate agreement is required, we sign one before anything goes live. If a workflow can't be done in a way we're both comfortable with, we don't build it. No shortcuts around PHI.",
     },
     {
       q: "Does it work with our practice management software?",
-      a: "That's the first thing we check. We build around Dentrix, Eaglesoft, Open Dental, Curve and the other systems practices actually run, so recall lists and open slots come from your real schedule — not a separate spreadsheet you have to keep in sync.",
+      a: "That's the first thing we check. We build around Dentrix, Eaglesoft, Open Dental, Curve and the other systems practices actually run, so recall lists, open slots and unscheduled treatment come straight from your live schedule — not a spreadsheet someone has to keep in sync by hand.",
+    },
+    {
+      q: "My front desk already does all this. Why would we need it?",
+      a: "Then you've got a great front desk, and this isn't here to replace them. It picks up the calls that hit voicemail at lunch and after close, and it works the recall and unscheduled-treatment lists they never get to between check-ins and insurance calls. Your team keeps every decision about who gets booked and when — they just stop losing the after-hours calls and the leftover lists.",
     },
     {
       q: "Will patients know they're not talking to a person?",
-      a: "The goal is a smooth experience, never a trick. Messages sound like your office because they carry your name and tone, and anything that needs a human — a nervous patient, a clinical question, an unusual request — gets handed to your front desk instead of forced through automation.",
-    },
-    {
-      q: "Our front desk is already stretched. Is this one more thing to manage?",
-      a: "It's meant to take work off their plate, not add a dashboard to babysit. The routine follow-ups and recall calls get quietly handled in the background, and your team steps in only for the conversations that need a person. You keep every judgment call about who gets booked and when.",
+      a: "The goal is a smooth experience, not a trick. Messages carry your office name and tone, so they read like your front desk on a good day. And anything that needs a person — a nervous patient, a clinical question, an odd request — gets handed to your team instead of forced through a script.",
     },
     {
       q: "What actually happens in the free assessment?",
-      a: "Thirty minutes, no pitch deck. We look at your schedule, your recall list and how calls come in, and you leave knowing your single biggest bottleneck and one specific fix — whether or not you ever work with us.",
+      a: "Thirty minutes, no pitch deck. We look at how calls come in, your recall list, and where treatment gets diagnosed but never scheduled — and you leave knowing your single biggest bottleneck and one specific fix, whether or not you ever work with us.",
     },
   ],
 
   finalCta: {
-    headline: "See where the chair goes empty",
-    body: "Book your free 30-minute assessment. We'll find the one place your practice is quietly losing production — a cold recall list, missed lunchtime calls, cancellations nobody backfills — and give you one specific fix to start with. Free, thirty minutes, no obligation.",
+    headline: "Find the hour your practice is losing",
+    body: "Book your free 30-minute assessment. We'll look at where production quietly slips out of your week — the cancellations nobody backfills, the recall list gone cold, the treatment that got diagnosed and never scheduled — and hand you one specific fix to start with. Free, thirty minutes, no obligation.",
   },
 
   scenario: {
@@ -103,30 +219,30 @@ export const dentists: VerticalContent = {
       initials: "MG",
       name: "Maria G.",
       phone: "(602) 555-0143",
-      badge: "Waitlist fill",
-      system: "**2:00 PM opened up** · cancellation just now",
+      badge: "ASAP list fill",
+      system: "**2:00 PM opened** · cleaning cancelled just now",
       messages: [
         {
           from: "business",
-          text: "Hi Maria, it's Bright Smile Dental — a **2:00 PM today** just opened for your crown seat. Want it?",
-          time: "11:12 AM",
+          text: "Hi Maria, it's Bright Smile Dental — a **2:00 PM today** just opened for your cleaning. You'd asked to get in sooner, so I grabbed it for you first. Want it?",
+          time: "8:22 AM",
           note: "Sent by **Hybrid** · seconds after the cancel",
         },
         {
           from: "customer",
-          text: "Oh yes! I've been wanting to get in sooner",
-          time: "11:14 AM",
+          text: "Yes! That's perfect, I've been meaning to get in.",
+          time: "8:26 AM",
         },
         {
           from: "business",
-          text: "Perfect — **2:00 PM** is yours, Maria. Dr. Shah will be glad to get that crown finished today. See you this afternoon!",
-          time: "11:14 AM",
+          text: "Great — **2:00 PM** is yours, Maria. See you this afternoon with Dana.",
+          time: "8:26 AM",
         },
       ],
     },
     digest: {
       title: "Good morning ☀️",
-      body: "**$1,800** in treatment kept on the books — 3 open chairs refilled from the waitlist.",
+      body: "**$640** in hygiene kept on the books — 3 chairs refilled from the ASAP list, no gaps before lunch.",
       stats: [
         { value: "3", label: "CHAIRS REFILLED" },
         { value: "0", label: "GAPS LEFT" },
@@ -143,9 +259,9 @@ export const dentists: VerticalContent = {
         {
           time: "2:00",
           booking: {
-            title: "Crown seat · Maria G.",
-            sub: "refilled from waitlist by Hybrid at 11:14 AM",
-            receipt: "Filled · $1,800 · Today 2:00 PM",
+            title: "Cleaning · Maria G.",
+            sub: "refilled from the ASAP list by Hybrid at 8:26 AM",
+            receipt: "Filled · $210 · Today 2:00 PM",
           },
         },
         { time: "3:30" },

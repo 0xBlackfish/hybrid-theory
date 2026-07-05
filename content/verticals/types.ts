@@ -105,6 +105,43 @@ export type VerticalScenario = {
   value: ScenarioValue; // ends every scenario in a visible receipt of value
 };
 
+// ---------------------------------------------------------------------------
+// SPOTLIGHT — the vertical page's "see it work" centerpiece: ONE bespoke,
+// end-to-end workflow scene for this industry's most acute friction, rendered
+// by components/vertical/SpotlightScene in the Home theater's visual language.
+// Four cards on a 2×2 stage (positions a=top-left, b=top-right, c=bottom-left,
+// d=bottom-right), a step rail, beat timings, and a final value receipt.
+// Text fields support **bold**.
+// ---------------------------------------------------------------------------
+
+export type SpotlightRow = { text: string; when?: string; done?: boolean };
+
+export type SpotlightCard = {
+  pos: "a" | "b" | "c" | "d";
+  at: number; // beat index (0-based) when this card enters
+  title: string; // card header, e.g. "INTAKE · NEW MATTER"
+  dark?: boolean; // dark digest-style card (use at most once, pos d preferred)
+  kind:
+    | { type: "sms"; sms: ScenarioSms }
+    | { type: "calendar"; value: ScenarioCalendarValue }
+    | { type: "quote"; value: ScenarioQuoteValue }
+    | { type: "digest"; digest: ScenarioDigest }
+    | { type: "checklist"; header?: string; items: { label: string; tag: string; done?: boolean }[]; footer?: string }
+    | { type: "scorecard"; rows: { label: string; value: string }[]; footer?: string }
+    | { type: "timeline"; rows: SpotlightRow[]; receiptChip?: string };
+};
+
+export type VerticalSpotlight = {
+  headline: string; // section h2 — must carry the section without a kicker
+  intro: string; // one sentence tying the scene to this owner's day
+  name: string; // scene bar label, e.g. "Storm week, handled"
+  context: string; // scene bar context, e.g. "Summit Roofing · 40 calls/day"
+  rail: string[]; // 4–5 short stage labels, lighting in beat order
+  beats: number[]; // per-beat durations in ms (same length as rail)
+  cards: SpotlightCard[]; // exactly 4, one per position
+  receipt: string; // the held lime outcome, e.g. "Booked · $12,400 · same day"
+};
+
 export type VerticalContent = {
   slug: string; // route segment, e.g. "hvac-plumbing"
   label: string; // display name, e.g. "HVAC & Plumbing"
@@ -126,6 +163,10 @@ export type VerticalContent = {
     stats: VerticalStat[]; // 2–3 items
   };
 
+  /** Section head for the opportunities grid. Headline + sub must be positive
+   * and/or aspirational, in this industry's own vocabulary — never loss-framed. */
+  opportunitiesHead?: { headline: string; sub: string };
+
   /** Top opportunities for this vertical, best first. 4–5 items. */
   opportunities: VerticalOpportunity[];
 
@@ -143,4 +184,9 @@ export type VerticalContent = {
 
   /** Hero artifact story — SMS thread, morning digest, and a value receipt. */
   scenario: VerticalScenario;
+
+  /** The "see it work" centerpiece — one bespoke end-to-end scene for this
+   * industry's most acute friction. Optional until all verticals have one;
+   * when present it replaces the generic demo. */
+  spotlight?: VerticalSpotlight;
 };

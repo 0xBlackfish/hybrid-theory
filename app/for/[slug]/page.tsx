@@ -5,6 +5,7 @@ import Link from "next/link";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { LeakCycler } from "@/components/home-v2/LeakCycler";
+import { SpotlightScene } from "@/components/vertical/SpotlightScene";
 import { OPP_ICONS } from "@/components/home-v2/icons";
 import { ScenarioComposition } from "@/components/artifacts";
 import heroLayout from "@/components/artifacts/heroLayout.module.css";
@@ -91,16 +92,12 @@ export default async function VerticalPage({
           </div>
           <div className={`htv-wrap ${heroLayout.grid}`}>
             <div className={`vfy-hero-inner ${heroLayout.copy}`}>
-              <span className="vfy-eyebrow">{v.hero.eyebrow}</span>
               <h1 className="vfy-hero-title">{v.hero.headline}</h1>
               <p className="vfy-hero-lead">{v.hero.lead}</p>
               <div className="vfy-cta-row">
                 <a href="https://calendly.com/hybridtheory/30min" target="_blank" rel="noopener" data-calendly className="btn btn-primary">
                   Book your free 30-minute assessment
                 </a>
-                <span className="vfy-microcopy">
-                  Free · 30 minutes · leave with one specific fix
-                </span>
               </div>
             </div>
             <div className={heroLayout.visual}>
@@ -113,7 +110,6 @@ export default async function VerticalPage({
         <section className="vfy-stakes htv-band">
           <div className="htv-wrap">
             <div className="vfy-stakes-head">
-              <span className="vfy-eyebrow">Where the money leaks</span>
               <h2>{v.stakes.headline}</h2>
               <p>{v.stakes.body}</p>
             </div>
@@ -133,11 +129,10 @@ export default async function VerticalPage({
         <section className="htv-section">
           <div className="htv-wrap">
             <div className="htv-sec-head">
-              <span className="vfy-eyebrow">Where the upside lives</span>
-              <h2>The wins hiding in your everyday.</h2>
+              <h2>{v.opportunitiesHead?.headline ?? "The wins hiding in your everyday."}</h2>
               <p>
-                Not a new system or ten new tools — just the handful of moments
-                that quietly cost you, each one handled well.
+                {v.opportunitiesHead?.sub ??
+                  "Not a new system or ten new tools — just the handful of moments that matter, each one handled well."}
               </p>
             </div>
             <div className="vfy-opps">
@@ -156,20 +151,29 @@ export default async function VerticalPage({
           </div>
         </section>
 
-        {/* DEMO */}
-        {v.demoFlow && (
+        {/* SEE IT WORK — bespoke spotlight scene when present, else the cycler */}
+        {v.spotlight ? (
           <section className="vfy-demo htv-band">
             <div className="htv-wrap">
               <div className="htv-sec-head htv-center">
-                <span className="vfy-eyebrow" style={{ justifyContent: "center" }}>
-                  See it work
-                </span>
-                <h2>A leak, sealed — in real time.</h2>
+                <h2>{v.spotlight.headline}</h2>
+                <p>{v.spotlight.intro}</p>
               </div>
-              {v.demoIntro && <p className="vfy-demo-intro">{v.demoIntro}</p>}
-              <LeakCycler />
+              <SpotlightScene spotlight={v.spotlight} />
             </div>
           </section>
+        ) : (
+          v.demoFlow && (
+            <section className="vfy-demo htv-band">
+              <div className="htv-wrap">
+                <div className="htv-sec-head htv-center">
+                  <h2>A leak, sealed — in real time.</h2>
+                </div>
+                {v.demoIntro && <p className="vfy-demo-intro">{v.demoIntro}</p>}
+                <LeakCycler />
+              </div>
+            </section>
+          )
         )}
 
         {/* FAQ */}
@@ -206,9 +210,6 @@ export default async function VerticalPage({
               <a href="https://calendly.com/hybridtheory/30min" target="_blank" rel="noopener" data-calendly className="btn btn-primary">
                 Book your free 30-minute assessment
               </a>
-              <span className="vfy-microcopy">
-                Free · 30 minutes · leave with one specific fix
-              </span>
             </div>
           </div>
         </section>
