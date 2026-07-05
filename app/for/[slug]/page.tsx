@@ -5,6 +5,7 @@ import Link from "next/link";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SpotlightScene } from "@/components/vertical/SpotlightScene";
+import { VerticalFaq } from "@/components/vertical/VerticalFaq";
 import { OPP_ICONS } from "@/components/home-v2/icons";
 import { ScenarioComposition } from "@/components/artifacts";
 import heroLayout from "@/components/artifacts/heroLayout.module.css";
@@ -172,17 +173,7 @@ export default async function VerticalPage({
               </span>
               <h2>The questions owners actually ask.</h2>
             </div>
-            <div className="vfy-faq">
-              {v.faq.map((f, i) => (
-                <details key={i} className="vfy-faq-item">
-                  <summary>
-                    <span>{f.q}</span>
-                    <span className="vfy-faq-mark" aria-hidden="true" />
-                  </summary>
-                  <p className="vfy-faq-a">{f.a}</p>
-                </details>
-              ))}
-            </div>
+            <VerticalFaq items={v.faq} industrySlug={slug} />
           </div>
         </section>
 

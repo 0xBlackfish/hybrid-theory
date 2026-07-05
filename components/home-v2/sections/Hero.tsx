@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
+import posthog from "posthog-js";
 import { getVertical } from "@/content/verticals";
 import type { VerticalScenario } from "@/content/verticals/types";
 import { ScenarioComposition } from "@/components/artifacts";
@@ -105,7 +106,10 @@ export function Hero() {
                   role="tab"
                   aria-selected={t.slug === active}
                   className={t.slug === active ? `${styles.chip} ${styles.chipActive}` : styles.chip}
-                  onClick={() => setActive(t.slug)}
+                  onClick={() => {
+                    setActive(t.slug);
+                    posthog.capture("hero_industry_chip_switched", { industry: t.slug, industry_label: t.label });
+                  }}
                 >
                   {t.icon}
                   {t.label}

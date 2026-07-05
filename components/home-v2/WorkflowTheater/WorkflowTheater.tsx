@@ -17,6 +17,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { CSSProperties, KeyboardEvent } from "react";
+import posthog from "posthog-js";
 import s from "./theater.module.css";
 import { SCENES, StageFinal } from "./scenes";
 
@@ -105,6 +106,7 @@ export function WorkflowTheater() {
     (i: number) => {
       suspendUntil.current = Date.now() + SUSPEND_MS;
       setUserPaused(false);
+      posthog.capture("workflow_theater_scene_changed", { scene_key: SCENES[i].key, scene_name: SCENES[i].name, scene_index: i });
       goToScene(i);
     },
     [goToScene],

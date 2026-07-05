@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import posthog from "posthog-js";
 
 export const CALENDLY_URL = "https://calendly.com/hybridtheory/30min";
 // Light-theme brand colors for Calendly's embedded UI (hex, no #).
@@ -53,6 +54,17 @@ export function CalendlyProvider() {
       const el = target?.closest("a, button") as HTMLElement | null;
       if (!el || !el.hasAttribute("data-calendly")) return;
       e.preventDefault();
+      const explicitSource = el.getAttribute("data-source");
+      const source = explicitSource
+        ? explicitSource
+        : el.closest("nav")
+        ? "nav"
+        : el.closest("header")
+        ? "hero"
+        : el.closest("footer")
+        ? "footer"
+        : "page";
+      posthog.capture("assessment_cta_clicked", { source, cta_text: el.textContent?.trim().slice(0, 80) });
       openCalendly();
     };
     document.addEventListener("click", onClick);

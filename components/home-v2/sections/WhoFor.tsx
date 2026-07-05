@@ -1,4 +1,7 @@
+"use client";
+
 import type { CSSProperties } from "react";
+import posthog from "posthog-js";
 import { INDUSTRIES } from "../whoForIcons";
 
 // Each Who-it's-for tile links to its vertical page. Slugs match app/for/[slug].
@@ -45,6 +48,7 @@ export function WhoFor() {
               href={`/for/${t.slug}`}
               aria-label={`AI for ${t.label}`}
               style={{ "--c": t.accent } as CSSProperties}
+              onClick={() => posthog.capture("industry_tile_clicked", { industry: t.slug, industry_label: t.label })}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img

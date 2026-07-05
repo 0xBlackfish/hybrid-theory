@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import posthog from "posthog-js";
 import { Logo } from "./Logo";
 import { VERTICALS } from "@/content/verticals";
 import "./nav.css";
@@ -72,7 +73,11 @@ export function SiteNav() {
               className="nav-dd-trigger"
               aria-haspopup="true"
               aria-expanded={ddOpen}
-              onClick={() => setDdOpen((o) => !o)}
+              onClick={() => {
+                const opening = !ddOpen;
+                setDdOpen((o) => !o);
+                if (opening) posthog.capture("nav_who_we_help_opened");
+              }}
             >
               Who we help {caret}
             </button>
@@ -103,7 +108,11 @@ export function SiteNav() {
             Book a free assessment <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
           </a>
         </div>
-        <button className="nav-toggle" aria-label="Menu" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+        <button className="nav-toggle" aria-label="Menu" aria-expanded={open} onClick={() => {
+          const opening = !open;
+          setOpen((o) => !o);
+          if (opening) posthog.capture("nav_mobile_menu_opened");
+        }}>
           {open ? (
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
               <path d="M4 4 L14 14 M14 4 L4 14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
