@@ -252,7 +252,7 @@ export const realtors: VerticalContent = {
       ],
     },
     digest: {
-      title: "Good morning, Matt ☀️",
+      title: "Good morning ☀️",
       body: "**7 new portal leads** answered while you were showing yesterday — 3 booked a showing before another agent even replied.",
       stats: [
         { value: "7", label: "LEADS ANSWERED" },

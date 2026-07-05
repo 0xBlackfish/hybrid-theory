@@ -159,7 +159,7 @@ export const accountingFirms: VerticalContent = {
         kind: {
           type: "digest",
           digest: {
-            title: "Good morning, Matt ☀️",
+            title: "Good morning ☀️",
             body: "**34 returns** unblocked before lunch — every missing form asked for by name, no partner in the loop.",
             stats: [
               { value: "34", label: "DOCS IN" },
@@ -229,7 +229,7 @@ export const accountingFirms: VerticalContent = {
       ],
     },
     digest: {
-      title: "Good morning, Matt ☀️",
+      title: "Good morning ☀️",
       body: "**12 returns** unblocked yesterday — every missing document chased down without a partner writing the email.",
       stats: [
         { value: "12", label: "DOCS IN" },

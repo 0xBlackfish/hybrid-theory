@@ -237,7 +237,7 @@ export const landscapers: VerticalContent = {
       ],
     },
     digest: {
-      title: "Good morning, Matt ☀️",
+      title: "Good morning ☀️",
       body: "**$9,400** in spring work quoted while the crews were on the route — every new lead answered same day.",
       stats: [
         { value: "6", label: "LEADS ANSWERED" },

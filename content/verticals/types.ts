@@ -65,7 +65,7 @@ export type ScenarioDigestStat = {
 };
 
 export type ScenarioDigest = {
-  title: string; // "Good morning, Matt ☀️"
+  title: string; // "Good morning ☀️"
   body: string; // supports **bold** (the bold span renders as the lime figure)
   stats: ScenarioDigestStat[]; // 3 items
 };

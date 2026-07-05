@@ -128,7 +128,7 @@ export const roofers: VerticalContent = {
       ],
     },
     digest: {
-      title: "Good morning, Matt ☀️",
+      title: "Good morning ☀️",
       body: "**$28,600** in quotes out same-day — every photo answered inside the hour.",
       stats: [
         { value: "5", label: "QUOTES SENT" },

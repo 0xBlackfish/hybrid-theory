@@ -142,7 +142,7 @@ export const contractors: VerticalContent = {
       ],
     },
     digest: {
-      title: "Good morning, Matt ☀️",
+      title: "Good morning ☀️",
       body: "**$52,300** in estimates out the door yesterday — none waiting on a late-night write-up.",
       stats: [
         { value: "4", label: "ESTIMATES SENT" },
@@ -260,7 +260,7 @@ export const contractors: VerticalContent = {
         kind: {
           type: "digest",
           digest: {
-            title: "Good morning, Matt ☀️",
+            title: "Good morning ☀️",
             body: "**$4,200** in change orders captured and signed this week — nothing left on a handshake.",
             stats: [
               { value: "3", label: "COs SIGNED" },
