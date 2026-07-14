@@ -28,3 +28,6 @@ next-env.d.ts
 /.agents/
 /.claude/
 .env.local
+
+# lead-gen research data (never commit prospect data to this public repo)
+/leadgen/
